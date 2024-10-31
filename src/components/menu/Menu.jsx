@@ -2,7 +2,7 @@ import { Aside } from "./MenuStyles"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGauge, faUser, faClover, faFileLines, faLayerGroup, faGear } from "@fortawesome/free-solid-svg-icons"; // exemplo de ícone
 // components
-import Logo from "../../components/logo/Logo";
+import Logo from "../logo/Logo";
 
 const Menu = () => {
 
