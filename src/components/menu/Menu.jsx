@@ -4,12 +4,12 @@ import { faGauge, faUser, faClover, faFileLines, faLayerGroup, faGear } from "@f
 // components
 import Logo from "../logo/Logo";
 
-const Menu = () => {
+const Menu = ({ menuToggle}) => {
 
     return (
-        <Aside>
+        <Aside menuToggle={menuToggle}>
             <div className="logo_area">
-                <Logo style="80px" />
+                <Logo style="70px" />
                 <FontAwesomeIcon className="icon config" icon={faGear} />
             </div>
             <ul>

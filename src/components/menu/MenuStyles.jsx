@@ -1,30 +1,34 @@
 import styled from "styled-components";
 
 export const Aside = styled.aside`
-
     align-items: center;
+    transition: all 0.5s;
+    max-width: ${({ menuToggle }) => (menuToggle ? "36px" : "200px")};
     height: 100svh;
-    width: 170px;
     background: #000;
     position: relative;
     overflow: hidden;
-    trasition: all 0.5s ;
+
+    @media (max-width: 770px) {
+        min-width: ${({ menuToggle }) => (menuToggle ? "36px" : "160px")};
+    }
 
     .logo_area {
-        width: 170px;
-        height: 110px;
+        width: 100%;
         padding: 20px 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         position: relative;
 
         img {
-            position: absolute;
-            top: 15px;  
+            position: relative;
+            left: 48px;
         }
 
         .config {
+            display: flex;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
             height: 20px;
             width: 20px;
             position: absolute;
@@ -46,22 +50,28 @@ export const Aside = styled.aside`
 
         li {
             display: flex;
+            min-width: 200px;
             align-items: center;
-            padding: 8px ;
+            padding: 8px  0px 8px 8px;
             color: #fff;
-            gap: 16px;
+            gap: 18px;
             cursor: pointer;
-            font-size: 0.8rem;
-            border: 2px solid #000;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #000;
+            border-top: 2px solid #000;
+            overflow: hidden;
+
+            @media (max-width: 900px) {
+                min-width: 200px;
+            }
 
             &:hover {
                 background: #AB0519;
             }
 
             .icon {
-                width: 20px;
-                height: 20px;
-                cusor: pointer;
+                width: 16px;
+                height: 16px;
             }
 
         }
