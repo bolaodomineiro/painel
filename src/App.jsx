@@ -1,12 +1,10 @@
 import React from 'react'
-import './App.css'
+import Painel from './pages/painel/Painel'
 
 function App() {
-
-
   return (
     <>
-      <h1>Painel Bolão do Mineiro</h1>
+      <Painel />
     </>
   )
 }
