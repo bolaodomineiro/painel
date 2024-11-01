@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container_card = styled.div`
-    width: 230px;
+    width: 220px;
     height: 100px;
     border-radius: 6px;
     display: flex;

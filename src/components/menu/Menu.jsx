@@ -9,7 +9,7 @@ const Menu = ({ menuToggle}) => {
     return (
         <Aside menuToggle={menuToggle}>
             <div className="logo_area">
-                <Logo style="70px" />
+                <Logo />
                 <FontAwesomeIcon className="icon config" icon={faGear} />
             </div>
             <ul>

@@ -1,8 +1,8 @@
 import Image_logo from "../../assets/logo.png"
 
-const Logo = ({ style }) => {
+const Logo = () => {
     return (
-        <img style={{width:style, height:style}} src={Image_logo} alt="Logo Bolão do Mineiro" />
+        <img src={Image_logo} alt="Logo Bolão do Mineiro" />
     )
 }
 

@@ -9,8 +9,12 @@ export const Container = styled.section`
     .content {
         height: 100svh;
         transition: all 0.5s;
-        width:${({ menuToggle }) => (menuToggle ? "calc(100% - 35px)" : "calc(100% - 200px)")};
+        width:${({ menuToggle }) => (menuToggle ? "calc(100% - 35px)" : "calc(100% - 170px)")};
         trasition: all 0.5s ;
+
+        @media (max-width: 374px) {
+            width:${({ menuToggle }) => (menuToggle ? "calc(100% - 35px)" : "calc(100% - 150px)")};
+        }
 
         header {
             display: flex;
@@ -42,7 +46,7 @@ export const Container = styled.section`
             flex-wrap: wrap;
             flex-direction:  ;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             padding: 8px;
             margin-top: 35px;
 

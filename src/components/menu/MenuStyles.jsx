@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Aside = styled.aside`
     align-items: center;
     transition: all 0.5s;
-    max-width: ${({ menuToggle }) => (menuToggle ? "36px" : "200px")};
+    max-width: ${({ menuToggle }) => (menuToggle ? "36px" : "170px")};
     height: 100svh;
     background: #000;
     position: fixed;
@@ -12,8 +12,8 @@ export const Aside = styled.aside`
     left: 0;
     overflow: hidden;
 
-    @media (max-width: 770px) {
-        min-width: ${({ menuToggle }) => (menuToggle ? "36px" : "160px")};
+    @media (max-width: 374px) {
+        max-width: ${({ menuToggle }) => (menuToggle ? "36px" : "150px")};
     }
 
     .logo_area {
@@ -22,8 +22,15 @@ export const Aside = styled.aside`
         position: relative;
 
         img {
+            width: 80px;
+            height: 80px;
             position: relative;
-            left: 48px;
+            left: 44px;
+
+            @media (max-width: 374px) {
+                width: 65px;
+                height: 65px;
+            }
         }
 
         .config {
