@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Container } from "./PainelStyles"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCirclePlus, faClover, faUser, faChartLine } from "@fortawesome/free-solid-svg-icons"; // icones
+import { faBars, faCirclePlus, faClover, faUser, faChartLine, faAward } from "@fortawesome/free-solid-svg-icons"; // icones
 //components
 import Menu from "../../components/menu/Menu"
 import MetricCard from "../../components/cards/card_dashboard/MetricCard";
@@ -12,7 +12,7 @@ const Painel = () => {
     const [menuToggle, setMenuToggle] = useState(false)
 
     return (
-        <Container>
+        <Container  menuToggle={menuToggle}>
             <Menu 
                 menuToggle={menuToggle} 
             />
@@ -25,7 +25,6 @@ const Painel = () => {
                     />
                 </header>
                 <section className="container_cards">
-                    <div className="area_cards">
                         <MetricCard 
                             icon={faCirclePlus} 
                             image={faClover} 
@@ -42,9 +41,16 @@ const Painel = () => {
                         />
                         <MetricCard 
                             icon={faCirclePlus} 
+                            image={faAward} 
+                            title="Total de Ganhadores" 
+                            value="10" 
+                            color="#1045A7" 
+                        />
+                        <MetricCard 
+                            icon={faCirclePlus} 
                             image={faChartLine} 
                             title="Saida  Hoje" 
-                            value="2000,00" 
+                            value="$ 2000,00" 
                             color="#AB0519" 
                             flip="both" 
                         />
@@ -52,12 +58,10 @@ const Painel = () => {
                             icon={faCirclePlus} 
                             image={faChartLine} 
                             title="Entrada  Hoje" 
-                            value="2000" 
+                            value="$ 2000" 
                             color="#00A65A" 
                         />
-                    </div>
                 </section>
-
             </section>
         </Container>
     )

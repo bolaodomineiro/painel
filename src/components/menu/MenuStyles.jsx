@@ -6,7 +6,10 @@ export const Aside = styled.aside`
     max-width: ${({ menuToggle }) => (menuToggle ? "36px" : "200px")};
     height: 100svh;
     background: #000;
-    position: relative;
+    position: fixed;
+    z-index: 2;
+    top: 0px;
+    left: 0;
     overflow: hidden;
 
     @media (max-width: 770px) {
@@ -33,7 +36,7 @@ export const Aside = styled.aside`
             width: 20px;
             position: absolute;
             right: 10px;
-            top: 10px;
+            top: 8px;
             color: #fff;
             cursor: pointer;
             z-index: 1;

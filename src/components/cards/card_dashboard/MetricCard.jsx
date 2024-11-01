@@ -5,13 +5,9 @@ const MetricCard = ({icon, image, title, value, color, flip}) => {
     return (
         <Container_card style={{backgroundColor: color}}>
             <div className="container_top">
-                <div>
-                    <div className="value">
-                        <h3>{value}</h3>
-                    </div>
-                    <div className="title">
-                        <p>{title}</p>
-                    </div>
+                <div className="container_text">
+                    <h3>{value}</h3>
+                    <p>{title}</p>
                 </div>
                 <FontAwesomeIcon className="icon_img" icon={image} flip={flip} />
             </div>

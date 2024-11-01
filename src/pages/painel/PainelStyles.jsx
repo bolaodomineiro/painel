@@ -2,15 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.section`
     display: flex;
-    height: 100svh;
+    justify-content: flex-end;
+    min-height: 100svh;
     width: 100%;
 
     .content {
-        align-items: center;
         height: 100svh;
-        width: 100%;
-        background: #aaa;
-        overflow: auto;
+        transition: all 0.5s;
+        width:${({ menuToggle }) => (menuToggle ? "calc(100% - 35px)" : "calc(100% - 200px)")};
         trasition: all 0.5s ;
 
         header {
@@ -18,15 +17,19 @@ export const Container = styled.section`
             width: 100%;
             align-items: center;
             background: #F3EED9;
-            height: 40px;
+            height: 35px;
             padding: 0 15px;
+            position: fixed;
+            z-index: 2;
 
             .icon {
-                width: 30px;
-                height: 30px;
+                width: 25px;
+                height: 25px;
                 cursor: pointer;
                 color: #000;
                 trasition: all 0.5s;
+                position: relative;
+                z-index: 1;
 
                 &:hover {
                     color:  #AB0519;;
@@ -36,24 +39,16 @@ export const Container = styled.section`
 
         .container_cards {
             display: flex;
+            flex-wrap: wrap;
+            flex-direction:  ;
             justify-content: center;
-            align-items: center;
-            gap: 15px;
-            padding: 10px 0 10px 10px;
-            overflow: auto;
+            gap: 8px;
+            padding: 8px;
+            margin-top: 35px;
 
-            @media (max-width: 400px) {
-                padding: 10px 0 10px 8px;
-            }
-
-            .area_cards {
-                display: flex;
-                min-width: 83%;
-                justify-content: space-between;
+            @media (max-width: 590px) {
                 align-items: center;
-                gap: 15px;
-                overflow: auto;
-                padding: 0px 10px 0px 0px;
+                flex-direction: row;
             }
         }
     }
