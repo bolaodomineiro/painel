@@ -1,5 +1,5 @@
 import { Container_home } from "./HomeStyles"
-import { faAward, faChartLine, faCirclePlus, faClover, faUser } from "@fortawesome/free-solid-svg-icons"
+import { faAward, faChartLine, faCirclePlus, faClover, faUser, faDollarSign } from "@fortawesome/free-solid-svg-icons"
 // components
 import MetricCard from "../../components/cards/card_dashboard/MetricCard"
 
@@ -45,7 +45,7 @@ const Home = () => {
                 />
                 <MetricCard 
                     icon={faCirclePlus} 
-                    image={faChartLine} 
+                    image={faDollarSign} 
                     title="Saldo Total" 
                     value="$ 40000,00" 
                     color="#343434" 
