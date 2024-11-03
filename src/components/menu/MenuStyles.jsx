@@ -4,7 +4,7 @@ export const Aside = styled.aside`
     align-items: center;
     transition: all 0.5s;
     max-width: ${({ $menuToggle }) => ($menuToggle ? "36px" : "170px")};
-    height: 100svh;
+    height: 100vh;
     background: #0D0D0D;
     position: fixed;
     z-index: 2;
