@@ -43,7 +43,19 @@ const Home = () => {
                     value="$ 2000" 
                     color="#00A65A" 
                 />
+                <MetricCard 
+                    icon={faCirclePlus} 
+                    image={faChartLine} 
+                    title="Saldo Total" 
+                    value="$ 40000,00" 
+                    color="#343434" 
+                />
             </section>
+            <div className="infor_area">
+                <img src="./src/assets/logo.png" alt="logo" />
+                <h1>Bem-vindo ao Painel, Bolão do Mineiro!</h1>
+                <p>Aqui você encontra tudo o que precisa para acompanhar e gerenciar seu bolão de forma fácil e prático.</p>
+            </div>
         </Container_home>
     )
 }

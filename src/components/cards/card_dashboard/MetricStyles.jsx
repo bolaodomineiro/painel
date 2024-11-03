@@ -1,29 +1,19 @@
 import styled from "styled-components";
 
 export const Container_card = styled.div`
-    width: 220px;
+    flex: 1;
+    min-width: 170px; ;
     height: 100px;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
-    @media (max-width: 520px) {
-        width: 170px;
-        height: 105px;
-    }
-
-    @media (max-width: 450px) {
-        width: 155px;
-        height: 105px;
+    @media (max-width: 550px) {
+        min-width: 180px;
     }
 
     @media (max-width: 375px) {
-        min-width: 155px;
-        height: 90px;
-    }
-
-    @media (max-width: 370px) {
         min-width: 100%;
     }
 

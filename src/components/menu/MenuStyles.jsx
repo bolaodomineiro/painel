@@ -5,7 +5,7 @@ export const Aside = styled.aside`
     transition: all 0.5s;
     max-width: ${({ $menuToggle }) => ($menuToggle ? "36px" : "170px")};
     height: 100svh;
-    background: #000;
+    background: #0D0D0D;
     position: fixed;
     z-index: 2;
     top: 0px;
