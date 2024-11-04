@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 export const Container_users= styled.section`
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    height: 100%;
-
+    height: 99%;
+    padding: 10px;
 
 `

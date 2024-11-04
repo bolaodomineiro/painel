@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Aside = styled.aside`
     align-items: center;
     transition: all 0.5s;
-    max-width: ${({ $menuToggle }) => ($menuToggle ? "36px" : "170px")};
+    max-width: ${({ $menuToggle }) => ($menuToggle ? "38px" : "170px")};
     height: 100vh;
-    background: #0D0D0D;
+    background: #242222;
     position: fixed;
     z-index: 2;
     top: 0px;
@@ -13,7 +13,7 @@ export const Aside = styled.aside`
     overflow: hidden;
 
     @media (max-width: 374px) {
-        max-width: ${({ $menuToggle }) => ($menuToggle ? "36px" : "150px")};
+        max-width: ${({ $menuToggle }) => ($menuToggle ? "38px" : "150px")};
     }
 
     .logo_area {
@@ -68,11 +68,11 @@ export const Aside = styled.aside`
             align-items: center;
             padding: 8px  0px 8px 8px;
             color: #fff;
-            gap: 18px;
+            gap: 15px;
             cursor: pointer;
             font-size: 0.9rem;
-            border-bottom: 2px solid #000;
-            border-top: 2px solid #000;
+            border-bottom: 2px solid #242222;
+            border-top: 2px solid #242222;
             overflow: hidden;
 
             @media (max-width: 900px) {
@@ -84,8 +84,8 @@ export const Aside = styled.aside`
             }
 
             .icon {
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
             }
 
         }

@@ -9,11 +9,11 @@ export const Container = styled.section`
     .content {
         height: 100svh;
         transition: all 0.5s;
-        width:${({ $menuToggle }) => ($menuToggle ? "calc(100% - 35px)" : "calc(100% - 170px)")};
+        width:${({ $menuToggle }) => ($menuToggle ? "calc(100% - 38px)" : "calc(100% - 170px)")};
         trasition: all 0.5s ;
 
         @media (max-width: 374px) {
-            width:${({ $menuToggle }) => ($menuToggle ? "calc(100% - 35px)" : "calc(100% - 150px)")};
+            width:${({ $menuToggle }) => ($menuToggle ? "calc(100% - 38px)" : "calc(100% - 150px)")};
         }
     }
 

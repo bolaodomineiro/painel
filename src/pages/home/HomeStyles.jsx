@@ -25,15 +25,28 @@ export const Container_home = styled.section`
         img {
             width: 140px;
             height: 140px;
+
+            @media (max-width: 500px) {
+                width: 120px;
+                height: 120px;
+            }
         }
 
         h1 {
             font-size: 1.6rem;
             color: #AB0519;
+
+            @media (max-width: 500px) {
+                font-size: 1.2rem;
+            }
         }
 
         p {
             font-size: 1.1rem;
+
+            @media (max-width: 374px) {
+                font-size: 1rem;
+            }
         }
     }
     

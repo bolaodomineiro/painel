@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 // components
 import Logo from "../logo/Logo";
 
-const Menu = ({ $menuToggle }) => {
+const Menu = ({ $menuToggle, $setTitle }) => {
 
     const location = useLocation(); // Chame useLocation fora do useEffect
     const [active, setActive] = useState("");
@@ -27,33 +27,43 @@ const Menu = ({ $menuToggle }) => {
             </div>
             <ul>
                 <Link className="link" to="/">
-                    <li className={active === "/" ? "active" : ""} >
+                    <li className={active === "/" ? "active" : ""}
+                        onClick={() => $setTitle("Dashboard")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faGauge} />
                         Dashboard
                     </li>
                 </Link>
                 <Link className="link" to="/users">
-                    <li className={active === "users" ? "active" : ""}>
+                    <li className={active === "users" ? "active" : ""}
+                        onClick={() => $setTitle("Usuários")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faUser} />
                         Usuários
                     </li>
                 </Link>
                 <Link className="link" to="/contests">
-                    <li className={active === "contests" ? "active" : ""}>
+                    <li className={active === "contests" ? "active" : ""}
+                        onClick={() => $setTitle("Concursos")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faClover} />
                         Concursos
                     </li>
                 </Link>
                 <Link className="link" to="/pages">
-                    <li className={active === "pages" ? "active" : ""}>
+                    <li className={active === "pages" ? "active" : ""}
+                        onClick={() => $setTitle("Paginas")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faFileLines} />
-                        Pages
+                        Paginas
                     </li>
                 </Link>
                 <Link className="link" to="/components">
-                    <li className={active === "components" ? "active" : ""}>
+                    <li className={active === "components" ? "active" : ""}
+                        onClick={() => $setTitle("Componentes")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faLayerGroup} />
-                        Components
+                        Componentes
                     </li>
                 </Link>
             </ul>

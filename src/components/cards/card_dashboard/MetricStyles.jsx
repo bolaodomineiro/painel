@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Container_card = styled.div`
     flex: 1;
-    min-width: 170px; ;
-    height: 100px;
+    min-width: 175px; ;
+    height: 110px;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -22,25 +22,26 @@ export const Container_card = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0px 12px;
+        padding: 0px 16px;
         position: relative;
-        // border: 1px solid #000;
+        gap: 5px;
 
         h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #fff;
+            padding-bottom: 6px;
 
-            @media (max-width: 400px) {
-                font-size: 1.1rem;
+            @media (max-width: 374px) {
+                font-size: 1rem;
             }
         }
 
         p {
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #fff;
 
-            @media (max-width: 400px) {
-                font-size: 0.8rem;
+            @media (max-width: 374px) {
+                font-size: 0.9rem;
             }
         }
 
@@ -48,17 +49,12 @@ export const Container_card = styled.div`
             width: 40px;
             height: 40px;
             color: rgba(255, 255, 255, 0.5);
-
-            @media (max-width: 380px) {
-                width: 30px;
-                height: 30px;
-            }
         }
     }
 
     .container_bottom {
         display: flex;
-        height: 25px;
+        height: 30px;
         align-items: center;
         justify-content: center;
         gap: 10px;

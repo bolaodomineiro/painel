@@ -1,9 +1,11 @@
 import { Container_users } from "./UserStyles"
+// components
+import UtilityBar from "../../components/utilityBar/UtilityBar"
 
 const Users = () => {
     return (
         <Container_users>
-            <h2>Users</h2>
+            <UtilityBar />
         </Container_users>
     )
 }
