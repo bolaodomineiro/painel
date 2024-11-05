@@ -6,7 +6,7 @@ export const Button = styled.button`
     justify-content: center;
     height: 30px;
     max-width: 150px;
-    min-width: 140px;
+    min-width: 120px;
     padding: 0 15px;
     background: #AB0519;
     border: none;
@@ -17,6 +17,10 @@ export const Button = styled.button`
     cursor: pointer;
     gap: 10px;
     transition: all 0.2s;
+
+    @media (max-width: 374px) {
+        min-width: 100%;
+    }
 
     &:hover {
         background: #e30b24;

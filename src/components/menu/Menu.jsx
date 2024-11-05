@@ -9,14 +9,32 @@ import Logo from "../logo/Logo";
 
 const Menu = ({ $menuToggle, $setTitle }) => {
 
-    const location = useLocation(); // Chame useLocation fora do useEffect
+    const location = useLocation();
     const [active, setActive] = useState("");
 
     useEffect(() => {
         const pathSegments = location.pathname.split('/').filter(Boolean);
         const lastSegment = pathSegments[pathSegments.length - 1]; // Pega sempre o último
         setActive(lastSegment === undefined ? "/" : lastSegment);
-        console.log(lastSegment);
+        
+        switch (lastSegment) {
+            case "users":
+                $setTitle("Usuários");
+                break;
+            case "contests":
+                $setTitle("Concursos");
+                break;
+            case "pages":
+                $setTitle("Paginas");
+                break;
+            case "components":
+                $setTitle("Componentes");
+                break;
+            default:
+                $setTitle("Dashboard");
+                break;
+        }
+
     }, [location]); 
 
     return (
@@ -27,41 +45,32 @@ const Menu = ({ $menuToggle, $setTitle }) => {
             </div>
             <ul>
                 <Link className="link" to="/">
-                    <li className={active === "/" ? "active" : ""}
-                        onClick={() => $setTitle("Dashboard")}
-                    >
+                    <li className={active === "/" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faGauge} />
                         Dashboard
                     </li>
                 </Link>
                 <Link className="link" to="/users">
                     <li className={active === "users" ? "active" : ""}
-                        onClick={() => $setTitle("Usuários")}
                     >
                         <FontAwesomeIcon className="icon" icon={faUser} />
                         Usuários
                     </li>
                 </Link>
                 <Link className="link" to="/contests">
-                    <li className={active === "contests" ? "active" : ""}
-                        onClick={() => $setTitle("Concursos")}
-                    >
+                    <li className={active === "contests" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faClover} />
                         Concursos
                     </li>
                 </Link>
                 <Link className="link" to="/pages">
-                    <li className={active === "pages" ? "active" : ""}
-                        onClick={() => $setTitle("Paginas")}
-                    >
+                    <li className={active === "pages" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faFileLines} />
                         Paginas
                     </li>
                 </Link>
                 <Link className="link" to="/components">
-                    <li className={active === "components" ? "active" : ""}
-                        onClick={() => $setTitle("Componentes")}
-                    >
+                    <li className={active === "components" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faLayerGroup} />
                         Componentes
                     </li>

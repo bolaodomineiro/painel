@@ -7,7 +7,7 @@ export const Aside = styled.aside`
     height: 100vh;
     background: #242222;
     position: fixed;
-    z-index: 2;
+    z-index: 100;
     top: 0px;
     left: 0;
     overflow: hidden;

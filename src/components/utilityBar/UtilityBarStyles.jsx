@@ -6,14 +6,15 @@ export const Container_utility = styled.section`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    background: rgb(236, 236, 236);
-    margin-top: 40px;
-    padding: 8px 20px 8px 10px;
-    box-shadow: 1px 2px 6px #7979797c;
+    padding: 10px 15px;
+    background: #fff;
+    margin-top: 50px;
+    box-shadow: 1px 1px 6px #7979797c;
+    position: relative;
+    z-index: 1;
     gap: 10px;
 
-    @media (max-width: 410px) {
+    @media (max-width: 374px) {
         padding: 5px;
     }
-    
 `

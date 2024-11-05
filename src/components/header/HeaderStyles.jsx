@@ -8,8 +8,11 @@ export const Container_header = styled.header`
     height: 35px;
     padding: 0 15px;
     position: fixed;
+    top: 0;
+    
     gap: 14px;
     z-index: 2;
+    box-shadow: 1px 2px 6px #7979797c;
 
     .icon {
         width: 25px;

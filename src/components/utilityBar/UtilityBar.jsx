@@ -4,9 +4,9 @@ import Select from "../select/Select"
 import Search from "../search/Search"
 import Btn from "../btn/Btn"
 
-const UtilityBar = () => {
+const UtilityBar = ({ $menuToggle }) => {
     return (
-        <Container_utility>
+        <Container_utility  $menuToggle={$menuToggle}>
             <Select />
             <Search />
             <Btn text="Cadastrar" />

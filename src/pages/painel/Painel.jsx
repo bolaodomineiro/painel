@@ -21,7 +21,9 @@ const Painel = () => {
                     menuToggle={menuToggle}
                     title={title}
                 />
-                <AppRoutes />
+                <AppRoutes 
+                    $menuToggle={menuToggle}
+                />
             </section>
         </Container>
     )

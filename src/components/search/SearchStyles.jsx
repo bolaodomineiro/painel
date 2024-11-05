@@ -13,7 +13,7 @@ export const Container_search = styled.div`
     cursor: pointer;
 
     @media (max-width: 610px) {
-        min-width: 130px;
+        min-width: 120px;
     }
 
 
