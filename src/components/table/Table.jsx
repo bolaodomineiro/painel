@@ -1,5 +1,7 @@
 import { Container_table } from "./TableStyles"
 import usuarios from "./dataUser";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare , faTrash, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -31,9 +33,9 @@ const Table = () => {
                                 <li>{item.nome}</li>
                                 <li>{item.telefone}</li>
                                 <li>{item.cidade}</li>
-                                <li>+ Detalhes</li>
-                                <li>Editar</li>
-                                <li>Excluir</li>
+                                <li><FontAwesomeIcon className="icon" icon={faCircleInfo} /></li>
+                                <li><FontAwesomeIcon className="icon" icon={faPenToSquare} /></li>
+                                <li><FontAwesomeIcon className="icon" icon={faTrash} /></li>
                             </ul>
                         )
                     })

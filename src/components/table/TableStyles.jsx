@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container_table = styled.div`
     overflow-x: auto;
-    
+
     .header_table, .body_table {
 
         width: 848px;
@@ -24,6 +24,16 @@ export const Container_table = styled.div`
                 font-size: 0.9rem;
                 box-shadow: 1px 1px 6px #7979797c;
                 border-radius: 5px;
+
+                .icon {
+                    font-size: 1.4rem;
+                    trasition: all 0.3s;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #AB0519;
+                    }
+                }
             }
 
             li:nth-child(1) {
@@ -47,9 +57,22 @@ export const Container_table = styled.div`
             }
 
             li:nth-child(6) {
+                dplay: flex;
+                align-items: center;
+                justify-content: center;
                 width: 90px;
                 min-width: 90px;
             }
+            
+            li:nth-child(7), li:nth-child(8) {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 60px;
+                min-width: 60px;
+            }
+
+            
         }
     }
 
@@ -68,11 +91,12 @@ export const Container_table = styled.div`
                 box-shadow:none;
 
                 .image_user {
-                    width: 35px;
+                    width: 40px;
                     border-radius: 50%;
                 }
             }
 
         }
+
     }
 `
