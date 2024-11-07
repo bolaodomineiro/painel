@@ -22,7 +22,7 @@ export const Container_table = styled.div`
                 padding: 0px 10px;
                 height: 35px;
                 font-size: 0.9rem;
-                box-shadow: 1px 1px 6px #7979797c;
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
                 border-radius: 5px;
 
                 .icon {
@@ -79,13 +79,13 @@ export const Container_table = styled.div`
     .body_table {
 
         ul:nth-child(odd) {
-            background-color: #D7D1B8 ; 
+            background-color: #F2F1EB  ; 
         }
 
         ul {
             background-color: #F3EED9;
             border-radius: 5px;
-            box-shadow: 1px 1px 6px #7979797c;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 
             li {
                 box-shadow:none;

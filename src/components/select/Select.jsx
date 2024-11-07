@@ -3,9 +3,21 @@ import { Container_select } from "./SelectStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-const data = ["Usuários","Revendedores","Apostadores"]
 
-const Select = () => {
+
+ {/* Controles para selecionar o intervalo de tempo
+            <div className='btns'>
+            <button onClick={() => setTimeRange('7days')}>Últimos 7 dias</button>
+            <button onClick={() => setTimeRange('15days')}>Últimos 15 dias</button>
+            <button onClick={() => setTimeRange('currentMonth')}>Mês atual</button>
+            <button onClick={() => setTimeRange('yearToDate')}>Ano atual</button>
+            <button onClick={() => setTimeRange('currentYear')}>Ano atual</button>
+            <button onClick={() => setTimeRange('allTime')}>Todos os anos</button>
+            </div> */}
+
+            {/* Componente de gráfico */}
+
+const Select = ({data, setValue}) => {
     const [select_heigth, setselect_heigth] = useState("0px")
     const [option, setOption] = useState(data[0])
     const selectRef = useRef(null);
@@ -49,6 +61,7 @@ const Select = () => {
                             key={id}
                             onClick={(e) => {
                                 setOption(e.target.innerHTML);
+                                setValue(e.target.innerHTML);
                                 setselect_heigth("0px");
                             }}
                         >{e}</li>

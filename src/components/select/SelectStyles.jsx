@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const Container_select = styled.div`
-
     cursor: pointer;
     position: relative;
-    width: 160px;
+    max-width: 180px;
+    min-width: 160px;
 
     .select_header {
         display: flex;
@@ -32,7 +32,7 @@ export const Container_select = styled.div`
         overflow: hidden;
         transition: all 0.5s;
         position: absolute;
-        width: 160px;
+        min-width: 160px;
         top: 47px;
         left: 0px;
         background-color: #fff;
