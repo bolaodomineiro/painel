@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container_BarChart } from './BarChartStyles';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, BarController } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 // components
 import Select from '../../../select/Select';
@@ -12,7 +12,8 @@ import Select from '../../../select/Select';
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    BarController
     );
 
     const MyChartComponent = () => {
