@@ -1,12 +1,27 @@
-import React from 'react'
-import Painel from './pages/painel/Painel'
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./pages/login/Login";
+import Painel from "./pages/painel/Painel";
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Painel />
-    </>
-  )
-}
+    <AuthProvider>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/painel/*"
+          element={
+            <ProtectedRoute>
+              <Painel />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </AuthProvider>
+  );
+};
 
-export default App
+export default App;
