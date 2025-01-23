@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "./PainelStyles"
 //components
 import Menu from "../../components/menu/Menu"
@@ -6,6 +6,7 @@ import Header from "../../components/header/Header"
 import AppRoutes from "../../AppRoutes";
 
 const Painel = () => {
+
     const [title, setTitle] = useState("Dashboard")
     const [menuToggle, setMenuToggle] = useState(false)
 

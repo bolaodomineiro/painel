@@ -1,13 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", serif;
-/* color: rgba(0, 255, 140, 0.512); */
+}
+
+:root {
+  --cor-primary-bg-components: #F3EED9;
+  --background-primary: #fff;
+  --text-primary: #000;
+  --title-primary: #000;
+  /* menu */
+  --background-menu-primary: #242222;
+  --text-menu-primary: #fff;
+  --icon-menu-primary: #fff;
+  --li-menu-primary-bg-hover: #AB0519;
+  /* btn */
+  --background-btn-primary: #AB0519;
+  --text-btn-primary: #fff;
+  /* icons */
+  --icon-primary: #000;
+  --icon-primary-hover: #AB0519;
+  
+}
+
+dark-theme {
+  --cor-primary-bg-components: #242222;
+  --background-primary: #242222;
+  --text-primary: #fff;
+  --title-primary: #fff;
+  /* icons */
+  --icon-primary: #fff;
 }
 
 

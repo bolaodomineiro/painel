@@ -50,7 +50,6 @@ import Select from '../../../select/Select';
     const filterData = (range) => {
         const now = new Date();
         const startDate = new Date()
-        const endDate = new Date();
 
         switch (range) {
             case 'Últimos 7 dias':
