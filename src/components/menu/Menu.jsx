@@ -42,7 +42,7 @@ const Menu = ({ $menuToggle}) => {
 
     const handleLogout = () => {
         Cookies.remove('token');  // Remove o token do cookie
-        localStorage.removeItem('token');  // Remove também de localStorage
+        localStorage.clear();  // Remove também de localStorage
         navigate("/login");
     };
 
