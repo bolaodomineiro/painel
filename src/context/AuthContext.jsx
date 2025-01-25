@@ -16,12 +16,16 @@ export const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("Usuário autenticado:", user);
-        // Redirecionar para o painel se autenticado
-        window.location.href = "/painel";
+        // Evitar redirecionamento contínuo se já estiver no painel
+        if (window.location.pathname !== "/painel") {
+          window.location.href = "/painel";
+        }
       } else {
         console.log("Nenhum usuário autenticado.");
-        // Redirecionar para login
-        window.location.href = "/login";
+        // Evitar redirecionamento contínuo se já estiver na tela de login
+        if (window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        }
       }
     });
   
