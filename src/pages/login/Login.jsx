@@ -71,7 +71,9 @@ const Login = () => {
           </div>
         </div>
         <div>
-            <p className="recovery-password"> Esqueceu sua senha ?</p>
+            <p className="recovery-password"
+                onClick={() => window.location.href = "http://localhost:4000/passwordRecovery"}
+            > Esqueceu sua senha ?</p>
         </div>
         <button type="submit">Entrar</button>
       </form>
