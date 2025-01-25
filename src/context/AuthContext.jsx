@@ -13,16 +13,21 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log("Estado do usuário:", user);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("Usuário autenticado:", user);
-        setAuthenticated(true);
+        // Redirecionar para o painel se autenticado
+        window.location.href = "/painel";
       } else {
         console.log("Nenhum usuário autenticado.");
+        // Redirecionar para login
+        window.location.href = "/login";
       }
     });
+  
+    return () => unsubscribe();
   }, []);
+
 
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
