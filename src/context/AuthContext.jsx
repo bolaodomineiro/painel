@@ -15,17 +15,9 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("Usuário autenticado:", user);
-        // Evitar redirecionamento contínuo se já estiver no painel
-        if (window.location.pathname !== "/painel") {
-          window.location.href = "/painel";
-        }
+          setAuthenticated(true);
       } else {
-        console.log("Nenhum usuário autenticado.");
-        // Evitar redirecionamento contínuo se já estiver na tela de login
-        if (window.location.pathname !== "/login") {
-          window.location.href = "/login";
-        }
+          setAuthenticated(false);
       }
     });
   
