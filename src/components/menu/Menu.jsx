@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate,  Link,  useLocation } from "react-router-dom";
 import { Aside } from "./MenuStyles";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGauge, faUser, faClover, faFileLines, faLayerGroup, faGear, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from "react-router-dom";
 import Logo from "../logo/Logo";
 import Cookies from 'js-cookie';  // Biblioteca para cookies
 
-const Menu = ({ $menuToggle, $setTitle }) => {
+const Menu = ({ $menuToggle}) => {
     const navigate = useNavigate();  // Usando corretamente o useNavigate
     const location = useLocation();  // Mantendo o useLocation para o caminho atual
-    const [active, setActive] = useState("/");  // Inicializando corretamente o estado
+    const [active, setActive] = useState(location);  // Inicializando corretamente o estado
+    console.log(active)
 
     useEffect(() => {
         const token = Cookies.get('token') || localStorage.getItem('token');
@@ -23,28 +22,12 @@ const Menu = ({ $menuToggle, $setTitle }) => {
         }
 
         // Verifica o caminho atual para identificar a seção ativa
-        const pathSegments = location.pathname.split('/').filter(Boolean);
+        const pathSegments = location.pathname.split('painel/').filter(Boolean);
         const lastSegment = pathSegments[pathSegments.length - 1];
-        setActive(lastSegment === undefined ? "/" : lastSegment);  // Aqui definimos o valor para o 'active'
+        setActive(lastSegment === "/painel" ? "painel" : lastSegment);  // Aqui definimos o valor para o 'active'
+        console.log(lastSegment)
 
-        switch (lastSegment) {
-            case "users":
-                $setTitle("Usuários");
-                break;
-            case "contests":
-                $setTitle("Concursos");
-                break;
-            case "pages":
-                $setTitle("Paginas");
-                break;
-            case "components":
-                $setTitle("Componentes");
-                break;
-            default:
-                $setTitle("Dashboard");
-                break;
-        }
-    }, [navigate, location]);  // Dependências corretas para os hooks
+    }, [active]);  // Dependências corretas para os hooks
 
     const validateToken = (token) => {
         if (!token) return false;
@@ -70,32 +53,42 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                 <FontAwesomeIcon className="icon config" icon={faGear} />
             </div>
             <ul>
-                <Link className="link" to="/">
-                    <li className={active === "/" ? "active" : ""}>
+                <Link className="link" to="dashboard">
+                    <li className={active === "painel" || active === "dashboard" ? "active" : ""}
+                        onClick={(e) => setActive("painel/home")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faGauge} />
                         Dashboard
                     </li>
                 </Link>
-                <Link className="link" to="/users">
-                    <li className={active === "users" ? "active" : ""}>
+                <Link className="link" to="users">
+                    <li className={active === "users" ? "active" : ""}
+                        onClick={(e) => setActive("users")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faUser} />
                         Usuários
                     </li>
                 </Link>
-                <Link className="link" to="/contests">
-                    <li className={active === "contests" ? "active" : ""}>
+                <Link className="link" to="contests">
+                    <li className={active === "contests" ? "active" : ""}
+                        onClick={(e) => setActive("contests")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faClover} />
                         Concursos
                     </li>
                 </Link>
-                <Link className="link" to="/pages">
-                    <li className={active === "pages" ? "active" : ""}>
+                <Link className="link" to="pages">
+                    <li className={active === "pages" ? "active" : ""}
+                        onClick={(e) => setActive("pages")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faFileLines} />
                         Paginas
                     </li>
                 </Link>
-                <Link className="link" to="/components">
-                    <li className={active === "components" ? "active" : ""}>
+                <Link className="link" to="components">
+                    <li className={active === "components" ? "active" : ""}
+                        onClick={(e) => setActive("components")}
+                    >
                         <FontAwesomeIcon className="icon" icon={faLayerGroup} />
                         Componentes
                     </li>

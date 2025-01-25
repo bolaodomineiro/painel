@@ -25,7 +25,7 @@ const Login = () => {
       localStorage.setItem("Authenticated", true);
 
       console.log(user.accessToken)
-      navigate("/painel");
+      navigate("/painel/dashboard");
     } catch (error) {
       console.error(error.message);
       alert("Credenciais inválidas");
@@ -47,6 +47,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Digite seu email"
+            autoComplete="username"
           />
         </div>
         <div>
@@ -57,6 +58,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Digite sua senha"
+              autoComplete="correct-password"
             />
             { visibile ? 
               <FontAwesomeIcon icon={faEye}
