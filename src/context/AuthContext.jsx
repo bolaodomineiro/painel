@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
@@ -8,19 +8,21 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
 
   const getAuthenticated = localStorage.getItem("Authenticated");
-  const [authenticated, setAuthenticated] = useState(getAuthenticated || false);
+  const [authenticated, setAuthenticated] = useState(getAuthenticated);
 
   const navigate = useNavigate();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // Usuário autenticado, você pode exibir o painel ou outros dados
-      console.log("Usuário autenticado no site 2:", user);
-      setAuthenticated(true);
-    } else {
-        navigate("/login");
-    }
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log("Estado do usuário:", user);
+      if (user) {
+        console.log("Usuário autenticado:", user);
+        setAuthenticated(true);
+      } else {
+        console.log("Nenhum usuário autenticado.");
+      }
+    });
+  }, []);
 
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
