@@ -17,7 +17,8 @@ export const AuthProvider = ({ children }) => {
   
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token") || localStorage.getItem("token");
-  console.log(token)
+  localStorage.setItem("token", token);
+ 
 
   if (token) {
       console.log("Token recebido:", token); // Verifique o token recebido
@@ -28,7 +29,6 @@ export const AuthProvider = ({ children }) => {
 
               setAuthenticated(true);
               localStorage.setItem("Authenticated", true);
-              localStorage.setItem("token", token);
               localStorage.setItem("userUid", JSON.stringify(user.uid));
           })
           .catch((error) => {
