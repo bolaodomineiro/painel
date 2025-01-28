@@ -13,12 +13,9 @@ export const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(getAuthenticated || null);
   // const [currentUser, setCurrentUser] = useState(null);
 
-  
-  
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token") || localStorage.getItem("token");
-  localStorage.setItem("token", token);
- 
+  
 
   if (token) {
       console.log("Token recebido:", token); // Verifique o token recebido
@@ -26,8 +23,7 @@ export const AuthProvider = ({ children }) => {
           .then((userCredential) => {
               const user = userCredential.user;
               console.log("Usuário autenticado com sucesso:", user);
-
-              setAuthenticated(true);
+              localStorage.setItem("token", token);
               localStorage.setItem("Authenticated", true);
               localStorage.setItem("userUid", JSON.stringify(user.uid));
           })
