@@ -12,6 +12,8 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     const location = useLocation();
     const [active, setActive] = useState("dashboard");
 
+
+
     // const validateToken = (token) => {
     //     if (!token) return false;
     //     try {
@@ -61,11 +63,11 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     // }, [navigate,validateToken]);
 
      // Função para logout
-    const handleLogout = () => {
-        // Cookies.remove("token");
+    const handleLogout = useCallback(() => {
+        Cookies.remove("token");
         localStorage.clear();
         navigate("/login");
-    };
+    }, [navigate]);
 
 
     return (
