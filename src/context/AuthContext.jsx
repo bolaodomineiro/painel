@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, useEffect} from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 const AuthContext = createContext();
 
@@ -6,6 +8,21 @@ export const AuthProvider = ({ children }) => {
 
   const getAuthenticated = localStorage.getItem("Authenticated");
   const [authenticated, setAuthenticated] = useState(getAuthenticated || false);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUser(user);
+        console.log("Usuário logado:", user);
+      } else {
+        setCurrentUser(null);
+        console.log("Nenhum usuário logado.");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
