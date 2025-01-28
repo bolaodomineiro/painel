@@ -4,7 +4,7 @@ import { Aside } from "./MenuStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGauge, faUser, faClover, faFileLines, faLayerGroup, faGear, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../logo/Logo";
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 
 const Menu = ({ $menuToggle, $setTitle }) => {
 
@@ -12,15 +12,15 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     const location = useLocation();
     const [active, setActive] = useState("dashboard");
 
-    const validateToken = (token) => {
-        if (!token) return false;
-        try {
-            const tokenDecoded = JSON.parse(atob(token.split('.')[1]));
-            return tokenDecoded.exp * 1000 > Date.now();
-        } catch (e) {
-            return false;
-        }
-    };
+    // const validateToken = (token) => {
+    //     if (!token) return false;
+    //     try {
+    //         const tokenDecoded = JSON.parse(atob(token.split('.')[1]));
+    //         return tokenDecoded.exp * 1000 > Date.now();
+    //     } catch (e) {
+    //         return false;
+    //     }
+    // };
 
     // Atualizar o estado de menu ativo com base no caminho
     useEffect(() => {
@@ -52,13 +52,13 @@ const Menu = ({ $menuToggle, $setTitle }) => {
 
 
     // Validação do token na montagem
-    useEffect(() => {
-        const token = Cookies.get('token') || localStorage.getItem('token');
-        if (!token || !validateToken(token)) {
-            console.log("Token inválido ou expirado, redirecionando para login");
-            navigate("/login");
-        }
-    }, [navigate,validateToken]);
+    // useEffect(() => {
+    //     const token = Cookies.get('token') || localStorage.getItem('token');
+    //     if (!token || !validateToken(token)) {
+    //         console.log("Token inválido ou expirado, redirecionando para login");
+    //         navigate("/login");
+    //     }
+    // }, [navigate,validateToken]);
 
      // Função para logout
     const handleLogout = useCallback(() => {
