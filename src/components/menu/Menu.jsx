@@ -7,13 +7,10 @@ import { faGauge, faUser, faClover, faFileLines, faLayerGroup, faGear, faSignOut
 import Logo from "../logo/Logo";
 import Cookies from 'js-cookie';  // Biblioteca para cookies
 
-o
-
 const Menu = ({ $menuToggle, $setTitle}) => {
     const navigate = useNavigate();  // Usando corretamente o useNavigate
     const location = useLocation();  // Mantendo o useLocation para o caminho atual
     const [active, setActive] = useState(location);  // Inicializando corretamente o estado
-    console.log(active)
 
     useEffect(() => {
         const token = Cookies.get('token') || localStorage.getItem('token');

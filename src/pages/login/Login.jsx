@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../context/AuthContext";
-import { onAuthStateChanged } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth, signInWithEmailAndPassword } from '../../firebase/firebase';  // Corrigido
 import { ContainerLogin } from "./loginStyles";
@@ -19,8 +18,6 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await setPersistence(auth, browserLocalPersistence);
-
       const userCredential = await signInWithEmailAndPassword(auth, email, password);  // Chamando corretamente
       const user = userCredential.user;
       setAuthenticated(true);
