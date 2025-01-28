@@ -6,7 +6,7 @@ import { faGauge, faUser, faClover, faFileLines, faLayerGroup, faGear, faSignOut
 import Logo from "../logo/Logo";
 import Cookies from 'js-cookie';  // Biblioteca para cookies
 
-const Menu = ({ $menuToggle}) => {
+const Menu = ({ $menuToggle, $setTitle}) => {
     const navigate = useNavigate();  // Usando corretamente o useNavigate
     const location = useLocation();  // Mantendo o useLocation para o caminho atual
     const [active, setActive] = useState(location);  // Inicializando corretamente o estado
@@ -24,13 +24,34 @@ const Menu = ({ $menuToggle}) => {
         // Verifica o caminho atual para identificar a seção ativa
         const pathSegments = location.pathname.split('painel/').filter(Boolean);
         const lastSegment = pathSegments[pathSegments.length - 1];
-        setActive(lastSegment === "/painel" ? "painel" : lastSegment);  // Aqui definimos o valor para o 'active'
-        console.log(lastSegment)
+        setActive(lastSegment === "/painel" ? "painel" : lastSegment);
 
-    }, [active]);  // Dependências corretas para os hooks
+        switch (active) {
+            case "dashboard":
+                $setTitle("Dashboard");
+                break;
+            case "users":
+                $setTitle("Usuários");
+                break;
+            case "contests":
+                $setTitle("Concursos");
+                break;
+            case "pages":
+                $setTitle("Paginas");
+                break;
+            case "components":
+                $setTitle("Componentes");
+                break;
+            default:
+                break;
+        }
+
+    }, [active]);
 
     const validateToken = (token) => {
+
         if (!token) return false;
+
         try {
             const tokenDecoded = JSON.parse(atob(token.split('.')[1]));  // Decodificar JWT
             const exp = tokenDecoded.exp * 1000;  // Timestamp expiração
