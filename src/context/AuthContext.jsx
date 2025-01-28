@@ -13,6 +13,10 @@ export const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(getAuthenticated || null);
   // const [currentUser, setCurrentUser] = useState(null);
 
+  if (authenticated === null) {
+    navigate("/login");
+  }
+
   
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token") || localStorage.getItem("token");
