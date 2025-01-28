@@ -63,11 +63,11 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     // }, [navigate,validateToken]);
 
      // Função para logout
-    const handleLogout = useCallback(() => {
-        Cookies.remove("token");
+    const handleLogout = () => {
+        // Cookies.remove("token");
         localStorage.clear();
         navigate("/login");
-    }, [navigate]);
+    };
 
 
     return (

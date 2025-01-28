@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   
 
   if (token) {
-      console.log("Token recebido:", token); // Verifique o token recebido
+      
       signInWithCustomToken(auth, token)
           .then((userCredential) => {
               const user = userCredential.user;
