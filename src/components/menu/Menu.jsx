@@ -77,31 +77,31 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                 <FontAwesomeIcon className="icon config" icon={faGear} />
             </div>
             <ul>
-                <Link className="link" to="dashboard">
+                <Link className="link" to="/dashboard">
                     <li className={active === "dashboard" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faGauge} />
                         Dashboard
                     </li>
                 </Link>
-                <Link className="link" to="users">
+                <Link className="link" to="/users">
                     <li className={active === "users" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faUser} />
                         Usuários
                     </li>
                 </Link>
-                <Link className="link" to="contests">
+                <Link className="link" to="/contests">
                     <li className={active === "contests" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faClover} />
                         Concursos
                     </li>
                 </Link>
-                <Link className="link" to="pages">
+                <Link className="link" to="/pages">
                     <li className={active === "pages" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faFileLines} />
                         Paginas
                     </li>
                 </Link>
-                <Link className="link" to="components">
+                <Link className="link" to="/components">
                     <li className={active === "components" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faLayerGroup} />
                         Componentes
