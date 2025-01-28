@@ -17,25 +17,29 @@ export const AuthProvider = ({ children }) => {
   
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get("token") || localStorage.getItem("token");
-  
-  if (token) {
-      signInWithCustomToken(auth, token)
-      .then((userCredential) => {
-          setAuthenticated(true);
-          // Usuário autenticado, pode acessar o painel
-          const user = userCredential.user;
-          localStorage.setItem("Authenticated", true);
-          localStorage.setItem("token", token);
-          localStorage.setItem("userUid", JSON.stringify(user.uid));
-          console.log("Usuário autenticado: ", user);
-      })
-      .catch((error) => {
-          // Token inválido ou expirado, redireciona para login
-          console.error(error);
-          navigate("/login");
-      });
-  }
+  console.log(token)
 
+  if (token) {
+      console.log("Token recebido:", token); // Verifique o token recebido
+      signInWithCustomToken(auth, token)
+          .then((userCredential) => {
+              const user = userCredential.user;
+              console.log("Usuário autenticado com sucesso:", user);
+
+              setAuthenticated(true);
+              localStorage.setItem("Authenticated", true);
+              localStorage.setItem("token", token);
+              localStorage.setItem("userUid", JSON.stringify(user.uid));
+          })
+          .catch((error) => {
+              console.error("Erro ao autenticar:", error.message, error.code);
+              localStorage.removeItem("token"); // Limpa o token inválido
+              navigate("/login"); // Redireciona para a página de login
+          });
+  } else {
+      console.warn("Nenhum token encontrado. Redirecionando para login.");
+      navigate("/login");
+  }
 
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
