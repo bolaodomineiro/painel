@@ -25,7 +25,7 @@ const Login = () => {
       localStorage.setItem("Authenticated", true);
 
       console.log(user.accessToken)
-      navigate("/painel/dashboard");
+      navigate("/dashboard");
     } catch (error) {
       console.error(error.message);
       alert("Credenciais inválidas");

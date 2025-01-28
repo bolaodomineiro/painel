@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Aside } from "./MenuStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,9 +12,19 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     const location = useLocation();
     const [active, setActive] = useState("dashboard");
 
+    const validateToken = (token) => {
+        if (!token) return false;
+        try {
+            const tokenDecoded = JSON.parse(atob(token.split('.')[1]));
+            return tokenDecoded.exp * 1000 > Date.now();
+        } catch (e) {
+            return false;
+        }
+    };
+
     // Atualizar o estado de menu ativo com base no caminho
     useEffect(() => {
-        const pathSegments = location.pathname.split('painel/').filter(Boolean);
+        const pathSegments = location.pathname.split('/').filter(Boolean);
         const lastSegment = pathSegments[pathSegments.length - 1] || "dashboard";
         setActive(lastSegment);
 
@@ -49,16 +59,6 @@ const Menu = ({ $menuToggle, $setTitle }) => {
             navigate("/login");
         }
     }, [navigate,validateToken]);
-
-    const validateToken = (token) => {
-        if (!token) return false;
-        try {
-            const tokenDecoded = JSON.parse(atob(token.split('.')[1]));
-            return tokenDecoded.exp * 1000 > Date.now();
-        } catch (e) {
-            return false;
-        }
-    };
 
      // Função para logout
     const handleLogout = useCallback(() => {
