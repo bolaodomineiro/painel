@@ -8,7 +8,7 @@ import AppRoutes from "../../AppRoutes";
 const Painel = () => {
 
     const [title, setTitle] = useState("Dashboard")
-    const [menuToggle, setMenuToggle] = useState(false)
+    const [menuToggle, setMenuToggle] = useState(true)
 
     return (
         <Container  $menuToggle={menuToggle}>
