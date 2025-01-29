@@ -22,53 +22,55 @@ const EditUserModal = ({ user, onClose, onSave }) => {
   };
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>Editar Usuário</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Nome:
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Telefone:
-            <InputMask
-              mask="(99) 9 9999-9999"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Cidade:
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Saldo:
-            <input
-              type="number"
-              name="balance"
-              value={formData.balance}
-              onChange={handleChange}
-            />
-          </label>
-          <button type="submit">Salvar</button>
-          <button type="button" onClick={onClose}>
-            Cancelar
-          </button>
-        </form>
+    <modal_window>
+      <div className="modal">
+        <div className="modal-content">
+          <h2>Editar Usuário</h2>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Nome:
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Telefone:
+              <InputMask
+                mask="(99) 9 9999-9999"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Cidade:
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Saldo:
+              <input
+                type="number"
+                name="balance"
+                value={formData.balance}
+                onChange={handleChange}
+              />
+            </label>
+            <button type="submit">Salvar</button>
+            <button type="button" onClick={onClose}>
+              Cancelar
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </modal_window>
   );
 };
 
