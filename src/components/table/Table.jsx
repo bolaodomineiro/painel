@@ -6,35 +6,11 @@ import { db } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Perfil from "../../assets/perfil.jpg";
 
-
-
-function formatPhoneNumber(phone) {
-    if (!phone) return "";
-
-    const cleaned = phone.replace(/\D/g, "");
-    const match = cleaned.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
-    if (match) {
-        return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
-    }
-
-    return phone;
-}
-
-function UserPhone({ phone }) {
-    const formattedPhone = formatPhoneNumber(phone);
-
-    return <li>{formattedPhone}</li>;
-}
-
-
-
 const Table = ({ useSelect }) => {
 
     const [userFilter, setuserFilter] = useState("");
-
     const [userData, setUserData] = useState([]);
 
-    // Busca usuários apenas uma vez ao montar o componente
     const getUsers = async () => {
         const userCollection = collection(db, "users");
         const userSnapshot = await getDocs(userCollection);
@@ -50,7 +26,6 @@ const Table = ({ useSelect }) => {
         getUsers();
     }, []);
 
-    // Atualiza o filtro com base no select
     useEffect(() => {
         if (useSelect === "Apostadores") {
             setuserFilter("apostador");
@@ -84,13 +59,7 @@ const Table = ({ useSelect }) => {
                                 <img className="image_user" src={user.image || Perfil} alt={user.name} />
                             </li>
                             <li>{user.name.split(" ").slice(0, 2).join(" ")}</li>
-
-                            {/* <li>{user.phone}</li> */}
-
-
-                            <li><UserPhone phone={user.phone} /></li>
-
-
+                            <li>{user.phone}</li>
                             <li>{user.city}</li>
                             <li>
                                 {user.balance ? `R$ ${user.balance.toFixed(2).replace(".", ",")}` : "R$ 0,00"}
