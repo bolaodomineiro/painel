@@ -8,9 +8,8 @@ import Perfil from "../../assets/perfil.jpg";
 import InputMask from "react-input-mask";
 import EditUserModal from "./EditUserModal";
 
-// Função para formatar o saldo
 function formatBalance(balance) {
-  const value = Number(balance || 0); // Converte para número e define valor padrão
+  const value = Number(balance || 0);
   return `R$ ${value.toFixed(2).replace(".", ",")}`;
 }
 
@@ -25,7 +24,7 @@ const Table = ({ useSelect }) => {
     const userList = userSnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
-      balance: doc.data().balance || 0, // Define um valor padrão se balance não existir
+      balance: doc.data().balance || 0,
     }));
     setUserData(userList);
   };
@@ -93,7 +92,7 @@ const Table = ({ useSelect }) => {
                 />
               </li>
               <li>{user.city}</li>
-              <li>{formatBalance(user.balance)}</li> {/* Usa a função formatBalance */}
+              <li>{formatBalance(user.balance)}</li>
               <li>
                 <FontAwesomeIcon
                   className="icon"

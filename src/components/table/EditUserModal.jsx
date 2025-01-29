@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import InputMask from "react-input-mask";
+import { modal_window } from "./ModalStyles";
 
 const EditUserModal = ({ user, onClose, onSave }) => {
   const [formData, setFormData] = useState({
