@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container_table } from "./TableStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrash, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { db } from "../../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Perfil from "../../assets/perfil.jpg";
@@ -46,7 +46,6 @@ const Table = ({ useSelect }) => {
           <li>Telefone</li>
           <li>Cidade</li>
           <li>Saldo</li>
-          {/* <li>+ Detalhes</li> */}
           <li>Editar</li>
           <li>Excluir</li>
         </ul>
@@ -68,14 +67,10 @@ const Table = ({ useSelect }) => {
                   style={{ border: "none", background: "transparent" }}
                 />
               </li>
-              {/* <li>{user.phone}</li> */}
               <li>{user.city}</li>
               <li>
                 {user.balance ? `R$ ${user.balance.toFixed(2).replace(".", ",")}` : "R$ 0,00"}
               </li>
-              {/* <li>
-                <FontAwesomeIcon className="icon" icon={faCircleInfo} />
-              </li> */}
               <li>
                 <FontAwesomeIcon className="icon" icon={faPenToSquare} />
               </li>

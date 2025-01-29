@@ -97,7 +97,6 @@ export const Container_table = styled.div`
 
             li {
                 box-shadow:none;
-                text-align:center;
 
                 .image_user {
                     width: 40px;
