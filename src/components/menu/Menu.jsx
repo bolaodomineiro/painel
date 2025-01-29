@@ -66,7 +66,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     const handleLogout = () => {
         // Cookies.remove("token");
         localStorage.clear();
-        window.location.href = "http://localhost:4000/";
+        window.location.href = "https://www.bolaodomineiro.com.br/";
     };
 
 
