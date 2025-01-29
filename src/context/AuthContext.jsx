@@ -9,7 +9,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
-  const secretKey = "sua-chave-secreta"; // Guarde isso em um .env
+  const secretKey = "sua-chave-secreta";
 
   useEffect(() => {
     const verifyUser = async () => {
@@ -20,30 +20,27 @@ export const AuthProvider = ({ children }) => {
         let encryptedUid = urlUid ? decodeURIComponent(urlUid) : localStorage.getItem("userId");
 
         if (!encryptedUid) {
-          console.log("Nenhum UID encontrado.");
+          alert("Nenhum UID encontrado.");
           navigate("/login");
           return;
         }
 
-        // 🛠️ Descriptografar UID
         const decryptedBytes = CryptoJS.AES.decrypt(encryptedUid, secretKey);
         const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
         if (!decryptedUid) {
-          console.log("Erro: UID descriptografado é inválido.");
+          alert("Erro: UID descriptografado é inválido.");
           navigate("/login");
           return;
         }
 
-        // ✅ Salva o UID descriptografado no localStorage
         localStorage.setItem("userId", encryptedUid);
 
-        // 🔍 Busca o usuário no Firestore
         const userDocRef = doc(db, "users", decryptedUid);
         const userDocSnap = await getDoc(userDocRef);
 
         if (!userDocSnap.exists()) {
-          console.log("Usuário não encontrado.");
+          alert("Usuário não encontrado.");
           navigate("/login");
           return;
         }
@@ -52,17 +49,16 @@ export const AuthProvider = ({ children }) => {
         const storedToken = userData.token;
 
         if (!storedToken) {
-          console.log("Nenhum token encontrado no Firestore.");
+          alert("Nenhum token encontrado no Banco de Dados.");
           navigate("/login");
           return;
         }
 
-        console.log("Token encontrado, validando...");
+        // console.log("Token encontrado, validando...");
 
-        // Verifica se o token ainda é válido
         const user = auth.currentUser;
         if (!user) {
-          console.log("Usuário não autenticado.");
+          alert("Usuário não autenticado.");
           navigate("/login");
           return;
         }
@@ -71,16 +67,16 @@ export const AuthProvider = ({ children }) => {
         const now = Date.now() / 1000;
 
         if (tokenResult.expirationTime < now) {
-          console.log("Token expirado.");
+          alert("Token expirado. Entre com seus dados novamente.");
           navigate("/login");
           return;
         }
 
-        console.log("Token válido. Acesso autorizado.");
+        alert("Acesso autorizado. Bem vindo!");
         setAuthenticated(true);
         localStorage.setItem("authenticated", "true");
       } catch (error) {
-        console.error("Erro ao autenticar usuário:", error.message);
+        alert("Erro ao autenticar usuário:", error.message);
         navigate("/login");
       }
     };
