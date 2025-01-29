@@ -46,7 +46,7 @@ const Table = ({ useSelect }) => {
           <li>Telefone</li>
           <li>Cidade</li>
           <li>Saldo</li>
-          <li>+ Detalhes</li>
+          {/* <li>+ Detalhes</li> */}
           <li>Editar</li>
           <li>Excluir</li>
         </ul>
@@ -72,9 +72,9 @@ const Table = ({ useSelect }) => {
               <li>
                 {user.balance ? `R$ ${user.balance.toFixed(2).replace(".", ",")}` : "R$ 0,00"}
               </li>
-              <li>
+              {/* <li>
                 <FontAwesomeIcon className="icon" icon={faCircleInfo} />
-              </li>
+              </li> */}
               <li>
                 <FontAwesomeIcon className="icon" icon={faPenToSquare} />
               </li>
