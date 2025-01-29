@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
           return;
         }
 
-        alert("Acesso autorizado. Bem vindo!");
+        // alert("Acesso autorizado. Bem vindo!");
         setAuthenticated(true);
         localStorage.setItem("authenticated", "true");
       } catch (error) {
