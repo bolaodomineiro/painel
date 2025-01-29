@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputMask from "react-input-mask";
-import { modal_window } from "./ModalStyles";
+import { ModalWindow } from "./ModalStyles";
 
 const EditUserModal = ({ user, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const EditUserModal = ({ user, onClose, onSave }) => {
   };
 
   return (
-    <modal_window>
+    <ModalWindow>
       <div className="modal">
         <div className="modal-content">
           <h2>Editar Usuário</h2>
@@ -70,7 +70,7 @@ const EditUserModal = ({ user, onClose, onSave }) => {
           </form>
         </div>
       </div>
-    </modal_window>
+    </ModalWindow>
   );
 };
 

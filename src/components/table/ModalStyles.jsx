@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
-export const modal_window = styled.div`
+export const ModalWindow = styled.div`
 
-/* Estilos para o modal */
 .modal {
   position: fixed;
   top: 0;
