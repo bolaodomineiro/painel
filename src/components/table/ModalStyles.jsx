@@ -70,7 +70,7 @@ export const ModalWindow = styled.div`
   }
 
   .modal-content input:focus {
-    border-color: #007bff;
+    border-color: rgb(171, 5, 25);
     outline: none;
   }
 
@@ -84,12 +84,12 @@ export const ModalWindow = styled.div`
   }
 
   .modal-content button[type="submit"] {
-    background-color: #007bff;
+    background-color: rgb(171, 5, 25);
     color: white;
   }
 
   .modal-content button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #FF0000;
   }
 
   .modal-content button[type="button"] {
