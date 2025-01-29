@@ -5,7 +5,7 @@ export const Container_table = styled.div`
 
     .header_table, .body_table {
 
-        width: 848px;
+        width: 920px;
         margin: 0 auto;
 
         ul {
@@ -41,19 +41,27 @@ export const Container_table = styled.div`
                 min-width: 60px;
             }
 
-            li:nth-child(3) {
+            li:nth-child(2) {
                 width: 170px;
                 min-width: 170px; 
             }
 
-            li:nth-child(4) {
+            li:nth-child(3) {
                 width: 130px;
                 min-width: 130px;
             }
 
-            li:nth-child(5) {
+            li:nth-child(4) {
                 width: 170px;
                 min-width: 170px; 
+            }
+
+            li:nth-child(5) {
+                dplay: flex;
+                align-items: center;
+                justify-content: center;
+                width: 120px;
+                min-width: 100px;
             }
 
             li:nth-child(6) {
