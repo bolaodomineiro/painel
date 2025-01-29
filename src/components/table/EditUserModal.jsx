@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { doc, updateDoc } from "firebase/firestore";
+import React, { useState } from "react";
+import InputMask from "react-input-mask";
 
 const EditUserModal = ({ user, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     name: user.name,
     phone: user.phone,
     city: user.city,
-    balance: user.balance,
+    balance: user.balance || 0,
   });
 
   const handleChange = (e) => {
@@ -70,3 +70,5 @@ const EditUserModal = ({ user, onClose, onSave }) => {
     </div>
   );
 };
+
+export default EditUserModal;
