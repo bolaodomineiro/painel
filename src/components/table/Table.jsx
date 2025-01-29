@@ -60,22 +60,14 @@ const Table = ({ useSelect }) => {
                 <img className="image_user" src={user.image || Perfil} alt={user.name} />
               </li>
               <li>{user.name.split(" ").slice(0, 2).join(" ")}</li>
-
-
               <li>
                 <InputMask
                   mask="(99) 9 9999-9999"
                   value={user.phone}
                   disabled
-                  style={{ border: "none", background: "transparent" }}
                 />
               </li>
-
-
-
               {/* <li>{user.phone}</li> */}
-
-
               <li>{user.city}</li>
               <li>
                 {user.balance ? `R$ ${user.balance.toFixed(2).replace(".", ",")}` : "R$ 0,00"}
