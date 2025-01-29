@@ -66,7 +66,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     const handleLogout = () => {
         // Cookies.remove("token");
         localStorage.clear();
-        navigate("/login");
+        window.location.href = "http://localhost:4000/";
     };
 
 
