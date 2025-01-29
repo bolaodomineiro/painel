@@ -8,6 +8,12 @@ import Perfil from "../../assets/perfil.jpg";
 import InputMask from "react-input-mask";
 import EditUserModal from "./EditUserModal";
 
+// Função para formatar o saldo
+function formatBalance(balance) {
+  const value = Number(balance || 0); // Converte para número e define valor padrão
+  return `R$ ${value.toFixed(2).replace(".", ",")}`;
+}
+
 const Table = ({ useSelect }) => {
   const [userFilter, setUserFilter] = useState("");
   const [userData, setUserData] = useState([]);
@@ -19,6 +25,7 @@ const Table = ({ useSelect }) => {
     const userList = userSnapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
+      balance: doc.data().balance || 0, // Define um valor padrão se balance não existir
     }));
     setUserData(userList);
   };
@@ -38,14 +45,14 @@ const Table = ({ useSelect }) => {
   }, [useSelect]);
 
   const handleEditClick = (user) => {
-    setEditingUser(user); // Define o usuário sendo editado
+    setEditingUser(user);
   };
 
   const handleSave = async (userId, updatedData) => {
     try {
       const userRef = doc(db, "users", userId);
-      await updateDoc(userRef, updatedData); // Atualiza os dados no Firebase
-      getUsers(); // Recarrega os dados da tabela
+      await updateDoc(userRef, updatedData);
+      getUsers();
     } catch (error) {
       console.error("Erro ao atualizar usuário:", error);
     }
@@ -86,11 +93,7 @@ const Table = ({ useSelect }) => {
                 />
               </li>
               <li>{user.city}</li>
-              <li>
-                {user.balance
-                  ? `R$ ${user.balance.toFixed(2).replace(".", ",")}`
-                  : "R$ 0,00"}
-              </li>
+              <li>{formatBalance(user.balance)}</li> {/* Usa a função formatBalance */}
               <li>
                 <FontAwesomeIcon
                   className="icon"
