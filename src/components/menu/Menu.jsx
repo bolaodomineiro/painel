@@ -37,15 +37,15 @@ const Menu = ({ $menuToggle, $setTitle }) => {
             case "users":
                 $setTitle("Usuários");
                 break;
-            case "contests":
-                $setTitle("Concursos");
-                break;
-            case "pages":
-                $setTitle("Paginas");
-                break;
-            case "components":
-                $setTitle("Componentes");
-                break;
+            // case "contests":
+            //     $setTitle("Concursos");
+            //     break;
+            // case "pages":
+            //     $setTitle("Paginas");
+            //     break;
+            // case "components":
+            //     $setTitle("Componentes");
+            //     break;
             default:
                 $setTitle("");
                 break;
@@ -62,7 +62,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     //     }
     // }, [navigate,validateToken]);
 
-     // Função para logout
+    // Função para logout
     const handleLogout = () => {
         // Cookies.remove("token");
         localStorage.clear();
@@ -89,24 +89,24 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                         Usuários
                     </li>
                 </Link>
-                <Link className="link" to="/contests">
+                {/* <Link className="link" to="/contests">
                     <li className={active === "contests" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faClover} />
                         Concursos
                     </li>
-                </Link>
-                <Link className="link" to="/pages">
+                </Link> */}
+                {/* <Link className="link" to="/pages">
                     <li className={active === "pages" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faFileLines} />
                         Paginas
                     </li>
-                </Link>
-                <Link className="link" to="/components">
+                </Link> */}
+                {/* <Link className="link" to="/components">
                     <li className={active === "components" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faLayerGroup} />
                         Componentes
                     </li>
-                </Link>
+                </Link> */}
                 <li className="logout-button" onClick={handleLogout}>
                     <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
                     Sair
