@@ -65,6 +65,7 @@ const Table = ({ useSelect }) => {
                   mask="(99) 9 9999-9999"
                   value={user.phone}
                   disabled
+                  style={{ border: "none", background: "transparent" }}
                 />
               </li>
               {/* <li>{user.phone}</li> */}
