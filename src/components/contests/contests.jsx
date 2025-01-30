@@ -1,8 +1,8 @@
-import { contestsStyle } from "./contestsStyle";
+import { Contests_style } from "./contestsStyle";
 
 const Contests = () => {
   return (
-    <contestsStyle>
+    <Contests_style>
       <div className="deals">
         <div className="card">
           Concurso 1
@@ -16,7 +16,7 @@ const Contests = () => {
           Concurso 3
         </div>
       </div>
-    </contestsStyle>
+    </Contests_style>
   );
 };
 

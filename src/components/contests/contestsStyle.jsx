@@ -1,19 +1,19 @@
 import styled from "styled-components";
 
-export const contestsStyle = styled.section`
+export const Contests_style = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  padding: 5rem; /* Padding de 5rem */
-  margin: 0 2rem; /* Margem horizontal de 2rem */
+  padding: 5rem;
+  margin: 0 2rem;
 
   .deals {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center; /* Centraliza os cards horizontalmente */
+    justify-content: center;
   }
 
   .card {
