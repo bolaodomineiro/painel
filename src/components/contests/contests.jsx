@@ -8,7 +8,7 @@ const Contests = () => {
           <h2>BOLÃO DE SÁBADO</h2>
           <p className="details">Todo Sábado, começa às 21h</p>
           <hr />
-          <p className="details">R$ 200.000,00 MIL</p>
+          <p className="details prize">R$ 200.000,00 MIL</p>
           <p className="details">6 prêmios</p>
           <hr />
           <a href="#">APOSTE AGORA</a>

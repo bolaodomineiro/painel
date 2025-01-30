@@ -36,11 +36,11 @@ export const Contests_style = styled.section`
 
   .card h2 {
     font-size: 1.5em;
-    font-weight: 600;
+    font-weight: 700;
     padding-left: 0.5em;
     padding-right: 0.5em;
     padding-top: 0.3em;
-    padding-bottom: 0.3em;
+    padding-bottom: 0.8em;
   }
 
   .card .details {
@@ -49,5 +49,11 @@ export const Contests_style = styled.section`
     padding-top: 0.3em;
     padding-bottom: 0.3em;
   }
-    
+
+  .card .prize {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: blue;
+  }
+
 `;
