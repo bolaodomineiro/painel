@@ -5,7 +5,7 @@ const Contests = () => {
     <Contests_style>
       <div className="deals">
         <div className="card">
-          <p>BOLÃO DE SÁBADO</p>
+          <h2>BOLÃO DE SÁBADO</h2>
           <p>Todo Sábado, começa às 21h</p>
           <hr />
           <p>R$ 200.000,00 MIL</p>
@@ -15,7 +15,7 @@ const Contests = () => {
         </div>
 
         <div className="card">
-          <p>BOLÃO DE SEGUNDA</p>
+          <h2>BOLÃO DE SEGUNDA</h2>
           <p>Todo Segunda, começa às 21h</p>
           <hr />
           <p>R$ 45.000,00 MIL</p>
@@ -25,7 +25,7 @@ const Contests = () => {
         </div>
 
         <div className="card">
-          <p>BOLÃO DE QUARTA</p>
+          <h2>BOLÃO DE QUARTA</h2>
           <p>Todo Quarta, começa às 21h</p>
           <hr />
           <p>R$ 86.800,00 MIL</p>

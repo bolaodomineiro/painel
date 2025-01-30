@@ -31,4 +31,11 @@ export const Contests_style = styled.section`
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
   }
+
+  .card h2 {
+    font-size: 2em;
+    font-weight: bold;
+    padding: 2em;
+  }
+
 `;
