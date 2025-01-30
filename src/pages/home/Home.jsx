@@ -44,13 +44,6 @@ const Home = () => {
                     value="R$ 126 MIL"
                     color="#00A65A"
                 />
-                <MetricCard
-                    icon={faCirclePlus}
-                    image={faDollarSign}
-                    title="Saldo Total"
-                    value="R$ 40000,00"
-                    color="#343434"
-                />
             </section>
             <BarChart />
             {/* <div className="infor_area">
