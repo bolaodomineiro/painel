@@ -1,10 +1,10 @@
-import { Container_components } from "./ComponentsStyles"
+import { contestsStyle } from "./contestsStyle"
 
 const Contests = () => {
   return (
-    <Container_components>
+    <contestsStyle>
       <h2>Apostas</h2>
-    </Container_components>
+    </contestsStyle>
   )
 }
 
