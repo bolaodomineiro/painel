@@ -35,8 +35,19 @@ export const Contests_style = styled.section`
   }
 
   .card h2 {
-    font-size: 2em;
-    font-weight: bold;
-    padding: 2em;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
   }
+
+  .card .details {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+  }
+    
 `;

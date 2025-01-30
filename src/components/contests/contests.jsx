@@ -6,10 +6,10 @@ const Contests = () => {
       <div className="deals">
         <div className="card">
           <h2>BOLÃO DE SÁBADO</h2>
-          <p>Todo Sábado, começa às 21h</p>
+          <p className="details">Todo Sábado, começa às 21h</p>
           <hr />
-          <p>R$ 200.000,00 MIL</p>
-          <p>6 prêmios</p>
+          <p className="details">R$ 200.000,00 MIL</p>
+          <p className="details">6 prêmios</p>
           <hr />
           <a href="#">APOSTE AGORA</a>
         </div>
