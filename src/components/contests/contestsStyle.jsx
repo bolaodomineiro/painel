@@ -7,4 +7,12 @@ export const contestsStyle = styled.section`
     width: 100%;
     height: 100%;
 
+    .deals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 8px;
+      margin-top: 35px;
+    }
+
 `

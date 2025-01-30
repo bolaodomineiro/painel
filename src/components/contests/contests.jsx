@@ -3,17 +3,17 @@ import { contestsStyle } from "./contestsStyle"
 const Contests = () => {
   return (
     <contestsStyle>
-      <div>
+      <deals>
         Concurso 1
-      </div>
+      </deals>
 
-      <div>
+      <deals>
         Concurso 2
-      </div>
+      </deals>
 
-      <div>
+      <deals>
         Concurso 3
-      </div>
+      </deals>
     </contestsStyle>
   )
 }
