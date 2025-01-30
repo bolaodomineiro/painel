@@ -30,8 +30,11 @@ const Contests = () => {
           <hr />
           <p className="details prize">R$ 86.800,00 MIL</p>
           <p className="details">5 prêmios</p>
-          <hr />
-          <a href="#">APOSTE AGORA</a>
+
+          <div className="button">
+            <a href="#">APOSTE AGORA</a>
+          </div>
+
         </div>
       </div>
     </Contests_style>

@@ -56,6 +56,10 @@ export const Contests_style = styled.section`
     color: blue;
   }
 
+  .button {
+    margin-top: 80px;
+  }
+
   .card a {
     margin-top: 4em;
     padding-left: 0.8em;
