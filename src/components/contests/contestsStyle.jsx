@@ -22,7 +22,7 @@ export const Contests_style = styled.section`
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 200px; /* Largura dos cards */
+    width: 6em;
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
