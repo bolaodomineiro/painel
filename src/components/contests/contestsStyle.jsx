@@ -56,4 +56,16 @@ export const Contests_style = styled.section`
     color: blue;
   }
 
+  .card a {
+    padding-top: 0.8em;
+    background-color: blue;
+    color: white;
+    font-weight: 700;
+  }
+
+  .card a:hover {
+    background-color: black;
+    transition: ease-in-out 300s;
+  }
+
 `;
