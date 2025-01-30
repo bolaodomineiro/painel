@@ -4,6 +4,7 @@ const Contests = () => {
     return (
         <Container_contests>
             <h2>Contests</h2>
+            <p>Apostas</p>
         </Container_contests>
     )
 }

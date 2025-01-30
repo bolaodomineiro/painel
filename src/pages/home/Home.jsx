@@ -45,7 +45,10 @@ const Home = () => {
                     color="#00A65A"
                 />
             </section>
-            <BarChart />
+
+
+
+            {/* <BarChart /> */}
             {/* <div className="infor_area">
                 <img src={Logo} alt="logo" />
                 <h1>Bem-vindo ao Painel, Bolão do Mineiro!</h1>
