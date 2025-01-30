@@ -1,54 +1,53 @@
+import { useState, useEffect } from "react"
 import { Container_home } from "./HomeStyles"
 import { faCirclePlus, faDollarSign } from "@fortawesome/free-solid-svg-icons"
 import MetricCard from "../../components/cards/card_dashboard/MetricCard"
 import Contests from "../../components/contests/contests"
+// db firebase / jogos
+import { db } from "../../firebase/firebase"
+import { collection, getDocs } from "firebase/firestore"
+
 
 const Home = () => {
+    
+    const [jogos, setJogos] = useState([]);
+    
+    async function getJogos() {
+        const jogosCollection = collection(db, "jogos");
+        const jogosSnapshot = await getDocs(jogosCollection);
+        const jogosList = jogosSnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+        }));
+        setJogos(jogosList);
+        console.log(jogosList);
+    }
+    
+    useEffect(() => {
+        getJogos();
+
+    }, []);
+
+
     return (
         <Container_home>
             <section className="container_cards">
-                <MetricCard
-                    icon={faCirclePlus}
-                    image={faDollarSign}
-                    title="Segunda"
-                    value="R$ 25 MIL"
-                    color="#F39C11"
-                />
-                <MetricCard
-                    icon={faCirclePlus}
-                    image={faDollarSign}
-                    title="Quarta"
-                    value="R$ 76 MIL"
-                    color="#00C0EF"
-                />
-                <MetricCard
-                    icon={faCirclePlus}
-                    image={faDollarSign}
-                    title="Sexta"
-                    value="R$ 58 MIL"
-                    color="#1045A7"
-                />
-                <MetricCard
-                    icon={faCirclePlus}
-                    image={faDollarSign}
-                    title="Sábado"
-                    value="R$ 112 MIL"
-                    color="#AB0519"
-                    flip="both"
-                />
-                <MetricCard
-                    icon={faCirclePlus}
-                    image={faDollarSign}
-                    title="Sábado (Federal)"
-                    value="R$ 126 MIL"
-                    color="#00A65A"
-                />
+                { jogos.map((jogo) => (
+                    <MetricCard
+                        key={jogo.id}
+                        icon={faCirclePlus}
+                        title={jogo.title}
+                        description={jogo.description}
+                        value={jogo.award}
+                        color={"#f2f2f2"}
+                        corbottom={jogo.color}
+                        image={faDollarSign}
+                        prizeQuantity={jogo.prizeQuantity}
+
+                    />
+                ))}
             </section>
-
-
             <Contests />
-
-
         </Container_home>
     )
 }

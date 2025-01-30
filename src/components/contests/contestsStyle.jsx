@@ -1,13 +1,95 @@
 import styled from "styled-components";
 
 export const Contests_style = styled.section`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   width: 100%;
-  height: 100%;
-  padding: 5rem;
-  margin: 0 2rem;
+  min-height: 100svh;
+  padding: 0.5em;
+  background-color: #f1f1f1;
+  border-top: 5px solid #AB0519;
+
+  .header_contests{
+    display: flex;
+    gap: 10px;
+    padding: 0.5em;
+
+    .acumulado_text {
+      max-width: 100px;
+      padding: 0.3em;
+      background-color:rgb(15, 125, 0);
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 0.3em;
+    }
+
+    .header_infor {
+      .title {
+        font-size: 1em;
+        font-weight: 700;
+        text-align: center;
+        padding: 0.5em;
+        background-color:#AB0519;
+        color: #fff;
+        border-radius: 4px;
+        margin-bottom: 0.3em;
+      }
+
+      .descricao {
+        padding: 0.3em;
+        background-color:rgb(147, 160, 245);
+      }
+
+      .text_premeio {
+        color:rgb(1, 128, 3);
+      }
+
+      h4 {
+        font-size: 0.8em;
+      }
+
+    }
+
+    .select {
+      height: 35px;
+      justify-self: flex-start
+    }
+  
+  }
+
+  .menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 0.5em;
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      
+      li {
+          font-size: 0.9em;
+          font-weight: 500;
+          background-color: #ccc;
+          padding: 0.5em 1em;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &:hover {
+            background-color:rgb(48, 48, 48);
+            color: #fff;
+          }
+      }
+    }
+
+  }
 
   .deals {
     display: flex;

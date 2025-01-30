@@ -2,13 +2,17 @@ import styled from "styled-components";
 
 export const Container_home = styled.section`
     width: 100%;
+    background: #ccc;
+    padding: 10px  0px ;
 
     .container_cards {
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 15px;
         padding: 8px;
-        margin-top: 35px;
+        margin-top: 30px;
+        padding-bottom: 12px;
     }
 
     .infor_area {
