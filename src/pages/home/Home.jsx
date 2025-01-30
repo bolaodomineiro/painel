@@ -10,38 +10,38 @@ const Home = () => {
             <section className="container_cards">
                 <MetricCard
                     icon={faCirclePlus}
-                    image={faClover}
-                    title="Apostas Hoje"
-                    value="2000"
+                    image={faDollarSign}
+                    title="Segunda"
+                    value="R$ 25 MIL"
                     color="#F39C11"
                 />
                 <MetricCard
                     icon={faCirclePlus}
-                    image={faUser}
-                    title="Total de Usuários"
-                    value="10000"
+                    image={faDollarSign}
+                    title="Quarta"
+                    value="R$ 76 MIL"
                     color="#00C0EF"
                 />
                 <MetricCard
                     icon={faCirclePlus}
-                    image={faAward}
-                    title="Total de Ganhadores"
-                    value="10"
+                    image={faDollarSign}
+                    title="Sexta"
+                    value="R$ 58 MIL"
                     color="#1045A7"
                 />
                 <MetricCard
                     icon={faCirclePlus}
-                    image={faChartLine}
-                    title="Saida Hoje"
-                    value="R$ 2000,00"
+                    image={faDollarSign}
+                    title="Sábado"
+                    value="R$ 112 MIL"
                     color="#AB0519"
                     flip="both"
                 />
                 <MetricCard
                     icon={faCirclePlus}
-                    image={faChartLine}
-                    title="Entrada Hoje"
-                    value="R$ 2000,00"
+                    image={faDollarSign}
+                    title="Sábado (Federal)"
+                    value="R$ 126 MIL"
                     color="#00A65A"
                 />
                 <MetricCard
