@@ -14,6 +14,7 @@ export const Contests_style = styled.section`
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
+    width: 90%; /* Ocupa 90% da largura da tela */
   }
 
   .card {
@@ -22,7 +23,8 @@ export const Contests_style = styled.section`
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 600px;
+    flex: 1 1 calc(33.333% - 20px); /* Distribui os cards em 3 colunas */
+    max-width: calc(33.333% - 20px); /* Limita a largura máxima de cada card */
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
@@ -37,5 +39,4 @@ export const Contests_style = styled.section`
     font-weight: bold;
     padding: 2em;
   }
-
 `;
