@@ -14,17 +14,17 @@ export const Contests_style = styled.section`
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-    width: 90%; /* Ocupa 90% da largura da tela */
+    width: 90%;
   }
 
   .card {
     background: #fff;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 14px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    flex: 1 1 calc(33.333% - 20px); /* Distribui os cards em 3 colunas */
-    max-width: calc(33.333% - 20px); /* Limita a largura máxima de cada card */
+    flex: 1 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 
@@ -53,7 +53,7 @@ export const Contests_style = styled.section`
   .card .prize {
     font-size: 1.2em;
     font-weight: 700;
-    color: blue;
+    color: green;
   }
 
   .button {
@@ -66,7 +66,7 @@ export const Contests_style = styled.section`
     padding-right: 0.8em;
     padding-top: 0.6em;
     padding-bottom: 0.6em;
-    background-color: blue;
+    background-color: green;
     color: white;
     font-weight: 700;
   }
@@ -79,7 +79,7 @@ export const Contests_style = styled.section`
   .card span {
     padding-top: 1em;
     padding-bottom: 1em;
-    color: red;
+    color: blue;
   }
 
 `;
