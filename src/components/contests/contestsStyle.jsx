@@ -11,7 +11,7 @@ export const contestsStyle = styled.section`
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      padding: 8px;
+      padding: 15rem;
       margin-top: 35px;
     }
 
