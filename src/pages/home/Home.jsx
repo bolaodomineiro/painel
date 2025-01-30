@@ -1,6 +1,7 @@
 import { Container_home } from "./HomeStyles"
 import { faCirclePlus, faDollarSign } from "@fortawesome/free-solid-svg-icons"
 import MetricCard from "../../components/cards/card_dashboard/MetricCard"
+import Contests from "../../components/contests/contests"
 
 const Home = () => {
     return (
@@ -43,6 +44,11 @@ const Home = () => {
                     color="#00A65A"
                 />
             </section>
+
+
+            <Contests />
+
+
         </Container_home>
     )
 }
