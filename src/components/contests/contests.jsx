@@ -1,21 +1,23 @@
-import { contestsStyle } from "./contestsStyle"
+import { contestsStyle } from "./contestsStyle";
 
 const Contests = () => {
   return (
     <contestsStyle>
-      <deals>
-        Concurso 1
-      </deals>
+      <div className="deals">
+        <div className="card">
+          Concurso 1
+        </div>
 
-      <deals>
-        Concurso 2
-      </deals>
+        <div className="card">
+          Concurso 2
+        </div>
 
-      <deals>
-        Concurso 3
-      </deals>
+        <div className="card">
+          Concurso 3
+        </div>
+      </div>
     </contestsStyle>
-  )
-}
+  );
+};
 
 export default Contests;
