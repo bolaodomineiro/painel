@@ -16,20 +16,20 @@ const Contests = () => {
 
         <div className="card">
           <h2>BOLÃO DE SEGUNDA</h2>
-          <p>Todo Segunda, começa às 21h</p>
+          <p className="details">Todo Segunda, começa às 21h</p>
           <hr />
-          <p>R$ 45.000,00 MIL</p>
-          <p>5 prêmios</p>
+          <p className="details prize">R$ 45.000,00 MIL</p>
+          <p className="details">5 prêmios</p>
           <hr />
           <a href="#">APOSTE AGORA</a>
         </div>
 
         <div className="card">
           <h2>BOLÃO DE QUARTA</h2>
-          <p>Todo Quarta, começa às 21h</p>
+          <p className="details">Todo Quarta, começa às 21h</p>
           <hr />
-          <p>R$ 86.800,00 MIL</p>
-          <p>5 prêmios</p>
+          <p className="details prize">R$ 86.800,00 MIL</p>
+          <p className="details">5 prêmios</p>
           <hr />
           <a href="#">APOSTE AGORA</a>
         </div>
