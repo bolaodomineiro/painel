@@ -57,7 +57,7 @@ export const Contests_style = styled.section`
   }
 
   .card a {
-    margin-top: 1em;
+    margin-top: 4em;
     padding-left: 0.8em;
     padding-right: 0.8em;
     padding-top: 0.6em;
