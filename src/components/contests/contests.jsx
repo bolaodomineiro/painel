@@ -1,9 +1,11 @@
-export default function Contests() {
+import { Container_components } from "./ComponentsStyles"
+
+const Contests = () => {
   return (
-    <>
-
-      <p className="text-3xl">Faça sua aposta</p>
-
-    </>
+    <Container_components>
+      <h2>Apostas</h2>
+    </Container_components>
   )
 }
+
+export default Contests;
