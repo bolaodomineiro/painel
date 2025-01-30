@@ -14,6 +14,8 @@ const Contests = () => {
           <div className="button">
             <a href="#">APOSTE AGORA</a>
           </div>
+
+          <span>Apenas R$ 5,00</span>
         </div>
 
         <div className="card">
@@ -26,6 +28,8 @@ const Contests = () => {
           <div className="button">
             <a href="#">APOSTE AGORA</a>
           </div>
+
+          <span>Apenas R$ 5,00</span>
         </div>
 
         <div className="card">
@@ -39,6 +43,7 @@ const Contests = () => {
             <a href="#">APOSTE AGORA</a>
           </div>
 
+          <span>Apenas R$ 5,00</span>
         </div>
       </div>
     </Contests_style>

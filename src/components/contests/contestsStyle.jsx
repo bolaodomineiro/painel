@@ -58,6 +58,7 @@ export const Contests_style = styled.section`
 
   .button {
     margin-top: 30px;
+    margin-bottom: 30px;
   }
 
   .card a {
@@ -73,6 +74,12 @@ export const Contests_style = styled.section`
   .card a:hover {
     background-color: black;
     transition: ease-in-out 300s;
+  }
+
+  .card span {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    color: red;
   }
 
 `;
