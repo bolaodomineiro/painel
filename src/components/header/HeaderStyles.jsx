@@ -31,6 +31,7 @@ export const Container_header = styled.header`
     .select-boalls {
         height: 50px;
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         width: 75%;
@@ -39,6 +40,25 @@ export const Container_header = styled.header`
         trasition: all 0.5s;
         animation: balls-animation 0.2s ease forwards ;
         gap: 20px;
+
+        @media (max-width: 700px) {
+            gap: 8px;
+            justify-content: start;
+            padding-left: 10px;
+        }
+
+        @media (max-width: 546px) {
+            width: 92%;
+            height: auto;
+            justify-content: center;
+            position: fixed;
+            right: 0;
+            top: 50px;
+            border-radius: 10px 0 0 10px;
+            gap: 6px;
+            padding: 10px 50px;
+            // animation: none;
+        }
 
         .ball {
             display: flex;
@@ -57,6 +77,11 @@ export const Container_header = styled.header`
             transition: all 0.3s ease;
             position: relative;
             animation: balls-animation 0.4s ease ;
+
+            @media (max-width: 546px) {
+                width: 40px;
+                height: 40px;
+            }
 
             &:after {
                 content: "x";  
