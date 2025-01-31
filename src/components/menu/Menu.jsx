@@ -8,6 +8,7 @@ import Logo from "../logo/Logo";
 
 const Menu = ({ $menuToggle, $setTitle }) => {
 
+
     const navigate = useNavigate();
     const location = useLocation();
     const [active, setActive] = useState("dashboard");
@@ -26,7 +27,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
 
     // Atualizar o estado de menu ativo com base no caminho
     useEffect(() => {
-        const pathSegments = location.pathname.split('/').filter(Boolean);
+        const pathSegments = location.pathname.split('/dashboard/jogo').filter(Boolean);
         const lastSegment = pathSegments[pathSegments.length - 1] || "dashboard";
         setActive(lastSegment);
 
@@ -77,14 +78,14 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                 <FontAwesomeIcon className="icon config" icon={faGear} />
             </div>
             <ul>
-                <Link className="link" to="/dashboard">
+                <Link className="link" to="/dashboard/jogo">
                     <li className={active === "dashboard" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faGauge} />
                         Dashboard
                     </li>
                 </Link>
                 <Link className="link" to="/users">
-                    <li className={active === "users" ? "active" : ""}>
+                    <li className={active === "/users" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faUser} />
                         Usuários
                     </li>

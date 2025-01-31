@@ -10,7 +10,7 @@ import Components from './pages/componentsEdit/Components';
 function AppRoutes({ $menuToggle }) {
     return (
         <Routes>
-            <Route path="/dashboard" element={<Home />}>
+            <Route path="/dashboard/" element={<Home />}>
                 <Route index={true} path="jogo" element={<Jogo />} />
             </Route>
             <Route path="/users" element={<Users $menuToggle={$menuToggle} />} />

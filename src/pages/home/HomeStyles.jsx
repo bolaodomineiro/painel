@@ -12,7 +12,7 @@ export const Container_home = styled.section`
         flex-wrap: wrap;
         gap: 15px;
         padding: 10px;
-        margin-top: 25px;
+        margin-top: 40px;
         padding-bottom: 12px;
         background-color: #f2f2f2;
     }

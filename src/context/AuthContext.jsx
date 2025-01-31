@@ -9,6 +9,8 @@ import Loading from "../assets/loading.webp";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [balls, setBalls] = useState([]); // Corrigido: setBalls
+
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -64,7 +66,7 @@ export const AuthProvider = ({ children }) => {
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ authenticated, loading }}>
+    <AuthContext.Provider value={{ authenticated, loading, balls, setBalls }}>
       { children}
     </AuthContext.Provider>
   );

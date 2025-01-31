@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-const useHookSelect = () => {
-    const [select, setSelect] = useState("Usuários");
+const useHookGetBalls = () => {
+    const [balls, setBalls] = useState([]); // Corrigido: setBalls
 
-    return { select, setSelect };
+    return { balls, setBalls }; // Retornando corretamente
 };
 
-export default useHookSelect  
+export default useHookGetBalls;
