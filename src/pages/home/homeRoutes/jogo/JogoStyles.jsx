@@ -26,7 +26,7 @@ export const Container_jogo = styled.section`
             }
 
             p{
-                font-weight: 400;
+                font-weight: 500;
             }
         }
 
