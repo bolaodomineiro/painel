@@ -26,7 +26,6 @@ export const Container_home = styled.section`
         justify-content: center;
         gap: 10px;
         text-align: center;
-        padding: 30px 10px;
 
         img {
             width: 140px;
@@ -74,18 +73,18 @@ export const Contests_style = styled.section`
         gap: 5px;
 
         @media (max-width: 430px) {
-        justify-content: center;
+            justify-content: center;
         }
 
         p {
-        font-size: 1em;
-        font-weight: 900;
-        padding-bottom: 0.4em;
+            font-size: 1em;
+            font-weight: 900;
+            padding-bottom: 0.4em;
 
-        @media (max-width: 430px) {
-            font-size: 0.8em;
-            text-align: center;
-        }
+            @media (max-width: 430px) {
+                font-size: 0.8em;
+                text-align: center;
+            }
         }
 
 
@@ -111,7 +110,6 @@ export const Contests_style = styled.section`
 
     .select {
         height: 35px;
-        border: 2px solidrgb(0, 0, 0);
         border-radius: 5px;
         background-color: white;
         color: #333;
@@ -130,8 +128,12 @@ export const Contests_style = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #fff;
+        background-color: ;
         padding: 0.5em;
+
+        .link {
+            text-decoration: none;
+        }
 
         nav ul {
         display: flex;
@@ -166,7 +168,6 @@ export const Contests_style = styled.section`
     .routes_contests {
         min-height: 100vh;
         padding: 0.9em;
-        border: 1px solid red;
     }
 
 `;

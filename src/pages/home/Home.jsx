@@ -3,6 +3,7 @@ import { Container_home, Contests_style, Container_card } from "./HomeStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../../assets/loading.webp";
+import {Link, Outlet} from "react-router-dom";
 
 // db firebase / jogos
 import { db } from "../../firebase/firebase";
@@ -103,15 +104,16 @@ const Home = () => {
                 <section className="menu">
                     <nav>
                         <ul>
-                            <li 
-                                style={{
-                                    pointerEvents: jogo?.status ? "auto" : "none",
-                                    backgroundColor: jogo?.status ? "green" : "#ab0519",
-                                    color: "#fff"
-                                }}
-                            >
-                                {jogo?.status ? "Apostar" : "Apostas Encerradas"}
-                            </li>
+                            <Link style={{ pointerEvents: jogo?.status ? "auto" : "none", opacity: jogo?.status ? 1 : 0.7 }} className="link" to="/dashboard/jogo">
+                                <li 
+                                    style={{
+                                        backgroundColor: jogo?.status ? "green" : "#ab0519",
+                                        color: "#fff"
+                                    }}
+                                >
+                                    {jogo?.status ? "Apostar" : "Apostas Encerradas"}
+                                </li>
+                            </Link>
                             <li>Meus Jogos</li>
                             <li>Resultados</li>
                             <li>Ganhadores</li>
@@ -121,7 +123,7 @@ const Home = () => {
                     </nav>
                 </section>
                 <section className="routes_contests">
-                    <h1>Rotas</h1>
+                    <Outlet />
                 </section>
             </Contests_style>
         </Container_home>
