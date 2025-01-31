@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Container_header } from "./HeaderStyles"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons"
@@ -5,12 +6,21 @@ import { useAuthContext } from "../../context/AuthContext";
 
 const Header = ({setMenuToggle, menuToggle, title}) => {
 
-    const {balls, setBalls} = useAuthContext();       
+    const {balls, setBalls} = useAuthContext();  
+    const [message, setMessage] = useState(null);
 
-    const hendleBallsUpdate = (index) => {
+    const hendleBallsUpdate = (baall, index) => {
         const newBalls = [...balls];
         newBalls.splice(index, 1);
         setBalls(newBalls);
+
+        setMessage(`Dezena ${baall} removida com sucesso!`);
+        console.log(message);
+
+        setTimeout(() => {
+            setMessage(null);
+        }, 2000);
+        
         return newBalls;
     }
 
@@ -28,12 +38,15 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
                         <div 
                             key={index} 
                             className="ball"
-                            onClick={() =>  hendleBallsUpdate(index)}
+                            onClick={() =>  hendleBallsUpdate(ball, index)}
                         >
                             {ball}
                         </div>
                     ))}
                 </div>
+            }
+            {  message &&
+                <p className="message">{message}</p>
             }
         </Container_header>
     )

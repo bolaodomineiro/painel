@@ -5,10 +5,7 @@ import { useAuthContext } from "../../../../context/AuthContext";
 
 const Jogo = () => {
 
-    const { balls, setBalls } = useAuthContext();
-
-
-    const [message, setMessage] = useState(null);
+    const { balls, setBalls, message, setMessage } = useAuthContext();
 
     const handleBalls = (ball) => {
         const count = balls.filter((b) => b === ball).length;

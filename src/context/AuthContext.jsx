@@ -10,6 +10,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [balls, setBalls] = useState([]); // Corrigido: setBalls
+  const [message, setMessage] = useState(null); //balls setMessage
 
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
@@ -66,7 +67,7 @@ export const AuthProvider = ({ children }) => {
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ authenticated, loading, balls, setBalls }}>
+    <AuthContext.Provider value={{ authenticated, loading, balls, setBalls, message, setMessage }}>
       { children}
     </AuthContext.Provider>
   );

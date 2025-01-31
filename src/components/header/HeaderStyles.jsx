@@ -9,10 +9,31 @@ export const Container_header = styled.header`
     padding: 0 15px;
     position: fixed;
     top: 0;
-    
     gap: 14px;
     z-index: 2;
     box-shadow: 1px 2px 6px #7979797c;
+
+    .message{
+        min-width: 280px;
+        padding: 10px 20px;
+        background-color: #2D2E30;
+        color: #fff;
+        border-radius: 8px;
+        position: absolute;
+        top: 180px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.9rem;
+        font-weight: 900;
+        text-align: center;
+        z-index: 99;
+
+        @media (max-width: 546px) {
+            left: 45%;
+            transform: translateX(-50%);
+        }
+        
+    }
 
     .icon {
         width: 25px;
@@ -34,7 +55,8 @@ export const Container_header = styled.header`
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        width: 75%;
+        width: 100%;
+        padding: 0 10px;
         background-color: #323030;
         border-radius: 0 0 10px 10px;
         trasition: all 0.5s;
@@ -48,7 +70,7 @@ export const Container_header = styled.header`
         }
 
         @media (max-width: 546px) {
-            width: 92%;
+            width: 94%;
             height: auto;
             justify-content: center;
             position: fixed;
@@ -56,8 +78,15 @@ export const Container_header = styled.header`
             top: 50px;
             border-radius: 10px 0 0 10px;
             gap: 6px;
-            padding: 10px 50px;
-            // animation: none;
+            padding: 10px 20px;
+        }
+
+        @media (max-width: 460px) {
+            padding: 10px 60px;
+        }
+
+        @media (max-width: 375px) {
+            padding: 10px 30px;
         }
 
         .ball {
