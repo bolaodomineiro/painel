@@ -27,6 +27,7 @@ const Home = () => {
                 if (jogosList.length > 0) {
                     setJogos(jogosList);
                     setJogoId(jogosList[0].id);
+                    localStorage.setItem("price", jogosList[0].price);
                 }
             } catch (error) {
                 console.error("Erro ao buscar jogos:", error);
@@ -84,14 +85,15 @@ const Home = () => {
                     </Container_card>
                 ))}
             </section>
-            <Contests_style>
+            <Contests_style style={{borderTopColor: jogo?.color}}>
                 <section className="header_contests">
                     <div className="header_infor">
+                        <p>Valor do bolão: {jogo?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                         <h2 style={{ backgroundColor: jogo?.color }} className="title">
                             {jogo?.title || "Bolão"}
                         </h2>
                     </div>
-                    <div>
+                    <div className="header_select">
                         <p>Concursos</p>
                         <select className="select">
                             <option value="">Conc: 00 - Sa, 01/FER/2025</option>

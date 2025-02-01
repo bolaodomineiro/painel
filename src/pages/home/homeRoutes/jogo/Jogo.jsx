@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container_jogo } from "./JogoStyles";
 import Balls from "./dataBalls";
 import { useAuthContext } from "../../../../context/AuthContext";
@@ -10,16 +10,18 @@ const Jogo = () => {
     const handleBalls = (ball) => {
         const count = balls.filter((b) => b === ball).length;
 
-        if (balls.length === 10) {
-            setMessage({ ball, text: "Limite de 10 dezenas atingido!" });
-            setTimeout(() => {
-                setMessage(null);
-            }, 2000); // Esconde a mensagem após 1,5 segundos
-            return;
-        }
-
         if (count < 3 ) {
+            
             setBalls((prevBalls) => [...prevBalls, ball]);
+
+            if (balls.length === 9) {
+                setMessage({ ball, text: "Seu Jogo foi adicionado ao Carrinho!" });
+                setTimeout(() => {
+                    setMessage(null);
+                    return
+                }, 4000);
+            }
+
         } else {
             setMessage({ ball, text: `O número ${ball} já foi escolhido 3 vezes!` });
 
@@ -29,7 +31,19 @@ const Jogo = () => {
         }
     };
 
-    console.log(balls);
+    // Atualiza o localStorage sempre que `balls` mudar
+    useEffect(() => {
+
+        if (balls.length === 10){
+            const getBalls = JSON.parse(localStorage.getItem("balls")) || [];
+            getBalls.push(balls);
+            localStorage.setItem("balls", JSON.stringify(getBalls));
+
+            setTimeout(() => {
+                setBalls([]);
+            }, 2000);
+        }
+    }, [balls]);
 
     return (
         <Container_jogo>

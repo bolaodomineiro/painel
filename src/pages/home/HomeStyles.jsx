@@ -90,7 +90,13 @@ export const Contests_style = styled.section`
 
         .header_infor {
             display: flex;
+            flex-direction: column;
             align-items: center;
+
+            p {
+                font-size: 0.8em;
+                font-weight: 900;
+            }
 
             .title {
                 font-size: 1em;
@@ -103,26 +109,34 @@ export const Contests_style = styled.section`
                 margin-right: 0.5em;
 
                 @media (max-width: 430px) {
+                    font-size: 0.8em;
+                }
+            }
+        }
+    }
+    
+    .header_select {
+    
+        p {
+            font-size: 0.8em;
+            font-weight: 900;
+        }
+    
+        .select {
+            height: 30px;
+            border-radius: 5px;
+            background-color: white;
+            color: #333;
+            font-size: 0.8em;
+            cursor: pointer;
+
+            @media (max-width: 430px) {
+                height: 26px;
                 font-size: 0.8em;
             }
         }
     }
 
-    .select {
-        height: 35px;
-        border-radius: 5px;
-        background-color: white;
-        color: #333;
-        font-size: 16px;
-        cursor: pointer;
-
-        @media (max-width: 430px) {
-            height: 30px;
-            font-size: 0.8em;
-        }
-    }
-    
-    }
 
     .menu {
         display: flex;

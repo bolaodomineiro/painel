@@ -6,10 +6,10 @@ export const Container_header = styled.header`
     align-items: center;
     background: #F3EED9;
     min-height: 50px;
-    padding: 0 15px;
+    padding: 0 5px;
     position: fixed;
     top: 0;
-    gap: 14px;
+    gap: 5px;
     z-index: 2;
     box-shadow: 1px 2px 6px #7979797c;
 
@@ -49,45 +49,90 @@ export const Container_header = styled.header`
         }
     }   
 
+    .cart {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+
+
+        .icon-cart {
+            font-size: 2.4rem;
+            cursor: pointer;
+            color:rgb(0, 0, 0);
+            position: relative;
+        }
+            
+        .balls-count  {
+            position: absolute;
+            top: 2px;
+            left: 15px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: #fff;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .price {
+            position: relative;
+            min-width: 80px;
+            top: 2px;
+            right: 8px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            background-color: #AB0519;
+            color: #fff;
+            border-radius: 4px;
+            padding: 0.2em 0.4em;
+            text-align: center;
+
+            &:after {
+                content: "";
+                position: absolute;
+                top: 0.5px;
+                left: -6px;
+                width: 0;
+                height: 0;
+                border-top: 9px solid transparent;
+                border-bottom: 9px solid transparent;
+                border-right: 9px solid #AB0519;
+            }
+        }
+        
+    }
+
     .select-boalls {
+        flex: 1;
         height: 50px;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        padding: 0 10px;
         background-color: #323030;
         border-radius: 0 0 10px 10px;
         trasition: all 0.5s;
         animation: balls-animation 0.2s ease forwards ;
         gap: 20px;
 
-        @media (max-width: 700px) {
-            gap: 8px;
-            justify-content: start;
-            padding-left: 10px;
-        }
 
-        @media (max-width: 546px) {
-            width: 94%;
+        @media (max-width: 775px) {
+            width: 100%;
             height: auto;
-            justify-content: center;
             position: fixed;
-            right: 0;
+            left: 32px;
             top: 50px;
             border-radius: 10px 0 0 10px;
             gap: 6px;
-            padding: 10px 20px;
+            padding: 10px 40px 10px 10px;
         }
 
-        @media (max-width: 460px) {
-            padding: 10px 60px;
-        }
-
-        @media (max-width: 375px) {
-            padding: 10px 30px;
-        }
 
         .ball {
             display: flex;
