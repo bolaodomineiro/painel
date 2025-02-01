@@ -23,7 +23,7 @@ export const Container_header = styled.header`
         top: 180px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: 900;
         text-align: center;
         z-index: 99;
@@ -109,11 +109,11 @@ export const Container_header = styled.header`
     }
 
     .select-boalls {
-        flex: 1;
         height: 50px;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 10px;
         align-items: center;
         background-color: #323030;
         border-radius: 0 0 10px 10px;

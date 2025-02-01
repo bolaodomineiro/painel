@@ -1,10 +1,38 @@
 import styled from "styled-components";
 
 export const Container_jogo = styled.section`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #fff;
-    min-height: 100svh;
+    height: auto;
     width: 100%;
     position: relative;
+    border-radius: 10px;
+    padding: 30px;
+
+    .info {
+        padding: 20px ;
+        border-radius: 10px;
+        background-color: #F3EED9;
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+        }
+
+        p {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #ab0519;
+        }
+
+        h5 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 5px 0;
+        }
+    }
 
     .jogo-balls {
         display: flex;
@@ -41,6 +69,7 @@ export const Container_jogo = styled.section`
             gap: 17px;
             border-radius: 6px;
             
+            
 
             .balls {
                 display: flex;
@@ -59,14 +88,15 @@ export const Container_jogo = styled.section`
                 
 
                 .ball-message {
+                    min-width: 280px;
+                    padding: 10px 20px;
                     position: fixed;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    width: 240px;
                     height: 40px;
-                    bottom: 6.5px;
-                    left:50%;
+                    top: 180px;
+                    left: 50%;
                     transform: translateX(-50%);
                     background-color:  #AB0519;
                     color: #fff;
@@ -97,8 +127,6 @@ export const Container_jogo = styled.section`
                     height: 30px;
                 }
         }
-
-
     }
 
 `

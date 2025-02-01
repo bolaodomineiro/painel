@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container_home = styled.section`
     width: 100%;
     background: #ccc;
-    padding: 10px  0px ;
+    padding-top: 10px;
 
     .container_cards {
         display: flex;
@@ -96,6 +96,7 @@ export const Contests_style = styled.section`
             p {
                 font-size: 0.8em;
                 font-weight: 900;
+                color: #fff;
             }
 
             .title {
@@ -103,8 +104,9 @@ export const Contests_style = styled.section`
                 font-weight: 700;
                 text-align: center;
                 padding: 0.5em;
-                background-color:#AB0519;
-                color: #fff;
+                background-color:#fff;
+                box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
+                color: #000;
                 border-radius: 4px;
                 margin-right: 0.5em;
 
@@ -120,6 +122,7 @@ export const Contests_style = styled.section`
         p {
             font-size: 0.8em;
             font-weight: 900;
+            color: #fff;
         }
     
         .select {
@@ -161,7 +164,7 @@ export const Contests_style = styled.section`
         li {
             font-size: 0.9em;
             font-weight: 500;
-            background-color: #ccc;
+            background-color: #fff;
             padding: 0.5em;
             border-radius: 4px;
             cursor: pointer;

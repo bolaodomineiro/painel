@@ -2,45 +2,22 @@ import { useState, useEffect } from "react";
 import { Container_home, Contests_style, Container_card } from "./HomeStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
-import Loading from "../../assets/loading.webp";
+import Loading from "../../assets/loading.webp";// gif
 import {Link, Outlet} from "react-router-dom";
-
-// db firebase / jogos
-import { db } from "../../firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { useBetPool } from "../../context/BetPoolContext";
 
 const Home = () => {
-    const [jogos, setJogos] = useState([]);
-    const [jogoId, setJogoId] = useState("");
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const getJogos = async () => {
-            try {
-                const jogosCollection = collection(db, "jogos");
-                const jogosSnapshot = await getDocs(jogosCollection);
-                const jogosList = jogosSnapshot.docs.map((doc) => ({
-                    ...doc.data(),
-                    id: doc.id,
-                }));
-                
-                if (jogosList.length > 0) {
-                    setJogos(jogosList);
-                    setJogoId(jogosList[0].id);
-                    localStorage.setItem("price", jogosList[0].price);
-                }
-            } catch (error) {
-                console.error("Erro ao buscar jogos:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        getJogos();
-    }, []);
-
+    const { 
+            
+        jogos, 
+        jogoId,
+        setJogoId, 
+        loading 
+        
+    } = useBetPool();
     const jogo = jogos.find((jogo) => jogo.id === jogoId);
-
+    
+    
     if (loading) {
         return (
             <div style={{
@@ -55,6 +32,11 @@ const Home = () => {
             </div>
         );
     }
+
+    const hendleJogoId = (id) => {
+        localStorage.setItem("jogoId", id);
+        setJogoId(id);
+    };
 
     return (
         <Container_home>
@@ -76,7 +58,7 @@ const Home = () => {
                             <div
                                 className="container_bottom"
                                 style={{ backgroundColor: jogo.color }}
-                                onClick={() => setJogoId(jogo.id)}
+                                onClick={() => hendleJogoId(jogo.id)}
                             >
                                 <p>Faça sua aposta!</p>
                                 <FontAwesomeIcon icon={faCirclePlus} />
@@ -85,11 +67,11 @@ const Home = () => {
                     </Container_card>
                 ))}
             </section>
-            <Contests_style style={{borderTopColor: jogo?.color}}>
+            <Contests_style style={{borderTopColor: jogo?.color, backgroundColor: jogo?.color}}>
                 <section className="header_contests">
                     <div className="header_infor">
                         <p>Valor do bolão: {jogo?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-                        <h2 style={{ backgroundColor: jogo?.color }} className="title">
+                        <h2  className="title">
                             {jogo?.title || "Bolão"}
                         </h2>
                     </div>
@@ -110,7 +92,7 @@ const Home = () => {
                                 <li 
                                     style={{
                                         backgroundColor: jogo?.status ? "green" : "#ab0519",
-                                        color: "#fff"
+                                        color: "#ffff"
                                     }}
                                 >
                                     {jogo?.status ? "Apostar" : "Apostas Encerradas"}

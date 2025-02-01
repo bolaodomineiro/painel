@@ -27,7 +27,7 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
     useEffect(() => {
         const priceJogo = localStorage.getItem("price");
         setPriceJogo(priceJogo);
-        const getBalls = JSON.parse(localStorage.getItem("balls")) || [];
+        const getBalls = JSON.parse(localStorage.getItem("Jogos")) || [];
         setBallcount(getBalls);
     }, [balls]);
 
