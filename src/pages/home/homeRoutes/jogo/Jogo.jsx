@@ -3,12 +3,13 @@ import { Container_jogo } from "./JogoStyles";
 import Balls from "./dataBalls";
 import { useAuthContext } from "../../../../context/AuthContext";
 import { useBetPool } from "../../../../context/BetPoolContext";
+import  {Timestamp} from "firebase/firestore";
 
 
 const Jogo = () => {
 
-    const { jogoId, setJogoId, jogos } = useBetPool();
-    const { balls, setBalls, message, setMessage } = useAuthContext();
+    const { jogoId, jogos, balls, setBalls } = useBetPool();
+    const { message, setMessage } = useAuthContext();
 
     const jogo = jogos.find((jogo) => jogo.id === jogoId);
     
@@ -42,13 +43,29 @@ const Jogo = () => {
         // 1️⃣ Armazena jogos finalizados (quando 10 números são selecionados)
         if (balls.length === 10) {
             const getJogos = JSON.parse(localStorage.getItem("Jogos")) || [];
+            const getUserId = localStorage.getItem("userId");
 
-            const newEntry = {
-                id: jogoId, 
-                numbers: [...balls]
+            // Obtém a data do sorteio como objeto Date
+            const drawDate = jogo.drawDate instanceof Date ? jogo.drawDate : jogo.drawDate.toDate(); 
+            // Subtrai 2 horas para definir a expiração antes do sorteio
+            const expirationDate = new Date(drawDate.getTime() - 2 * 60 * 60 * 1000); 
+            // Converte a data para Timestamp do Firebase
+            const expirationTimestamp = Timestamp.fromDate(expirationDate);
+
+            const newJogos = {
+                title: jogo.title,
+                user_id: getUserId,
+                jogo_id: jogoId, 
+                numbers: [...balls],
+                price: jogo.price,
+                status: true,
+                ticket: "aposta.length + 1" , //pega o total de apostas ja feita ex: apostas.length + 1, para  incrementar o numero do bilhete.
+                paymentStatus: false, //valor inicial como false,  se o usuario pagar ele muda para true.
+                created: Timestamp.now(),
+                expirationDate: expirationTimestamp,
             };
 
-            getJogos.push(newEntry);
+            getJogos.push(newJogos);
             localStorage.setItem("Jogos", JSON.stringify(getJogos));
 
             setTimeout(() => {

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Container_header } from "./HeaderStyles"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons"
-import { useAuthContext } from "../../context/AuthContext";
+import { useBetPool } from "../../context/BetPoolContext";
+
 
 const Header = ({setMenuToggle, menuToggle, title}) => {
 
-    const {balls, setBalls} = useAuthContext();  
+    const { balls, setBalls } = useBetPool();
+
     const [message, setMessage] = useState(null);
-    const [ballcount, setBallcount] = useState([0]);
+    const [jogosCount, setJogosCount] = useState([0]);
     const [priceJogo, setPriceJogo] = useState(localStorage.getItem("price"));
 
     const hendleBallsUpdate = (baall, index) => {
@@ -27,8 +29,9 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
     useEffect(() => {
         const priceJogo = localStorage.getItem("price");
         setPriceJogo(priceJogo);
-        const getBalls = JSON.parse(localStorage.getItem("Jogos")) || [];
-        setBallcount(getBalls);
+        const getJogos = JSON.parse(localStorage.getItem("Jogos")) || [];
+        setJogosCount(getJogos);
+        console.log(getJogos);
     }, [balls]);
 
     return (
@@ -40,9 +43,9 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
             />
             {menuToggle && <h3>{title}</h3>}
             <div className="cart">
-                <span className="balls-count">{ballcount.length}</span>
+                <span className="balls-count">{jogosCount.length}</span>
                 <FontAwesomeIcon className="icon-cart" icon={faCartShopping} />
-                <span className="price">{(ballcount.length * priceJogo).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                <span className="price">{(jogosCount.length * priceJogo).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
             </div>
             { balls.length > 0 &&  
                 <div className="select-boalls">

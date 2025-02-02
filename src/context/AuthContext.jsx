@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase/firebase";
 import CryptoJS from "crypto-js";
 import { doc, getDoc } from "firebase/firestore";
-// Loading gif
-import Loading from "../assets/loading.webp";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [balls, setBalls] = useState([]); // Corrigido: setBalls
+
   const [message, setMessage] = useState(null); //balls setMessage
 
   const navigate = useNavigate();
@@ -67,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ authenticated, loading, balls, setBalls, message, setMessage }}>
+    <AuthContext.Provider value={{ authenticated, loading, message, setMessage }}>
       { children}
     </AuthContext.Provider>
   );

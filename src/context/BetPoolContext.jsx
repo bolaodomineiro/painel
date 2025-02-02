@@ -6,8 +6,12 @@ const BetPoolContext = createContext();
 
 export const BetPoolProvider = ({ children }) => {
 
+    const getJogoPrice = localStorage.getItem("JogoPrice")
     const getJogoId = localStorage.getItem("jogoId");
+    const getBalls = localStorage.getItem("balls");
 
+    const [balls, setBalls] = useState([...getBalls || []]); // Corrigido: setBalls
+    const [jogoPrice, setJogoPrice] = useState(getJogoPrice);
     const [jogos, setJogos] = useState([]);
     const [jogoId, setJogoId] = useState( getJogoId );
     const [loading, setLoading] = useState(true); 
@@ -26,9 +30,8 @@ export const BetPoolProvider = ({ children }) => {
                 
                 if (jogosList.length > 0) {
                     setJogos(jogosList);
-                    setJogoId(getJogoId || jogosList[0].id);
-                    localStorage.setItem("price", jogosList[0].price);
-                    localStorage.setItem("jogoId", jogosList[0].id);
+                    setJogoId( getJogoId || jogosList[0].id);
+                    setJogoPrice( getJogoPrice || jogosList[0].price);
                     console.log(jogosList);
                 }
             } catch (error) {
@@ -50,7 +53,11 @@ export const BetPoolProvider = ({ children }) => {
             jogos,
             setJogos,
             jogoId,
-            setJogoId
+            setJogoId,
+            balls,
+            setBalls,
+            jogoPrice,
+            setJogoPrice
         }}>
 
         {children}

@@ -8,7 +8,8 @@ import { useBetPool } from "../../context/BetPoolContext";
 
 const Home = () => {
     const { 
-            
+        jogoPrice,
+        setJogoPrice,
         jogos, 
         jogoId,
         setJogoId, 
@@ -33,9 +34,11 @@ const Home = () => {
         );
     }
 
-    const hendleJogoId = (id) => {
+    const hendleJogoId = (id, jogoPrice) => {
         localStorage.setItem("jogoId", id);
         setJogoId(id);
+        localStorage.setItem("jogoPrice", jogoPrice);
+        setJogoPrice(jogoPrice);
     };
 
     return (
@@ -58,7 +61,7 @@ const Home = () => {
                             <div
                                 className="container_bottom"
                                 style={{ backgroundColor: jogo.color }}
-                                onClick={() => hendleJogoId(jogo.id)}
+                                onClick={() => hendleJogoId(jogo.id, jogo.price)}
                             >
                                 <p>Faça sua aposta!</p>
                                 <FontAwesomeIcon icon={faCirclePlus} />
