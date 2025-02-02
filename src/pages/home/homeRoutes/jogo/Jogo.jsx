@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container_jogo } from "./JogoStyles";
 import Balls from "./dataBalls";
 import { useAuthContext } from "../../../../context/AuthContext";
 import { useBetPool } from "../../../../context/BetPoolContext";
 import  {Timestamp} from "firebase/firestore";
+import Cart from "../../../../components/cart/Cart";
 
 
 const Jogo = () => {
@@ -111,6 +112,7 @@ const Jogo = () => {
                 </div>
             </section>
         }
+            <Cart />
         </Container_jogo>
     );
 };
