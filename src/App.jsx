@@ -5,6 +5,7 @@ import { BetPoolProvider } from "./context/BetPoolContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 // import Login from "./pages/login/Login";
 import Painel from "./pages/painel/Painel";
+import Error from "./pages/error/Error";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <BetPoolProvider>
         <Routes>
           {/* <Route path="/login" element={<Login />} /> */}
+          <Route path="/error" element={<Error />} />
           <Route
             path="/*"
             element={
@@ -20,7 +22,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<Navigate to="/login" />} />
+          <Route path="*" element={<Navigate to="/error" />} />
         </Routes>
       </BetPoolProvider>
     </AuthProvider>

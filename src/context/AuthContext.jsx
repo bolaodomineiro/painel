@@ -44,8 +44,8 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Erro ao autenticar usuário:", error.message);
         setMessage(error.message); // Armazenando a mensagem de erro
-        alert("ERRO DE AUTENTICAÇÃO: POR FAVOR FAÇA LOGIN ANTES " );
-        window.location.href = "https://www.bolaodomineiro.com.br/";
+        navigate("/error");
+        // window.location.href = "https://www.bolaodomineiro.com.br/";
         // navigate("/error"); // Redireciona para uma página de erro (se necessário)
       } finally {
         setLoading(false);
