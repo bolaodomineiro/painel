@@ -51,7 +51,6 @@ export const BetPoolProvider = ({ children }) => {
                     setJogos(jogosList);
                     setJogoId( jogoId || jogosList[0].id);
                     setJogoPrice( jogoPrice || jogosList[0].price);
-                    console.log(jogosList);
                 }
             } catch (error) {
                 console.error("Erro ao buscar jogos:", error);

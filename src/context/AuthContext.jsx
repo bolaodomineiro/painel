@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }) => {
         if (!storedToken) throw new Error("Nenhum token encontrado no Banco de Dados.");
 
         const user = auth.currentUser;
+        console.log(user);
         if (!user) throw new Error("Usuário não autenticado.");
 
         const tokenResult = await user.getIdTokenResult(true);
