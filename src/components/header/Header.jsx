@@ -8,10 +8,8 @@ import { useBetPool } from "../../context/BetPoolContext";
 const Header = ({setMenuToggle, menuToggle, title}) => {
 
     const { balls, setBalls } = useBetPool();
-
     const [message, setMessage] = useState(null);
-    const [jogosCount, setJogosCount] = useState([0]);
-    const [priceJogo, setPriceJogo] = useState(localStorage.getItem("price"));
+
 
     const hendleBallsUpdate = (baall, index) => {
         const newBalls = [...balls];
@@ -26,13 +24,6 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
         return newBalls;
     }
 
-    useEffect(() => {
-        const priceJogo = localStorage.getItem("price");
-        setPriceJogo(priceJogo);
-        const getJogos = JSON.parse(localStorage.getItem("Jogos")) || [];
-        setJogosCount(getJogos);
-        console.log(getJogos);
-    }, [balls]);
 
     return (
         <Container_header>
@@ -41,12 +32,9 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
                 icon={faBars} 
                 onClick={() => setMenuToggle(!menuToggle)}
             />
+            
             {menuToggle && <h3>{title}</h3>}
-            <div className="cart">
-                <span className="balls-count">{jogosCount.length}</span>
-                <FontAwesomeIcon className="icon-cart" icon={faCartShopping} />
-                <span className="price">{(jogosCount.length * priceJogo).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-            </div>
+            
             { balls.length > 0 &&  
                 <div className="select-boalls">
                     {balls.map((ball, index) => (

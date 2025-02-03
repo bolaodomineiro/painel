@@ -6,15 +6,34 @@ const BetPoolContext = createContext();
 
 export const BetPoolProvider = ({ children }) => {
 
-    const getJogoPrice = localStorage.getItem("JogoPrice")
-    const getJogoId = localStorage.getItem("jogoId");
-    const getBalls = localStorage.getItem("balls");
 
-    const [balls, setBalls] = useState([...getBalls || []]); // Corrigido: setBalls
-    const [jogoPrice, setJogoPrice] = useState(getJogoPrice);
+    const [balls, setBalls] = useState([]); // Corrigido: setBalls
+    const [apostas, setApostas] = useState([]);
+    const [jogoPrice, setJogoPrice] = useState();
     const [jogos, setJogos] = useState([]);
-    const [jogoId, setJogoId] = useState( getJogoId );
+    const [jogoId, setJogoId] = useState( );
     const [loading, setLoading] = useState(true); 
+
+
+
+    useEffect(() => {
+        const getJogoPrice = localStorage.getItem("JogoPrice");
+        const getJogoId = localStorage.getItem("jogoId");
+        const getBalls = JSON.parse(localStorage.getItem("balls"));
+        const getApostas = JSON.parse(localStorage.getItem("apostas"));
+    
+        setBalls(getBalls || []);
+        setApostas(getApostas || []);
+        setJogoPrice(getJogoPrice);
+        setJogoId(getJogoId);
+    }, []); // Esse efeito roda uma vez, após a montagem do componente
+
+    useEffect(() => {
+        if (apostas.length > 0) {
+            localStorage.setItem("apostas", JSON.stringify(apostas));
+        }
+    }, [apostas]); 
+    
 
     useEffect(() => {
 
@@ -30,8 +49,8 @@ export const BetPoolProvider = ({ children }) => {
                 
                 if (jogosList.length > 0) {
                     setJogos(jogosList);
-                    setJogoId( getJogoId || jogosList[0].id);
-                    setJogoPrice( getJogoPrice || jogosList[0].price);
+                    setJogoId( jogoId || jogosList[0].id);
+                    setJogoPrice( jogoPrice || jogosList[0].price);
                     console.log(jogosList);
                 }
             } catch (error) {
@@ -57,7 +76,9 @@ export const BetPoolProvider = ({ children }) => {
             balls,
             setBalls,
             jogoPrice,
-            setJogoPrice
+            setJogoPrice,
+            apostas,
+            setApostas
         }}>
 
         {children}

@@ -9,12 +9,13 @@ import Cart from "../../../../components/cart/Cart";
 
 const Jogo = () => {
 
-    const { jogoId, jogos, balls, setBalls } = useBetPool();
+    const { jogoId, jogos, balls, setBalls, setApostas, apostas } = useBetPool();
     const { message, setMessage } = useAuthContext();
 
     const jogo = jogos.find((jogo) => jogo.id === jogoId);
-    
+
     const handleBalls = (ball) => {
+
         const count = balls.filter((b) => b === ball).length;
         
         if (balls.length === 10) {
@@ -23,6 +24,7 @@ const Jogo = () => {
         
         if (count < 3 ) {
             setBalls((prevBalls) => [...prevBalls, ball]);
+
             if (balls.length === 9) {
                 setMessage({ ball, text: "Seu Jogo foi adicionado ao Carrinho!" });
                 setTimeout(() => {
@@ -43,7 +45,7 @@ const Jogo = () => {
     useEffect(() => {
         // 1️⃣ Armazena jogos finalizados (quando 10 números são selecionados)
         if (balls.length === 10) {
-            const getJogos = JSON.parse(localStorage.getItem("Jogos")) || [];
+            // const getAposta = JSON.parse(localStorage.getItem("apostas")) || [];
             const getUserId = localStorage.getItem("userId");
 
             // Obtém a data do sorteio como objeto Date
@@ -53,7 +55,7 @@ const Jogo = () => {
             // Converte a data para Timestamp do Firebase
             const expirationTimestamp = Timestamp.fromDate(expirationDate);
 
-            const newJogos = {
+            const newAposta = {
                 title: jogo.title,
                 user_id: getUserId,
                 jogo_id: jogoId, 
@@ -66,15 +68,18 @@ const Jogo = () => {
                 expirationDate: expirationTimestamp,
             };
 
-            getJogos.push(newJogos);
-            localStorage.setItem("Jogos", JSON.stringify(getJogos));
+            apostas.push(newAposta);
 
+            setApostas(apostas);
+            localStorage.setItem("apostas", JSON.stringify(apostas));
+            
             setTimeout(() => {
                 setBalls([]);
                 localStorage.removeItem("balls");
-            }, 4000);
+            }, 100);
+            
         } else if (balls.length > 0) { 
-            // 2️⃣ Armazena bolas selecionadas APENAS se houver números escolhidos
+            // Armazena bolas selecionadas APENAS se houver números escolhidos
             localStorage.setItem("balls", JSON.stringify(balls));
         }
 

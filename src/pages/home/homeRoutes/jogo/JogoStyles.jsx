@@ -9,7 +9,7 @@ export const Container_jogo = styled.section`
     width: 100%;
     position: relative;
     border-radius: 10px;
-    padding: 30px;
+    padding: 10px;
 
     .info {
         padding: 20px ;
@@ -98,7 +98,7 @@ export const Container_jogo = styled.section`
                     top: 180px;
                     left: 50%;
                     transform: translateX(-50%);
-                    background-color:  #AB0519;
+                    background-color:   #2D2E30;
                     color: #fff;
                     font-weight: 500;
                     font-size: 0.8rem;

@@ -184,7 +184,11 @@ export const Contests_style = styled.section`
 
     .routes_contests {
         min-height: 100vh;
-        padding: 0.9em;
+        padding: 0.6em;
+        
+        @media (max-width: 500px) {
+            padding-bottom: 100px;
+        }
     }
 
 `;
@@ -194,13 +198,13 @@ export const Container_card = styled.div`
     flex: 1;
     max-width: 240px;
     min-width: 240px;
-    padding-top: 5px;
+    padding-top: 10px;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-    
+
     @media (max-width: 375px) {
         min-width: 100%;
     }
