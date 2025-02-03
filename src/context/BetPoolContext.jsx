@@ -49,9 +49,10 @@ export const BetPoolProvider = ({ children }) => {
                 
                 if (jogosList.length > 0) {
                     setJogos(jogosList);
-                    setJogoId( jogoId || jogosList[0].id);
-                    setJogoPrice( jogoPrice || jogosList[0].price);
+                    localStorage.setItem("jogoId", localStorage.getItem("jogoId") || jogosList[0].id);
+                    localStorage.setItem("jogoPrice", localStorage.getItem("jogoPrice") || jogosList[0].price);
                 }
+                
             } catch (error) {
                 console.error("Erro ao buscar jogos:", error);
             } finally {
