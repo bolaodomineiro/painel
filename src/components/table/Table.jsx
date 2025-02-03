@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container_table } from "./TableStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,9 @@ function formatBalance(balance) {
 }
 
 const Table = ({ useSelect }) => {
+  
+  const inputRef = useRef(null);
+
   const [userFilter, setUserFilter] = useState("");
   const [userData, setUserData] = useState([]);
   const [editingUser, setEditingUser] = useState(null);
@@ -99,6 +102,7 @@ const Table = ({ useSelect }) => {
               <li>{user.name.split(" ").slice(0, 2).join(" ")}</li>
               <li>
                 <InputMask
+                  inputRef={inputRef}
                   mask="(99) 9 9999-9999"
                   value={user.phone}
                   disabled

@@ -11,11 +11,8 @@ const Jogo = () => {
 
     const { jogoId, jogos, balls, setBalls, setApostas, apostas } = useBetPool();
     const { message, setMessage } = useAuthContext();
-    console.log(jogos)
+    
     const jogo = jogos.find((jogo) => jogo.id === jogoId);
-    console.log(jogoId)
-    console.log(jogo)
-
 
     const handleBalls = (ball) => {
 
