@@ -11,7 +11,7 @@ export const BetPoolProvider = ({ children }) => {
     const [apostas, setApostas] = useState([]);
     const [jogoPrice, setJogoPrice] = useState();
     const [jogos, setJogos] = useState([]);
-    const [jogoId, setJogoId] = useState( );
+    const [jogoId, setJogoId] = useState("");
     const [loading, setLoading] = useState(true); 
 
 
@@ -44,8 +44,8 @@ export const BetPoolProvider = ({ children }) => {
                 
                 if (jogosList.length > 0) {
                     setJogos(jogosList);
-                    setJogoId(jogoId || jogosList[0].id);
-                    localStorage.setItem("jogoId", jogoId || jogosList[0].id);
+                    setJogoId(localStorage.getItem("jogoId") || jogosList[0].id);
+                    localStorage.setItem("jogoId", localStorage.getItem("jogoId") || jogosList[0].id);
                 }
                 
             } catch (error) {
