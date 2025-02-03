@@ -40,7 +40,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("userId",getUid || urlUid);
         setAuthenticated(true);
         localStorage.setItem("authenticated", "true"); // Opcional, dependendo do seu fluxo
-        navigate("dashboard/jogo");
 
       } catch (error) {
         console.error("Erro ao autenticar usuário:", error.message);
