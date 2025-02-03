@@ -21,19 +21,14 @@ export const BetPoolProvider = ({ children }) => {
         const getJogoId = localStorage.getItem("jogoId");
         const getBalls = JSON.parse(localStorage.getItem("balls"));
         const getApostas = JSON.parse(localStorage.getItem("apostas"));
+        const getJogos = JSON.parse(localStorage.getItem("jogos"));
     
         setBalls(getBalls || []);
         setApostas(getApostas || []);
         setJogoPrice(getJogoPrice);
         setJogoId(getJogoId);
+        setJogos(getJogos || []);
     }, []); // Esse efeito roda uma vez, após a montagem do componente
-
-    useEffect(() => {
-        if (apostas.length > 0) {
-            localStorage.setItem("apostas", JSON.stringify(apostas));
-        }
-    }, [apostas]); 
-    
 
     useEffect(() => {
 
@@ -49,8 +44,8 @@ export const BetPoolProvider = ({ children }) => {
                 
                 if (jogosList.length > 0) {
                     setJogos(jogosList);
-                    localStorage.setItem("jogoId", localStorage.getItem("jogoId") || jogosList[0].id);
-                    localStorage.setItem("jogoPrice", localStorage.getItem("jogoPrice") || jogosList[0].price);
+                    setJogoId(jogoId || jogosList[0].id);
+                    localStorage.setItem("jogoId", jogoId || jogosList[0].id);
                 }
                 
             } catch (error) {

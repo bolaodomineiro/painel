@@ -11,8 +11,11 @@ const Jogo = () => {
 
     const { jogoId, jogos, balls, setBalls, setApostas, apostas } = useBetPool();
     const { message, setMessage } = useAuthContext();
-
+    console.log(jogos)
     const jogo = jogos.find((jogo) => jogo.id === jogoId);
+    console.log(jogoId)
+    console.log(jogo)
+
 
     const handleBalls = (ball) => {
 
@@ -87,7 +90,7 @@ const Jogo = () => {
 
     return (
         <Container_jogo>
-            { jogo.status ?
+            { jogo.status &&
                 <section className="jogo-balls">
                 <div className="balls-header">
                     <h3>Clique em 10 dezenas - </h3>
@@ -108,15 +111,17 @@ const Jogo = () => {
                     ))}
                 </div>
             </section>
-            :
-            <section className="info">
-                <div>
-                    <h3>{jogo.title}</h3>
-                    <p>Apostas <b>Encerradas,</b> em breve teremos mais prêmios para voce! 😎</p>
-                    <h5>Finalizado!</h5>
-                </div>
-            </section>
-        }
+            }
+
+            { !jogo.status  &&
+                <section className="info">
+                    <div>
+                        <h3>{jogo.title}</h3>
+                        <p>Apostas <b>Encerradas,</b> em breve teremos mais prêmios para voce! 😎</p>
+                        <h5>Finalizado!</h5>
+                    </div>
+                </section>
+            }
             <Cart />
         </Container_jogo>
     );

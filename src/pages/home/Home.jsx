@@ -16,7 +16,7 @@ const Home = () => {
         loading 
         
     } = useBetPool();
-    const jogo = jogos.find((jogo) => jogo.id === jogoId);
+    const jogo = jogos.find((jogo) => jogo?.id === jogoId);
     
     
     if (loading) {
