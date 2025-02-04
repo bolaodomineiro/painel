@@ -23,8 +23,10 @@ export const Container_cart = styled.section`
         width: 100%;
         height: 75px;
         background:#242222;
+        padding: 0 15px;
         border-radius: 10px 0 0 0px;
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.49);
+        cursor: pointer;
 
 
         .cart-area {
@@ -72,7 +74,17 @@ export const Container_cart = styled.section`
             color:rgb(0, 255, 4);
             font-weight: 900;
             text-align: right;
+            cursor: pointer;
 
+        }
+
+        .icon-close {
+            position: absolute;
+            right: 10px;
+            top: 6px;
+            font-size: 1.2rem;
+            color:#fff;
+            cursor: pointer;
         }
 
     }
@@ -170,14 +182,17 @@ export const Container_cart = styled.section`
         .delite-all {
             color: #fff;
             font-weight: 900;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
             position: absolute;
-            left: 20px;
+            right: 20px;
+            background-color:rgb(0, 0, 0);
+            padding: 10px ;
+            border-radius:50%;
 
             &:hover {
-                color: #AB0519;
+                color:rgb(255, 0, 30);
             }
         }
 

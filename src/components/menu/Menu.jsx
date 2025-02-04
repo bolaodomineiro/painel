@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Aside } from "./MenuStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,12 +16,13 @@ const Menu = ({ $menuToggle, $setTitle }) => {
 
     // Atualizar o estado de menu ativo com base no caminho
     useEffect(() => {
-        const pathSegments = location.pathname.split('/dashboard/jogo').filter(Boolean);
-        const lastSegment = pathSegments[pathSegments.length - 1] || "dashboard";
+        const pathSegments = location.pathname.split('/dashboard/jogo', '/dashboard/myBets', ).filter(Boolean);
+        const lastSegment = pathSegments[pathSegments.length - 1] || "/dashboard/jogo";
         setActive(lastSegment);
+        console.log();
 
         switch (lastSegment) {
-            case "dashboard":
+            case "/dashboard/jogo":
                 $setTitle("Dashboard");
                 break;
             case "users":
@@ -59,7 +60,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
             </div>
             <ul>
                 <Link className="link" to="/dashboard/jogo">
-                    <li className={active === "dashboard" ? "active" : ""}>
+                    <li className={active === "/dashboard/jogo" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faGauge} />
                         Dashboard
                     </li>

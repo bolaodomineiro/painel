@@ -150,6 +150,12 @@ export const Contests_style = styled.section`
 
         .link {
             text-decoration: none;
+            color: #000;
+        }
+
+        .active {
+            background-color:rgb(48, 48, 48);
+            color: #fff;
         }
 
         nav ul {

@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { Container_cart } from "./CartStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCartShopping, faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useBetPool } from "../../context/BetPoolContext";
+import { enviarApostas } from "./CartData";
 
 const Cart = () => {
 
+    
+
     const {apostas, setApostas} = useBetPool();
     const [cartOpen, setCartOpen] = useState(false);
+
+    
 
     const handleRemoveJogo = (index) => {
         // Cria uma nova lista sem o jogo removido
@@ -44,6 +49,7 @@ const Cart = () => {
                                 type="text" 
                                 value={apostas.reduce((total, jogo) => total + jogo.price, 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                             />
+                            <FontAwesomeIcon className="icon-close" icon={faRectangleXmark} />
                         </div>
                     </div>
                     <div className="main-cart">
@@ -56,7 +62,7 @@ const Cart = () => {
                                 />
                                 <h3>{jogo.title}</h3>
                                 <div className="balls-container">
-                                    {jogo.numbers.map((ball, i) => 
+                                    {jogo.numbers.slice().sort((a, b) => a - b).map((ball, i) => 
                                         <span key={i} className="ball">{ball}</span>
                                     )}
                                 </div>
@@ -70,7 +76,12 @@ const Cart = () => {
                             className="delite-all" 
                             onClick={() => handleRemoveJogoAll()}
                         />
-                        <button className="btn-finsh">Finalizar Aposta</button>
+                        <button 
+                            className="btn-finsh"
+                            onClick={() => enviarApostas(apostas)}
+                        >
+                            Finalizar Aposta
+                        </button>
                     </div>
                 </Container_cart>
             ) : (  

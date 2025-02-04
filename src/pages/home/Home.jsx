@@ -3,10 +3,33 @@ import { Container_home, Contests_style, Container_card } from "./HomeStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../../assets/loading.webp";// gif
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useLocation} from "react-router-dom";
 import { useBetPool } from "../../context/BetPoolContext";
 
 const Home = () => {
+
+    const location = useLocation();
+    const [active, setActive] = useState("myBest");
+
+    useEffect(() => {
+        const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);
+        const lastSegment = pathSegments[pathSegments.length - 1] || "/dashboard/myBets";
+        setActive(lastSegment);
+
+        switch (lastSegment) {
+            case "/dashboard/myBets":
+                setActive("/dashboard/myBets");
+                break;
+            case "users":
+                setActive("Usuários");
+                break;
+            default:
+                setActive("");
+                break;
+        }
+    }, [location.pathname, setActive]);
+
+    
     const { 
         jogoPrice,
         setJogoPrice,
@@ -16,9 +39,9 @@ const Home = () => {
         loading 
         
     } = useBetPool();
+
     const jogo = jogos.find((jogo) => jogo?.id === jogoId);
-    
-    
+
     if (loading) {
         return (
             <div style={{
@@ -101,7 +124,9 @@ const Home = () => {
                                     {jogo?.status ? "Apostar" : "Apostas Encerradas"}
                                 </li>
                             </Link>
-                            <li>Meus Jogos</li>
+                            <Link to="/dashboard/myBets" className="link">
+                                <li className={active === "/dashboard/myBets" ? "active" : ""}>Meus Jogos</li>
+                            </Link>
                             <li>Resultados</li>
                             <li>Ganhadores</li>
                             <li>Prêmios</li>
