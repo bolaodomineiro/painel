@@ -1,29 +1,43 @@
 import { useEffect, useState } from "react";
 import { Container_bets } from "./MyBetsStyles";
-import { useApostas } from "./MyBetsData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { useBetPool } from "../../../../context/BetPoolContext";
-
+import { getApostas } from "./MyBetsData";
+import CryptoJS from "crypto-js";
 
 
 const MyBets = () => {
+    const secretKey = "sua-chave-secreta";
 
+    const [apostas, setApostas] = useState([]);
     const { jogoId, setJogoId } = useBetPool();
-    const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
-
+    const [userId, setUserId] = useState();
 
     useEffect(() => {
-        const userId = localStorage.getItem("userId");
-        const jogoId = localStorage.getItem("jogoId");
+        const storedUserId = localStorage.getItem("userId");
+        const storedJogoId = localStorage.getItem("jogoId");
 
-        if (userId && jogoId) {
-            setUserId(userId);
-            setJogoId(jogoId);
+        if (storedUserId && storedJogoId ) {
+            setUserId(storedUserId);
+            setJogoId(storedJogoId);
         }
-    }, [jogoId]);
+    }, []); // Apenas na montagem do componente
 
-    const { apostas } = useApostas(userId, jogoId);
+    useEffect(() => {
+        const fetchApostas = async () => {
+            if (userId && jogoId) {
+
+                const decryptedBytes = CryptoJS.AES.decrypt(userId, secretKey);
+                const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+                const listaApostas = await getApostas(decryptedUid, jogoId);
+                setApostas(listaApostas);
+            }
+        };
+
+        fetchApostas();
+    }, [userId, jogoId]); // Recarrega as apostas quando `userId` ou `jogoId` mudam
 
     return (
         <Container_bets>
@@ -49,13 +63,9 @@ const MyBets = () => {
                                         <FontAwesomeIcon className="icon" icon={faWhatsapp} />
                                         Enviar por WhatsApp
                                     </p>
-                                    <p className="status">
-                                        Pendente
-                                    </p>
+                                    <p className="status">Pendente</p>
                                     <button>Fazer pagamento</button>
-                                    <p className="bilhete">
-                                        Bilhete: {aposta.ticket}
-                                    </p>
+                                    <p className="bilhete">Bilhete: {aposta.ticket}</p>
                                 </div>
                             </div>
                         ))}
