@@ -37,7 +37,7 @@ const MyBets = () => {
         };
 
         fetchApostas();
-    }, [userId, jogoId]); // Recarrega as apostas quando `userId` ou `jogoId` mudam
+    }, [userId, jogoId]); // Recarrega as apostas quando `userId` ou `jogoId`
 
     return (
         <Container_bets>

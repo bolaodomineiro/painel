@@ -29,7 +29,7 @@ export const getApostas = async (userId, jogoId) => {
         }));
 
     } catch (error) {
-        console.error("Erro ao buscar apostas:", error);
+        console.error("Erro ao buscar apostas|:", error);
         return [];
     }
 };
