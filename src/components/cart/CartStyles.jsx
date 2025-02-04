@@ -22,8 +22,9 @@ export const Container_cart = styled.section`
         justify-content:space-around;
         width: 100%;
         height: 75px;
-        background:green;
+        background:#242222;
         border-radius: 10px 0 0 0px;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.49);
 
 
         .cart-area {
@@ -46,12 +47,12 @@ export const Container_cart = styled.section`
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 0.7rem;
+                font-size: 0.8rem;
                 font-weight: 900;
-                color:rgb(255, 255, 255);
+                color:rgb(0, 255, 4);
                 z-index: 1;
-                background: green;
-                border: 3px solid green;
+                background:rgb(0, 0, 0);
+                border: 3px solid #242222;
             }
         }
 
@@ -61,11 +62,19 @@ export const Container_cart = styled.section`
             color:#fff;
         }
 
-        span {
+        .total-price {
+            max-width: 100px;
             font-size: 0.9rem;
+            appearance: none;
+            background: #242222;
+            outline: none;
+            border: none;
+            color:rgb(0, 255, 4);
             font-weight: 900;
-            color:#fff;
+            text-align: right;
+
         }
+
     }
 
     .main-cart {
@@ -91,26 +100,33 @@ export const Container_cart = styled.section`
             flex-direction: column;
             justify-content: center;
             height: 80px;
-            background: #F3EED9;
+            background:rgb(255, 255, 255);
             margin-bottom: 10px;
             position: relative;
+            border-radius: 5px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.49);
 
             .icon-delete {
                 position: absolute;
                 font-size: 1.2rem;
-                color: #AB0519;
+                color:rgb(0, 0, 0);
                 cursor: pointer;
                 right: 10px;
                 top: 8px;
                 z-index: 1;
                 font-weight: 900;
                 font-size: 0.8rem;
+                trasition: all 0.2s;
+
+                &:hover {
+                    color: #AB0519;
+                }
             }
 
             h3 {
-                font-size: 0.9rem;
+                font-size: 1rem;
                 font-weight: 900;
-                padding: 2px 5px;
+                padding: 5px 5px;
             }
             
             .balls-container {
@@ -136,7 +152,7 @@ export const Container_cart = styled.section`
                 font-size: 0.7rem;
                 font-weight: 900;
                 text-align: right;
-                padding: 2px 5px;
+                padding: 6px 5px;
             }
         }
     
@@ -147,7 +163,24 @@ export const Container_cart = styled.section`
         width: 100%;
         justify-content: center;
         align-items: center;
-        padding: 10px;
+        padding: 20px 0px;
+        background: #242222;
+        position: relative;
+
+        .delite-all {
+            color: #fff;
+            font-weight: 900;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: absolute;
+            left: 20px;
+
+            &:hover {
+                color: #AB0519;
+            }
+        }
+
 
         .btn-finsh {
             display: flex;

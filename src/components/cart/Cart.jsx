@@ -13,18 +13,21 @@ const Cart = () => {
         // Cria uma nova lista sem o jogo removido
         const getApostas = [...apostas || []];
         const updatedJogos = getApostas.filter((_, i) => i !== index);
-        
         // Atualiza o estado e o localStorage
         setApostas(updatedJogos);
         localStorage.setItem("apostas", JSON.stringify(updatedJogos));
+    };
 
+    const handleRemoveJogoAll = () => {
+        setApostas([]); // Limpa o carrinho
+        localStorage.removeItem("apostas"); // Remove o carrinho do localStorage
     };
     
     
     return (
         <>
             {apostas.length > 0 ? (  // Verifica se há apostas no carrinho
-                <Container_cart style={{ height: cartOpen ? "calc(100vh - 70px)" : "70px"}} >
+                <Container_cart style={{ height: cartOpen ? "calc(100svh - 75px)" : "70px"}} >
                     <div 
                         className="cart-header"
                         onClick={() => setCartOpen(!cartOpen)}
@@ -35,7 +38,12 @@ const Cart = () => {
                                 <span className="cart-count">{apostas.length}</span> {/* Mostra a quantidade real de itens no carrinho */}
                             </div>
                             <p>Carrinho</p>
-                            <span>R$ 350,00</span>
+                            <input 
+                                className="total-price"
+                                readOnly
+                                type="text" 
+                                value={apostas.reduce((total, jogo) => total + jogo.price, 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                            />
                         </div>
                     </div>
                     <div className="main-cart">
@@ -52,11 +60,16 @@ const Cart = () => {
                                         <span key={i} className="ball">{ball}</span>
                                     )}
                                 </div>
-                                <p>R$ 3,00</p>
+                                <p>+ {jogo.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                             </div>
                         ))}
                     </div>
                     <div className="cart-footer">
+                        <FontAwesomeIcon 
+                            icon={faTrash} 
+                            className="delite-all" 
+                            onClick={() => handleRemoveJogoAll()}
+                        />
                         <button className="btn-finsh">Finalizar Aposta</button>
                     </div>
                 </Container_cart>
