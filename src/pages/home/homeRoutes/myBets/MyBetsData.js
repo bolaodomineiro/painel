@@ -19,7 +19,7 @@ export const getApostas = async (userId, jogoId) => {
         const apostasSnapshot = await getDocs(apostasQuery);
 
         if (apostasSnapshot.empty) {
-            console.info("Nenhuma aposta encontrada para");
+            console.info("Nenhuma aposta encontrada");
             return [];
         }
 
