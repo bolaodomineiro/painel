@@ -183,9 +183,19 @@ export const Container_bets = styled.section`
                     }
                     
                 }
-
-
             }
+        }
+
+        .no-bets {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            border-radius: 10px;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-top: 20px;
         }
     }
 `

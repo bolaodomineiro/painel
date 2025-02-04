@@ -2,19 +2,28 @@ import { useEffect, useState } from "react";
 import { Container_bets } from "./MyBetsStyles";
 import { useApostas } from "./MyBetsData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWhatsapp, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { useBetPool } from "../../../../context/BetPoolContext";
+
+
 
 const MyBets = () => {
-    const [id, setId] = useState(() => localStorage.getItem("userId"));
+
+    const { jogoId, setJogoId } = useBetPool();
+    const [userId, setUserId] = useState(() => localStorage.getItem("userId"));
+
 
     useEffect(() => {
         const userId = localStorage.getItem("userId");
-        if (userId) {
-            setId(userId);
-        }
-    }, []);
+        const jogoId = localStorage.getItem("jogoId");
 
-    const { apostas } = useApostas(id);
+        if (userId && jogoId) {
+            setUserId(userId);
+            setJogoId(jogoId);
+        }
+    }, [jogoId]);
+
+    const { apostas } = useApostas(userId, jogoId);
 
     return (
         <Container_bets>
@@ -52,7 +61,7 @@ const MyBets = () => {
                         ))}
                     </div>
                 ) : (
-                    <p>Nenhuma aposta encontrada.</p>
+                    <p className="no-bets">Nenhuma aposta encontrada.</p>
                 )}
             </div>
         </Container_bets>

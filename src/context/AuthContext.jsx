@@ -8,6 +8,7 @@ import { doc, getDoc } from "firebase/firestore";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
