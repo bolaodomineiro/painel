@@ -149,7 +149,7 @@ export const Container_bets = styled.section`
                         align-items: center;
                         gap: 10px;
                         padding: 10px;
-                        background-color: rgb(0, 128, 0);
+                        background-color: rgb(0, 111, 0);
                         color: #fff;
                         cursor: pointer;
                         border-radius: 5px;
