@@ -18,13 +18,15 @@
     "crypto-js": "^4.2.0",
     "date-fns": "^4.1.0",
     "firebase": "^11.2.0",
+    "html2canvas": "^1.4.1",
     "js-cookie": "^3.0.5",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.27.0",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "twilio": "^5.4.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

@@ -5,10 +5,14 @@ import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { useBetPool } from "../../../../context/BetPoolContext";
 import { getApostas } from "./MyBetsData";
 import CryptoJS from "crypto-js";
+import html2canvas from 'html2canvas';
 
 
 const MyBets = () => {
+
     const secretKey = "sua-chave-secreta";
+
+    const [images, setImages] = useState();
 
     const [apostas, setApostas] = useState([]);
     const { jogoId, setJogoId } = useBetPool();
@@ -39,6 +43,22 @@ const MyBets = () => {
         fetchApostas();
     }, [userId, jogoId]); // Recarrega as apostas quando `userId` ou `jogoId`
 
+
+    const captureModal = () => {
+        // Seleciona o modal pelo ID ou outra classe
+        const modal = document.getElementById('aposta'); // ou use uma classe como '.modal'
+
+        html2canvas(modal).then((canvas) => {
+          // Converte o canvas em uma imagem (Base64)
+        const imageUrl = canvas.toDataURL('image/png');
+
+          // Agora você pode enviar essa imagem usando a API do WhatsApp ou outro serviço
+            console.log(imageUrl); // Exibe o Base64 no console, você pode usar essa URL para enviar
+            setImages(imageUrl);
+        });
+    };
+
+
     return (
         <Container_bets>
             <div className="container-bets">
@@ -46,7 +66,7 @@ const MyBets = () => {
                 {apostas.length > 0 ? (
                     <div className="bets">
                         {apostas.map((aposta) => (
-                            <div className="aposta" key={aposta.id} style={{ backgroundColor: aposta.paymentStatus === "Pago" ? "rgb(0, 128, 0, 0.2)" : "rgb(255, 145, 0, 0.1)", borderLeft: aposta.paymentStatus === "Pago" ? "solid 5px green" : " solid 5px #FFA83A" }}>
+                            <div className="aposta" key={aposta.id}  style={{ backgroundColor: aposta.paymentStatus === "Pago" ? "rgb(0, 128, 0, 0.2)" : "rgb(255, 145, 0, 0.1)", borderLeft: aposta.paymentStatus === "Pago" ? "solid 5px green" : " solid 5px #FFA83A" }}>
                                 <div>
                                     <div className="title-price">
                                         <h4 className="title">{aposta.title}</h4>
@@ -62,10 +82,15 @@ const MyBets = () => {
                                                 ))}
                                         </div>
                                     </div>
-                                    <p className="date">{`Data do Sorteio: ${aposta.created.toDate().toLocaleString()}`}</p>
+                                    <p className="date">{`Data do Sorteio: ${aposta.drawDate.toDate().toLocaleString()}`}</p>
                                 </div>
                                 <div className="action-status">
-                                    <p className="whatsapp">
+                                    <p 
+                                        className="whatsapp"
+                                        onClick={() => {
+                                            captureModal();
+                                        }}
+                                    >
                                         <FontAwesomeIcon className="icon" icon={faWhatsapp} />
                                         Enviar por WhatsApp
                                     </p>
@@ -73,9 +98,9 @@ const MyBets = () => {
                                     { aposta.paymentStatus === "Pago"  ? null :
                                         <p 
                                             className="status" 
-                                            style={{ backgroundColor: aposta.paymentStatus === "Pendente" ? "#ff9100" : aposta.paymentStatus === "Cancelado"  && "red" }}
+                                            style={{ backgroundColor: aposta.paymentStatus === "pendente" ? "#ff9100" : aposta.paymentStatus === "Cancelado"  && "red" }}
                                         >
-                                            {aposta.paymentStatus === "Pendente" ? "Pendente" : aposta.paymentStatus === "Cancelado" && "Cancelado"}
+                                            {aposta.paymentStatus === "pendente" ? "pendente" : aposta.paymentStatus === "Cancelado" && "Cancelado"}
                                         </p>
                                     }
 

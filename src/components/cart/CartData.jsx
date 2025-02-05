@@ -15,10 +15,10 @@ export const enviarApostas = async (apostas) => {
             numbers: aposta.numbers,
             paymentStatus: aposta.paymentStatus,
             price: aposta.price,
-            status: aposta.status,
-            ticket: i + 1, // Define o ticket como índice + 1
+            ticket: aposta.ticket, 
             title: aposta.title,
             user_id: aposta.user_id,
+            drawDate: aposta.drawDate
         });
 
         console.log(`Aposta ${i + 1} enviada com sucesso!`);

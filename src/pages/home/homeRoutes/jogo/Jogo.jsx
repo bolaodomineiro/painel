@@ -66,11 +66,11 @@ const Jogo = () => {
                 jogo_id: jogoId, 
                 numbers: [...balls],
                 price: jogo.price,
-                status: true,
-                ticket: "aposta.length + 1" , //pega o total de apostas ja feita ex: apostas.length + 1, para  incrementar o numero do bilhete.
-                paymentStatus: false, //valor inicial como false,  se o usuario pagar ele muda para true.
+                ticket: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1000 , //gera numbers
+                paymentStatus: "pendente", //valor inicial como false,  se o usuario pagar ele muda para true.
                 created: Timestamp.now(),
                 expirationDate: expirationTimestamp,
+                drawDate: jogo.drawDate,
             };
 
             apostas.push(newAposta);

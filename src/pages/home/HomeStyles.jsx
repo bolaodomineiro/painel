@@ -5,6 +5,7 @@ export const Container_home = styled.section`
     background: #ccc;
     padding-top: 10px;
 
+
     .container_cards {
         display: flex;
         width: 100%;
