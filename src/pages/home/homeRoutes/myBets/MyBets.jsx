@@ -46,25 +46,42 @@ const MyBets = () => {
                 {apostas.length > 0 ? (
                     <div className="bets">
                         {apostas.map((aposta) => (
-                            <div className="aposta" key={aposta.id}>
+                            <div className="aposta" key={aposta.id} style={{ backgroundColor: aposta.paymentStatus === "Pago" ? "rgb(0, 128, 0, 0.2)" : "rgb(255, 145, 0, 0.1)", borderLeft: aposta.paymentStatus === "Pago" ? "solid 5px green" : " solid 5px #FFA83A" }}>
                                 <div>
-                                    <h4 className="title">{aposta.title}</h4>
-                                    <div className="balls-container">
-                                        {aposta.numbers
-                                            .slice()
-                                            .sort((a, b) => a - b)
-                                            .map((ball, i) => (
-                                                <span key={i} className="ball">{ball}</span>
-                                            ))}
+                                    <div className="title-price">
+                                        <h4 className="title">{aposta.title}</h4>
+                                        <p  className="price">{aposta.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
                                     </div>
+                                    <div className="balls-container">
+                                        <div className="balls">
+                                            {aposta.numbers
+                                                .slice()
+                                                .sort((a, b) => a - b)
+                                                .map((ball, i) => (
+                                                    <span key={i} className="ball">{ball}</span>
+                                                ))}
+                                        </div>
+                                    </div>
+                                    <p className="date">{`Data do Sorteio: ${aposta.created.toDate().toLocaleString()}`}</p>
                                 </div>
                                 <div className="action-status">
                                     <p className="whatsapp">
                                         <FontAwesomeIcon className="icon" icon={faWhatsapp} />
                                         Enviar por WhatsApp
                                     </p>
-                                    <p className="status">Pendente</p>
-                                    <button>Fazer pagamento</button>
+
+                                    { aposta.paymentStatus === "Pago"  ? null :
+                                        <p 
+                                            className="status" 
+                                            style={{ backgroundColor: aposta.paymentStatus === "Pendente" ? "#ff9100" : aposta.paymentStatus === "Cancelado"  && "red" }}
+                                        >
+                                            {aposta.paymentStatus === "Pendente" ? "Pendente" : aposta.paymentStatus === "Cancelado" && "Cancelado"}
+                                        </p>
+                                    }
+
+                                    { aposta.paymentStatus === "Cancelado"  ? null :
+                                        <button>{aposta.paymentStatus === "Pago" ? "Pago" : "Fazer pagamento"}</button>
+                                    }
                                     <p className="bilhete">Bilhete: {aposta.ticket}</p>
                                 </div>
                             </div>

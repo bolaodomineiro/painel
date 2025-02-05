@@ -13,8 +13,23 @@ export const Container_bets = styled.section`
 
     .container-bets {
         width:100%;
+        height: calc(100vh - 100px);
         border-radius: 10px;
-        padding: 10px;
+        padding: 20px 10px;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+            width: 3px;
+            background-color: #fff;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #242222;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
 
         h2 {
             display: flex;
@@ -34,11 +49,13 @@ export const Container_bets = styled.section`
             
             .aposta {
                 display: flex;
+                width: 100%;
                 flex-wrap: wrap;
                 align-items: center;
                 justify-content: space-between;
                 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
                 padding: 20px;
+                border-radius: 10px;
                 gap: 10px;
                 margin-bottom: 20px;
 
@@ -46,25 +63,47 @@ export const Container_bets = styled.section`
                     background-color:rgb(228, 227, 227);
                 }
 
-                .title {
-                    font-size: 1rem;
-                    font-weight: 900;
+                .title-price {
+                    display: flex;
+                    gap: 10px;
                     padding-bottom: 10px;
 
-                    @media (max-width: 475px) {
-                        text-align: center;
+                    .title {
+                        font-size: 1rem;
+                        font-weight: 900;
+
+                        @media (max-width: 475px) {
+                            text-align: center;
+                        }
+                    }
+
+                    .price {
+                        font-size: 0.9rem;
+                        font-weight: 900;
+                        color: green;
                     }
                 }
 
                 .balls-container {
                     display: flex;
-                    flex-wrap: wrap;
-                    gap: 10px;
+                    justify-content: center;
 
-                    @media (max-width: 475px) {
-                        justify-content: center;
-                        gap: 5px;
+                    .balls{
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+
+                        @media (max-width: 475px) {
+                            justify-content: center;
+                            width: 73%;
+                            gap: 5px;
+                        }
+
+                        @media (max-width: 325px) {
+                            width: 87%;
+                        }
                     }
+
                     
                     .ball {
                         display: flex;
@@ -84,6 +123,16 @@ export const Container_bets = styled.section`
                     }
                 }
 
+                .date {
+                    font-size: 0.9rem;
+                    font-weight: 900;
+                    padding-top: 10px ;
+
+                    @media (max-width: 475px) {
+                        text-align: center;
+                    }
+                }
+
                 .action-status {
                     
                     display: flex;
@@ -97,7 +146,7 @@ export const Container_bets = styled.section`
                         justify-content: center;
                         align-items: center;
                         gap: 10px;
-                        padding: 10px;
+                        padding:10px;
                         background-color: rgb(255, 255, 255);
                         color: #000;
                         cursor: pointer;
@@ -107,7 +156,7 @@ export const Container_bets = styled.section`
                         box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 
                         .icon {
-                            font-size: 2rem;
+                            font-size: 1.5rem;
                             font-weight: 900;
                             color: green
                         }
@@ -150,6 +199,7 @@ export const Container_bets = styled.section`
                         gap: 10px;
                         padding: 10px;
                         background-color: rgb(0, 111, 0);
+                        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
                         color: #fff;
                         cursor: pointer;
                         border-radius: 5px;
@@ -169,14 +219,15 @@ export const Container_bets = styled.section`
                         align-items: center;
                         gap: 10px;
                         padding: 10px;
-                        background-color: #242222;
-                        color: #fff;
-                        cursor: pointer;
+                        background-color:rgb(255, 255, 255);
+                        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+                        color: #000;
                         border-radius: 5px;
                         outline: none;
                         border: none;
                         font-size: 0.9rem;
                         font-weight: 900;
+
                         @media (max-width: 475px) {
                             width: 100%;
                         }
