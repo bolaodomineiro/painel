@@ -9,7 +9,7 @@ export const Container_jogo = styled.section`
     width: 100%;
     position: relative;
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 0  40px 0;
 
     .info {
         padding: 20px ;

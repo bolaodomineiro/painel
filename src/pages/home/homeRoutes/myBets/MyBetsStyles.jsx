@@ -13,7 +13,7 @@ export const Container_bets = styled.section`
 
     .container-bets {
         width:100%;
-        height: calc(100vh - 100px);
+        max-height: calc(100vh - 100px);
         border-radius: 10px;
         padding: 20px 10px;
         overflow: auto;
@@ -39,8 +39,9 @@ export const Container_bets = styled.section`
             width: 150px;
             font-size: 1.3rem;
             font-weight: 900;
-            background-color:#F3EED9;
+            background-color: #242222;
             border-radius: 10px;
+            color: #fff;
         }
 
         .bets {
