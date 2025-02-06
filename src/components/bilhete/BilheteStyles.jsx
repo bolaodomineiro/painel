@@ -162,7 +162,7 @@ export const Container_bilhete = styled.section`
                     align-items: center;
                     justify-content: center;
                     width: 100%;
-                    gap: 6px;
+                    gap: 4px;
                     padding: 5px 5px 8px;
 
                     span {
@@ -171,11 +171,8 @@ export const Container_bilhete = styled.section`
                     }
                     
                     .ball {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        width: 18px;
-                        height: 18px;
+
+                        padding: 5px;
                         border-radius: 50%;
                         background: #AB0519;
                         color: #fff;

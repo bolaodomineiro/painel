@@ -8,34 +8,38 @@ import CryptoJS from "crypto-js";
 import html2canvas from 'html2canvas';
 import Bilhete from "../../../../components/bilhete/Bilhete";
 
-
 const MyBets = () => {
 
     const secretKey = "sua-chave-secreta";
 
-    const [images, setImages] = useState();
+    const [jogo, setJogo] = useState([]);
+    const [apostaId, setApostaId] = useState();
 
     const [apostas, setApostas] = useState([]);
-    const { jogoId, setJogoId } = useBetPool();
+    const {jogos, jogoId, setJogoId } = useBetPool();
     const [userId, setUserId] = useState();
-
+    
     useEffect(() => {
         const storedUserId = localStorage.getItem("userId");
         const storedJogoId = localStorage.getItem("jogoId");
+        const storedApostaId = localStorage.getItem("apostaId");
 
-        if (storedUserId && storedJogoId ) {
+        if (storedUserId && storedJogoId && storedApostaId) {
             setUserId(storedUserId);
             setJogoId(storedJogoId);
+            setApostaId(storedApostaId.id);
         }
-    }, []); // Apenas na montagem do componente
+    }, []);
 
     useEffect(() => {
         const fetchApostas = async () => {
-            if (userId && jogoId) {
 
+            const getJogoItem = await jogos.find((jogo) => jogo.id === jogoId);
+            setJogo(getJogoItem);
+
+            if (userId && jogoId) {
                 const decryptedBytes = CryptoJS.AES.decrypt(userId, secretKey);
                 const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
                 const listaApostas = await getApostas(decryptedUid, jogoId);
                 setApostas(listaApostas);
             }
@@ -44,22 +48,23 @@ const MyBets = () => {
         fetchApostas();
     }, [userId, jogoId]); // Recarrega as apostas quando `userId` ou `jogoId`
 
-    const captureModal = () => {
+
+    const captureModal = async (id, idAposta) => {
+        const getJogoItem = await jogos.find((jogo) => jogo.id === id);
+        setJogo(getJogoItem);
+        
     // Seleciona o modal pelo ID (alterar o ID 'online' conforme necessário)
         const modal = document.getElementById('online');
-        
         // Captura a imagem do modal com html2canvas
         html2canvas(modal).then((canvas) => {
             // Converte o canvas para um Blob (arquivo real de imagem)
             canvas.toBlob(async (blob) => {
             const file = new File([blob], "screenshot.png", { type: "image/png" });
-
             //  Criar link para download
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'screenshot.png';
             link.click();
-        
             // Verifica se o navegador suporta o compartilhamento de arquivos
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
                 try {
@@ -114,7 +119,8 @@ const MyBets = () => {
                                         <p 
                                             className="whatsapp"
                                             onClick={() => {
-                                                captureModal();
+                                                captureModal(aposta.jogo_id, aposta.id);
+                                                setApostaId(aposta.id);
                                             }}
                                         >
                                             <FontAwesomeIcon className="icon" icon={faWhatsapp} />
@@ -145,8 +151,7 @@ const MyBets = () => {
                     <p className="no-bets">Nenhuma aposta encontrada.</p>
                 )}
             </div>
-            <Bilhete id="online"  />
-            <img src={images} alt="" />
+            <Bilhete id="online" jogo={jogo} />
         </Container_bets>
     );
 };
