@@ -6,6 +6,7 @@ import { useBetPool } from "../../../../context/BetPoolContext";
 import { getApostas } from "./MyBetsData";
 import CryptoJS from "crypto-js";
 import html2canvas from 'html2canvas';
+import Bilhete from "../../../../components/bilhete/Bilhete";
 
 
 const MyBets = () => {
@@ -43,21 +44,45 @@ const MyBets = () => {
         fetchApostas();
     }, [userId, jogoId]); // Recarrega as apostas quando `userId` ou `jogoId`
 
-
     const captureModal = () => {
-        // Seleciona o modal pelo ID ou outra classe
-        const modal = document.getElementById('aposta'); // ou use uma classe como '.modal'
-
+    // Seleciona o modal pelo ID (alterar o ID 'online' conforme necessário)
+        const modal = document.getElementById('online');
+        
+        // Captura a imagem do modal com html2canvas
         html2canvas(modal).then((canvas) => {
-          // Converte o canvas em uma imagem (Base64)
-        const imageUrl = canvas.toDataURL('image/png');
+            // Converte o canvas para um Blob (arquivo real de imagem)
+            canvas.toBlob(async (blob) => {
+            const file = new File([blob], "screenshot.png", { type: "image/png" });
 
-          // Agora você pode enviar essa imagem usando a API do WhatsApp ou outro serviço
-            console.log(imageUrl); // Exibe o Base64 no console, você pode usar essa URL para enviar
-            setImages(imageUrl);
+            //  Criar link para download
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'screenshot.png';
+            link.click();
+        
+            // Verifica se o navegador suporta o compartilhamento de arquivos
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                try {
+                // Tenta compartilhar o arquivo de imagem
+                await navigator.share({
+                    files: [file],
+                    title: "Minha Captura",
+                    text: "Veja esse print!",
+                });
+                } catch (error) {
+                // Em caso de erro no compartilhamento, exibe no console
+                console.error("Erro ao compartilhar:", error);
+                }
+            } else {
+                // Caso o navegador não suporte o compartilhamento de arquivos diretamente
+                console.log("Navegador não suporta compartilhamento de arquivos.");
+            }
+            }, "image/png");
+        }).catch((error) => {
+            // Captura qualquer erro que possa ocorrer ao gerar o canvas
+            console.error("Erro ao capturar o modal:", error);
         });
     };
-
 
     return (
         <Container_bets>
@@ -85,15 +110,17 @@ const MyBets = () => {
                                     <p className="date">{`Data do Sorteio: ${aposta.drawDate.toDate().toLocaleString()}`}</p>
                                 </div>
                                 <div className="action-status">
-                                    <p 
-                                        className="whatsapp"
-                                        onClick={() => {
-                                            captureModal();
-                                        }}
-                                    >
-                                        <FontAwesomeIcon className="icon" icon={faWhatsapp} />
-                                        Enviar por WhatsApp
-                                    </p>
+                                    { aposta.paymentStatus === "Pago" &&
+                                        <p 
+                                            className="whatsapp"
+                                            onClick={() => {
+                                                captureModal();
+                                            }}
+                                        >
+                                            <FontAwesomeIcon className="icon" icon={faWhatsapp} />
+                                            Enviar por WhatsApp
+                                        </p>
+                                    }
 
                                     { aposta.paymentStatus === "Pago"  ? null :
                                         <p 
@@ -105,7 +132,9 @@ const MyBets = () => {
                                     }
 
                                     { aposta.paymentStatus === "Cancelado"  ? null :
-                                        <button>{aposta.paymentStatus === "Pago" ? "Pago" : "Fazer pagamento"}</button>
+                                        <button 
+                                            style={{ backgroundColor: aposta.paymentStatus === "Pago" && "green" }}
+                                        >{aposta.paymentStatus === "Pago" ? "Pago" : "Fazer pagamento"}</button>
                                     }
                                     <p className="bilhete">Bilhete: {aposta.ticket}</p>
                                 </div>
@@ -116,6 +145,8 @@ const MyBets = () => {
                     <p className="no-bets">Nenhuma aposta encontrada.</p>
                 )}
             </div>
+            <Bilhete id="online"  />
+            <img src={images} alt="" />
         </Container_bets>
     );
 };

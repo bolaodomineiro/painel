@@ -4,6 +4,7 @@ export const Container_home = styled.section`
     width: 100%;
     background: #ccc;
     padding-top: 10px;
+    position: relative;
 
 
     .container_cards {

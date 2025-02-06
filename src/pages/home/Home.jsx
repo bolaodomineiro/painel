@@ -5,6 +5,7 @@ import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../../assets/loading.webp";// gif
 import {Link, Outlet, useLocation} from "react-router-dom";
 import { useBetPool } from "../../context/BetPoolContext";
+import Bilhete from "../../components/bilhete/Bilhete";
 
 const Home = () => {
 
@@ -138,6 +139,7 @@ const Home = () => {
                     <Outlet />
                 </section>
             </Contests_style>
+            {/* <Bilhete  /> */}
         </Container_home>
     );
 };
