@@ -12,8 +12,8 @@ export const Aside = styled.aside`
     left: 0;
     overflow: hidden;
 
-    @media (max-width: 374px) {
-        max-width: ${({ $menuToggle }) => ($menuToggle ? "38px" : "150px")};
+    @media (max-width: 460px) {
+        width:40px;
     }
 
     .logo_area {
@@ -79,8 +79,11 @@ export const Aside = styled.aside`
                 min-width: 200px;
             }
 
-            &:hover {
-                background: #AB0519;
+            @media (min-width: 800px) {
+                &:hover {
+                    background: #AB0519;
+                }
+
             }
 
             .icon {

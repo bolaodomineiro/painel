@@ -100,15 +100,7 @@ const Table = ({ useSelect }) => {
                 />
               </li>
               <li>{user.name.split(" ").slice(0, 2).join(" ")}</li>
-              <li>
-                <InputMask
-                  inputRef={inputRef}
-                  mask="(99) 9 9999-9999"
-                  value={user.phone}
-                  disabled
-                  style={{ border: "none", background: "transparent" }}
-                />
-              </li>
+              <li> {user.phone} </li>
               <li>{user.city}</li>
               <li>{formatBalance(user.balance)}</li>
               <li>

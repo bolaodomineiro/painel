@@ -12,11 +12,11 @@ const Menu = ({ $menuToggle, $setTitle }) => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const [active, setActive] = useState("dashboard");
+    const [active, setActive] = useState("/dashboard/jogo");
 
     // Atualizar o estado de menu ativo com base no caminho
     useEffect(() => {
-        const pathSegments = location.pathname.split('/dashboard/jogo', '/dashboard/myBets', ).filter(Boolean);
+        const pathSegments = location.pathname.split('/dashboard/jogo', ).filter(Boolean);
         const lastSegment = pathSegments[pathSegments.length - 1] || "/dashboard/jogo";
         setActive(lastSegment);
         console.log();
@@ -24,9 +24,14 @@ const Menu = ({ $menuToggle, $setTitle }) => {
         switch (lastSegment) {
             case "/dashboard/jogo":
                 $setTitle("Dashboard");
+                setActive("/dashboard/jogo");
                 break;
-            case "users":
+            case "/dashboard/myBets":
+                setActive("/dashboard/jogo");
+                break;
+            case "/users":
                 $setTitle("Usuários");
+                setActive("/users");
                 break;
             // case "contests":
             //     $setTitle("Concursos");
@@ -41,6 +46,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                 $setTitle("");
                 break;
         }
+
     }, [location.pathname, $setTitle]);
 
     // Função para logout

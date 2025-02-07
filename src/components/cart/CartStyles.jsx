@@ -82,7 +82,7 @@ export const Container_cart = styled.section`
             position: absolute;
             right: 10px;
             top: 6px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color:#fff;
             cursor: pointer;
         }

@@ -49,7 +49,7 @@ const Cart = () => {
                                 type="text" 
                                 value={apostas.reduce((total, jogo) => total + jogo.price, 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                             />
-                            <FontAwesomeIcon className="icon-close" icon={faRectangleXmark} />
+                            { cartOpen && <FontAwesomeIcon className="icon-close" icon={faRectangleXmark} />}
                         </div>
                     </div>
                     <div className="main-cart">

@@ -3,19 +3,16 @@ import styled from "styled-components";
 export const Container_bets = styled.section`
     display: flex;
     justify-content: center;
-    align-items: center;
     background: #fff;
     height: auto;
     width: 100%;
     position: relative;
-    border-radius: 10px;
-    padding: 10px;    
+    border-radius: 0px;  
 
     .container-bets {
         width:100%;
         max-height: calc(100vh - 100px);
-        border-radius: 10px;
-        padding: 20px 10px;
+        padding: 10px 10px 30px;
         overflow: auto;
 
         &::-webkit-scrollbar {
@@ -40,7 +37,7 @@ export const Container_bets = styled.section`
             font-size: 1.3rem;
             font-weight: 900;
             background-color: #242222;
-            border-radius: 10px;
+            border-radius:5px;
             color: #fff;
         }
 
@@ -231,6 +228,7 @@ export const Container_bets = styled.section`
 
                         @media (max-width: 475px) {
                             width: 100%;
+                            text-align: center;
                         }
                     }
                     

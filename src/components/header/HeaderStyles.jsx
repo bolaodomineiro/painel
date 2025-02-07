@@ -6,7 +6,7 @@ export const Container_header = styled.header`
     align-items: center;
     background: #F3EED9;
     min-height: 50px;
-    padding: 0 5px;
+    padding: 0 10px;
     position: fixed;
     top: 0;
     gap: 5px;
@@ -46,6 +46,10 @@ export const Container_header = styled.header`
 
         &:hover {
             color:  #AB0519;;
+        }
+
+        @media (max-width: 460px) {
+            display: none;
         }
     }   
 

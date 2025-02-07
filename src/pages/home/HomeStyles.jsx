@@ -2,9 +2,8 @@ import styled from "styled-components";
 
 export const Container_home = styled.section`
     width: 100%;
-    background: #ccc;
-    padding-top: 10px;
     position: relative;
+    overflow: hidden;
 
 
     .container_cards {
@@ -14,7 +13,7 @@ export const Container_home = styled.section`
         flex-wrap: wrap;
         gap: 15px;
         padding: 10px;
-        margin-top: 40px;
+        margin-top: 50px;
         padding-bottom: 12px;
         background-color: #f2f2f2;
     }
@@ -60,12 +59,10 @@ export const Container_home = styled.section`
 `;
 
 export const Contests_style = styled.section`
-
     width: 100%;
-    min-height: 100svh;
-    padding: 0.5em;
-    background-color: #f1f1f1;
-    border-top: 5px solid #AB0519;
+    height: 100svh;
+    padding-top: 20px;
+    
 
     .header_contests{
         display: flex;
