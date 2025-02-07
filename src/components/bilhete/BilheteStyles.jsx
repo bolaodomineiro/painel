@@ -136,7 +136,11 @@ export const Container_bilhete = styled.section`
             padding: 10px 10px;
 
             .bilhete-jogo-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
                 background: #f2f2f2;
+                height: 60px;
                 margin-bottom: 5px;
                 box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
 
@@ -152,7 +156,8 @@ export const Container_bilhete = styled.section`
 
                     span {
                         font-size: 0.6rem;
-                        font-weight: 500;
+                        font-weight: 900;
+                        color:green;
                     }
                 }
 

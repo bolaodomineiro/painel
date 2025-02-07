@@ -4,50 +4,45 @@ import { auth, db } from "../firebase/firebase";
 import CryptoJS from "crypto-js";
 import { doc, getDoc } from "firebase/firestore";
 
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  
   const [message, setMessage] = useState(null);
-  const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null); // Estado para armazenar o usuário
+  const navigate = useNavigate();
   const secretKey = "sua-chave-secreta";
 
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        // Obtém o UID da URL ou localStorage
         const urlParams = new URLSearchParams(window.location.search);
         const urlUid = urlParams.get("uid");
-        const  getUid = localStorage.getItem("userId")
+        const getUid = localStorage.getItem("userId");
 
-        let encryptedUid =  decodeURIComponent(getUid || urlUid); 
-
+        let encryptedUid = decodeURIComponent(getUid || urlUid);
         if (!encryptedUid) throw new Error("Nenhum UID encontrado.");
 
-        // Descriptografa o UID
         const decryptedBytes = CryptoJS.AES.decrypt(encryptedUid, secretKey);
         const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
         if (!decryptedUid) throw new Error("UID descriptografado é inválido.");
 
-        // Busca o documento do usuário no Firestore
         const userDocRef = doc(db, "users", decryptedUid);
         const userDocSnap = await getDoc(userDocRef);
 
         if (!userDocSnap.exists()) throw new Error("Usuário não encontrado.");
 
-        localStorage.setItem("userId",getUid || urlUid);
-        setAuthenticated(true);
-        localStorage.setItem("authenticated", "true"); // Opcional, dependendo do seu fluxo
+        const userData = userDocSnap.data();
+        setUser({ id: decryptedUid, ...userData }); // Salvando o usuário no state
 
+        localStorage.setItem("userId", getUid || urlUid);
+        setAuthenticated(true);
+        localStorage.setItem("authenticated", "true");
       } catch (error) {
         console.error("Erro ao autenticar usuário:", error.message);
-        setMessage(error.message); // Armazenando a mensagem de erro
+        setMessage(error.message);
         navigate("/error");
-        // window.location.href = "https://www.bolaodomineiro.com.br/";
-        // navigate("/error"); // Redireciona para uma página de erro (se necessário)
       } finally {
         setLoading(false);
       }
@@ -57,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ authenticated, loading, message, setMessage }}>
+    <AuthContext.Provider value={{ authenticated, loading, message, setMessage, user }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,92 +1,70 @@
 import { useEffect, useState } from "react";
-import { Container_bets } from "./MyBetsStyles";
+//icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-import { useBetPool } from "../../../../context/BetPoolContext";
-import { getApostas } from "./MyBetsData";
-import CryptoJS from "crypto-js";
-import html2canvas from 'html2canvas';
+//components
+import { Container_bets } from "./MyBetsStyles";
 import Bilhete from "../../../../components/bilhete/Bilhete";
+// context
+import { useBetPool } from "../../../../context/BetPoolContext";
+import { useMyBets } from "../../../../context/MyBetsContext";
+//utils
+import html2canvas from 'html2canvas';
 
 const MyBets = () => {
-
     const secretKey = "sua-chave-secreta";
 
-    const [jogo, setJogo] = useState([]);
-    const [apostaId, setApostaId] = useState();
-
-    const [apostas, setApostas] = useState([]);
     const {jogos, jogoId, setJogoId } = useBetPool();
-    const [userId, setUserId] = useState();
-    
-    useEffect(() => {
-        const storedUserId = localStorage.getItem("userId");
-        const storedJogoId = localStorage.getItem("jogoId");
-        const storedApostaId = localStorage.getItem("apostaId");
+    const { apostas } = useMyBets();
 
-        if (storedUserId && storedJogoId && storedApostaId) {
-            setUserId(storedUserId);
-            setJogoId(storedJogoId);
-            setApostaId(storedApostaId.id);
-        }
+    const [apostaItem, setApostaItem] = useState([]);
+
+    useEffect(() => {
+        const getApostaItem = apostas.find((aposta) => aposta.jogo_id === jogoId && aposta.paymentStatus  === "Pago" );
+        setApostaItem(getApostaItem);
     }, []);
-
-    useEffect(() => {
-        const fetchApostas = async () => {
-
-            const getJogoItem = await jogos.find((jogo) => jogo.id === jogoId);
-            setJogo(getJogoItem);
-
-            if (userId && jogoId) {
-                const decryptedBytes = CryptoJS.AES.decrypt(userId, secretKey);
-                const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
-                const listaApostas = await getApostas(decryptedUid, jogoId);
-                setApostas(listaApostas);
-            }
-        };
-
-        fetchApostas();
-    }, [userId, jogoId]); // Recarrega as apostas quando `userId` ou `jogoId`
-
-
-    const captureModal = async (id, idAposta) => {
-        const getJogoItem = await jogos.find((jogo) => jogo.id === id);
-        setJogo(getJogoItem);
-        
+    
+    const captureModal = async (aposta_id) => {
+        const getApostaItem = await apostas.find((aposta) => aposta.id === aposta_id);
+        setApostaItem(getApostaItem);
+        console.log(getApostaItem);
     // Seleciona o modal pelo ID (alterar o ID 'online' conforme necessário)
         const modal = document.getElementById('online');
         // Captura a imagem do modal com html2canvas
-        html2canvas(modal).then((canvas) => {
-            // Converte o canvas para um Blob (arquivo real de imagem)
-            canvas.toBlob(async (blob) => {
-            const file = new File([blob], "screenshot.png", { type: "image/png" });
-            //  Criar link para download
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'screenshot.png';
-            link.click();
-            // Verifica se o navegador suporta o compartilhamento de arquivos
-            if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                try {
-                // Tenta compartilhar o arquivo de imagem
-                await navigator.share({
-                    files: [file],
-                    title: "Minha Captura",
-                    text: "Veja esse print!",
-                });
-                } catch (error) {
-                // Em caso de erro no compartilhamento, exibe no console
-                console.error("Erro ao compartilhar:", error);
+        setTimeout (() => {
+            html2canvas(modal).then((canvas) => {
+                // Converte o canvas para um Blob (arquivo real de imagem)
+                canvas.toBlob(async (blob) => {
+                const file = new File([blob], "screenshot.png", { type: "image/png" });
+                //  Criar link para download
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'screenshot.png';
+                link.click();
+                // Verifica se o navegador suporta o compartilhamento de arquivos
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    try {
+                    // Tenta compartilhar o arquivo de imagem
+                    await navigator.share({
+                        files: [file],
+                        title: "Minha Captura",
+                        text: "Veja esse print!",
+                    });
+                    } catch (error) {
+                    // Em caso de erro no compartilhamento, exibe no console
+                    console.error("Erro ao compartilhar:", error);
+                    }
+                } else {
+                    // Caso o navegador não suporte o compartilhamento de arquivos diretamente
+                    console.log("Navegador não suporta compartilhamento de arquivos.");
                 }
-            } else {
-                // Caso o navegador não suporte o compartilhamento de arquivos diretamente
-                console.log("Navegador não suporta compartilhamento de arquivos.");
-            }
-            }, "image/png");
-        }).catch((error) => {
-            // Captura qualquer erro que possa ocorrer ao gerar o canvas
-            console.error("Erro ao capturar o modal:", error);
-        });
+                }, "image/png");
+            }).catch((error) => {
+                // Captura qualquer erro que possa ocorrer ao gerar o canvas
+                console.error("Erro ao capturar o modal:", error);
+            });
+        }, 300)
+
     };
 
     return (
@@ -119,8 +97,8 @@ const MyBets = () => {
                                         <p 
                                             className="whatsapp"
                                             onClick={() => {
-                                                captureModal(aposta.jogo_id, aposta.id);
-                                                setApostaId(aposta.id);
+                                                captureModal(aposta.id);
+                                                localStorage.setItem("apostaId", aposta.id);
                                             }}
                                         >
                                             <FontAwesomeIcon className="icon" icon={faWhatsapp} />
@@ -151,7 +129,7 @@ const MyBets = () => {
                     <p className="no-bets">Nenhuma aposta encontrada.</p>
                 )}
             </div>
-            <Bilhete id="online" jogo={jogo} />
+            <Bilhete id="online" apostaItem={apostaItem} />
         </Container_bets>
     );
 };

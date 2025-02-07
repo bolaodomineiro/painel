@@ -43,16 +43,13 @@ const Jogo = () => {
         }
     };
 
-    // Atualiza o localStorage sempre que `balls` mudar
-    useEffect(() => {
-        // 1️⃣ Armazena jogos finalizados (quando 10 números são selecionados)
-        if (balls.length === 10) {
-            // const getAposta = JSON.parse(localStorage.getItem("apostas")) || [];
-            const getUserId = localStorage.getItem("userId");
 
+    useEffect(() => {
+        // Armazena jogos finalizados (quando 10 números são selecionados)
+        if (balls.length === 10) {
+            const getUserId = localStorage.getItem("userId");
             const decryptedBytes = CryptoJS.AES.decrypt(getUserId , secretKey);
             const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
             // Obtém a data do sorteio como objeto Date
             const drawDate = jogo.drawDate instanceof Date ? jogo.drawDate : jogo.drawDate.toDate(); 
             // Subtrai 2 horas para definir a expiração antes do sorteio
@@ -67,14 +64,13 @@ const Jogo = () => {
                 numbers: [...balls],
                 price: jogo.price,
                 ticket: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1000 , //gera numbers
-                paymentStatus: "pendente", //valor inicial como false,  se o usuario pagar ele muda para true.
+                paymentStatus: "pendente",
                 created: Timestamp.now(),
                 expirationDate: expirationTimestamp,
                 drawDate: jogo.drawDate,
             };
 
             apostas.push(newAposta);
-
             setApostas(apostas);
             localStorage.setItem("apostas", JSON.stringify(apostas));
             

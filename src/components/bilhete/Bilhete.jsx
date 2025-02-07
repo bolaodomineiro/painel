@@ -1,15 +1,16 @@
+import { useState, useEffect } from "react"
 import { Container_bilhete } from "./BilheteStyles"
 import  Logo from "../logo/Logo"
 import Qr from "../../assets/qr.png"
+// content
+import { useBetPool } from "../../context/BetPoolContext"
+import { useAuthContext } from "../../context/AuthContext"
 
-const Bilhete = ({id, jogo, apostaItem}) => {
+const Bilhete = ({id, apostaItem}) => {
 
-    const jogos = [
-        [10, 23, 32, 42, 52, 62, 24, 87, 90, '02'],
-        [10, 23, 32, 42, 52, 62, 24, 87, 90, '02'],
-        [10, 23, 32, 42, 52, 62, 24, 87, 90, '02'],
-        [10, 23, 32, 42, 52, 62, 24, 87, 90, '02'],
-    ]
+    const { user } = useAuthContext();
+    const { jogos, jogoId } = useBetPool();
+    const getJogoItem = jogos.find((jogo) => jogo.id === apostaItem?.jogo_id && apostaItem?.paymentStatus === "Pago");
 
     return (
         <Container_bilhete id={id}>
@@ -20,55 +21,55 @@ const Bilhete = ({id, jogo, apostaItem}) => {
                 <h2>Bolão do Mineiro</h2>
             </section>
             <section className="bilhete-infos">
-                { [jogo].map((jogo, index) => (
-                    <div key={index}>
-                        <h3>{jogo.title}</h3>
-                        <h5>Via do cliente - Bilhete Online</h5>
-                        <div className="bilhete-prize">
-                            <p><b>Prêmio Estinado</b></p>
-                            <p> {jogo.award?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}  Mil Reais | {jogo.prizeQuantity } PRÊMIOS</p>
-                        </div>
-                        <div className="bilhete-rules">
-                            <p> <b>Regras do Prêmio </b>
-                                <br/>
-                                10 pontos - R$ 10.000,00
-                                <br/>
-                                9 pontos - R$ 2.000,00
-                                <br/>
-                                8 pontos - R$ 1.000,00
-                            </p>
-                        </div>
-                        <div className="bilhete-concurso">
-                            <h4>Concurso: 302</h4>
-                            <p>Data do Sorteio: 20/05/2023</p>
-                        </div>
+            {getJogoItem && (
+                <div>
+                    <h3>{getJogoItem.title}</h3>
+                    <h5>Via do cliente - Bilhete Online</h5>
+                    <div className="bilhete-prize">
+                        <p><b>Prêmio Estimado</b></p>
+                        <p>
+                            {getJogoItem.award?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}  
+                            Mil Reais | {getJogoItem.prizeQuantity} PRÊMIOS
+                        </p>
                     </div>
-                ))}
+                    <div className="bilhete-rules">
+                        <p> <b>Regras do Prêmio</b>
+                            <br/>
+                            10 pontos - R$ 10.000,00
+                            <br/>
+                            9 pontos - R$ 2.000,00
+                            <br/>
+                            8 pontos - R$ 1.000,00
+                        </p>
+                    </div>
+                    <div className="bilhete-concurso">
+                        <h4>Concurso: 302</h4>
+                        <p>Data do Sorteio: 20/05/2023</p>
+                    </div>
+                </div>
+            )}
                 <section className="bilhete-userData">
-                    <p><b>Nome:</b> Fulano de Tal</p>
-                    <p><b>CPF:</b> 123.456.789-00</p>
-                    <p><b>Telefone:</b> (99) 99999-9999</p>
-                    <p><b>Cidade:</b> Saquarema</p>
+                    <p><b>Nome:</b> {user.name}</p>
+                    <p><b>CPF:</b> {user.CPF || "Sem CPF"}</p>
+                    <p><b>Telefone:</b> {user.phone}</p>
+                    <p><b>Cidade:</b> {user.city}</p>
                 </section>
             </section>
             <section className="bilhete-bets">
-                {
-                    [apostaItem].map((aposta, index) => (
-                    <div key={index}>
+                { apostaItem &&
+                    <div>
                         <div className="bilhete-betsHeader">
-                            <h4>4 JOGOS</h4>
                             <p>Pago</p>
                         </div>
                         <ol className="bilhete-jogos" >
-                            <div className="bilhete-jogo-container" key={index}>
+                            <div className="bilhete-jogo-container">
                                 <div className="bilhete-jogo-Header">
-                                    <p><b>Bilhete:</b> 1234</p>
-                                    <span><b>R$ </b>0,00</span>
+                                    <p><b>Bilhete:</b> {apostaItem.ticket}</p>
+                                    <span><b></b>{apostaItem.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                                 </div>
-                                <li className="bilhete-jogo" key={index}>
-                                    <span><b>{index + 1}</b></span>
+                                <li className="bilhete-jogo" >
                                     {
-                                        [aposta].map((ball, index) => (
+                                        apostaItem.numbers?.sort((a, b) => a - b).map((ball, index) => (
                                             <span className="ball" key={index}>{ball}</span>
                                         ))
                                     }
@@ -76,10 +77,10 @@ const Bilhete = ({id, jogo, apostaItem}) => {
                             </div>
                         </ol>
                         <div className="bilhete-total-price">
-                            <h4>Total: R$ 0,00</h4>
+                            <h4>Total: {apostaItem.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4>
                         </div>
                     </div>
-                ))}
+                }
             </section>
             
             <section className="bilhete-footer">
