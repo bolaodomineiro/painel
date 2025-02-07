@@ -63,7 +63,7 @@ export const Contests_style = styled.section`
     padding-top: 20px;
     
     @media (orientation: landscape) {
-        padding-bottom: 90px;
+        padding-bottom: 100px;
     }
 
     .header_contests{

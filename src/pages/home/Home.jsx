@@ -1,14 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Container_home, Contests_style, Container_card } from "./HomeStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../../assets/loading.webp";// gif
 import {Link, Outlet, useLocation} from "react-router-dom";
 import { useBetPool } from "../../context/BetPoolContext";
+// hooks
+import useScroll from "../../hooks/Scroll";
 
 
 const Home = () => {
 
+    const elementRef = useRef(null);
+
+    const { hendleScroll } = useScroll();
     const location = useLocation();
     const [active, setActive] = useState("myBest");
 
@@ -58,16 +63,24 @@ const Home = () => {
         );
     }
 
+    const getHeight = () => {
+        if (elementRef.current) {
+            hendleScroll(elementRef.current.offsetTop);
+            console.log('Altura do elemento:', elementRef.current.offsetHeight);
+        }
+    };
+
     const hendleJogoId = (id, jogoPrice) => {
         localStorage.setItem("jogoId", id);
         setJogoId(id);
         localStorage.setItem("jogoPrice", jogoPrice);
         setJogoPrice(jogoPrice);
     };
-
+    
+    
     return (
-        <Container_home>
-            <section className="container_cards">
+        <Container_home >
+            <section className="container_cards" >
                 {jogos.map((jogo) => (
                     <Container_card key={jogo.id}>
                         <div className="container">
@@ -83,9 +96,10 @@ const Home = () => {
                                 <FontAwesomeIcon icon={faDollarSign} className="icon" />
                             </div>
                             <div
+                                ref={elementRef}
                                 className="container_bottom"
                                 style={{ backgroundColor: jogo.color }}
-                                onClick={() => hendleJogoId(jogo.id, jogo.price)}
+                                onClick={() => {hendleJogoId(jogo.id, jogo.price); getHeight();}}
                             >
                                 <p>Faça sua aposta!</p>
                                 <FontAwesomeIcon icon={faCirclePlus} />
@@ -95,7 +109,7 @@ const Home = () => {
                 ))}
             </section>
             <Contests_style style={{borderTopColor: jogo?.color, backgroundColor: jogo?.color}}>
-                <section className="header_contests">
+                <section className="header_contests" >
                     <div className="header_infor">
                         <p>Valor do bolão: {jogo?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                         <h2  className="title">
