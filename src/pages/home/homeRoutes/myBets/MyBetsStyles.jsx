@@ -11,8 +11,7 @@ export const Container_bets = styled.section`
 
     .container-bets {
         width:100%;
-        max-height: calc(100vh - 100px);
-        padding: 10px 10px 30px;
+        padding: 10px 10px 50px;
         overflow: auto;
 
         &::-webkit-scrollbar {

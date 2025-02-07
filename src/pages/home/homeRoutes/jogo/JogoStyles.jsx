@@ -68,8 +68,6 @@ export const Container_jogo = styled.section`
             align-items: center;
             gap: 17px;
             border-radius: 6px;
-            
-            
 
             .balls {
                 display: flex;

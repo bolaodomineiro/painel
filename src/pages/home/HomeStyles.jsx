@@ -60,9 +60,11 @@ export const Container_home = styled.section`
 
 export const Contests_style = styled.section`
     width: 100%;
-    height: 100svh;
     padding-top: 20px;
     
+    @media (orientation: landscape) {
+        padding-bottom: 90px;
+    }
 
     .header_contests{
         display: flex;
@@ -188,8 +190,7 @@ export const Contests_style = styled.section`
     }
 
     .routes_contests {
-        min-height: 100vh;
-        padding: 0.6em;
+        padding: 1em;
         
         @media (max-width: 500px) {
             padding-bottom: 100px;
