@@ -97,6 +97,10 @@ const Jogo = () => {
                 <div className="balls-container">
                     {Balls.map((ball, index) => (
                         <div
+                            style={{
+                                backgroundColor:
+                                    balls.includes(ball) ? "#ab0519" : "",
+                            }}
                             className="balls"
                             key={index}
                             onClick={() => handleBalls(ball)}
