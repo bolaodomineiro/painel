@@ -58,25 +58,35 @@ export const Container_header = styled.header`
         height: 50px;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        // justify-content: center;
         padding: 10px;
         align-items: center;
-        background-color: #323030;
+        background-color:rgb(50, 48, 48);
+        filter-blur: blur(0px);
         border-radius: 0 0 10px 10px;
         trasition: all 0.5s;
         animation: balls-animation 0.2s ease forwards ;
         gap: 20px;
 
 
-        @media (max-width: 775px) {
-            width: 100%;
+        @media (max-width: 674px) {
+            width: 400px;
             height: auto;
             position: fixed;
-            left: 32px;
+            background-color:rgba(50, 48, 48, 0.84);
+            left: 54%;
+            transform: translateX(-50%);
             top: 50px;
-            border-radius: 10px 0 0 10px;
-            gap: 6px;
-            padding: 10px 40px 10px 10px;
+            border-radius: 0 0 10px 10px;
+            gap: 10px;
+            padding-left: 15px;
+        }
+
+        @media (max-width: 545px) {
+            width:275px;
+            left: 55.9%;
+            transform: translateX(-50%);
+            padding-left: 18px;
         }
 
 

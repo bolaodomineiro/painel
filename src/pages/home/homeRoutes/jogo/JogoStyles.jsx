@@ -83,7 +83,8 @@ export const Container_jogo = styled.section`
                 cursor: pointer;
                 trasition: all 0.2s;
                 box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
-                
+                user-select: none;
+                aoutline: none;
 
                 .ball-message {
                     min-width: 280px;
@@ -124,6 +125,7 @@ export const Container_jogo = styled.section`
                     width: 30px;
                     height: 30px;
                 }
+            }
         }
     }
 

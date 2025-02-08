@@ -10,22 +10,11 @@ export const Container_bets = styled.section`
     border-radius: 0px;  
 
     .container-bets {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width:100%;
-        padding: 10px 10px 50px;
-        overflow: auto;
-
-        &::-webkit-scrollbar {
-            width: 3px;
-            background-color: #fff;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background-color: #242222;
-        }
-
-        &::-webkit-scrollbar-track {
-            background-color: transparent;
-        }
+        padding: 20px 10px 50px;
 
         h2 {
             display: flex;
@@ -41,8 +30,15 @@ export const Container_bets = styled.section`
         }
 
         .bets {
-
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
             margin-top: 20px;
+
+            @media (max-width: 575px) {
+                max-width: 300px;
+            }
             
             .aposta {
                 display: flex;
@@ -51,81 +47,69 @@ export const Container_bets = styled.section`
                 align-items: center;
                 justify-content: space-between;
                 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-                padding: 20px;
                 border-radius: 10px;
                 gap: 10px;
                 margin-bottom: 20px;
-
-                &:nth-child(odd) {
-                    background-color:rgb(228, 227, 227);
-                }
+                padding: 15px;
 
                 .title-price {
                     display: flex;
+                    width: 100%;
                     gap: 10px;
                     padding-bottom: 10px;
 
                     .title {
-                        font-size: 1rem;
+                        font-size: 1.2rem;
                         font-weight: 900;
-
-                        @media (max-width: 475px) {
-                            text-align: center;
-                        }
                     }
 
                     .price {
-                        font-size: 0.9rem;
+                        font-size: 1rem;
                         font-weight: 900;
                         color: green;
+                    }
+
+                    @media (max-width: 575px) {
+                        flex-direction: column;
+                        align-items: center;
                     }
                 }
 
                 .balls-container {
                     display: flex;
                     justify-content: center;
-
+                   
+                    
                     .balls{
                         display: flex;
+                        width: 100%;
                         flex-wrap: wrap;
                         gap: 10px;
 
-                        @media (max-width: 475px) {
+                        .ball {
+                            display: flex;
                             justify-content: center;
-                            width: 73%;
-                            gap: 5px;
+                            align-items: center;
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50%;
+                            background-color: #AB0519;
+                            color: #fff;
                         }
-
-                        @media (max-width: 325px) {
-                            width: 87%;
-                        }
-                    }
-
-                    
-                    .ball {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 30px;
-                        height: 30px;
-                        border-radius: 50%;
-                        background-color: #AB0519;
-                        color: #fff;
-
-                        @media (max-width: 475px) {
-                            width: 25px;
-                            height: 25px;
-                            font-size: 0.7rem;
+                        
+                        @media (max-width: 575px) {
+                            width: 200px;
+                            padding-left: 5px;
                         }
                     }
                 }
-
+                
                 .date {
                     font-size: 0.9rem;
                     font-weight: 900;
                     padding-top: 10px ;
 
-                    @media (max-width: 475px) {
+                    @media (max-width: 575px) {
                         text-align: center;
                     }
                 }
@@ -158,7 +142,7 @@ export const Container_bets = styled.section`
                             color: green
                         }
 
-                        @media (max-width: 475px) {
+                        @media (max-width: 575px) {
                             width: 100%;
                         }
 
@@ -184,7 +168,7 @@ export const Container_bets = styled.section`
                         font-size: 0.9rem;    
                         font-weight: 900;
 
-                        @media (max-width: 475px) {
+                        @media (max-width: 575px) {
                             width: 100%;
                         }
                     }
@@ -205,7 +189,7 @@ export const Container_bets = styled.section`
                         font-weight: 900;
                         font-size: 0.9rem;    
 
-                        @media (max-width: 475px) {
+                        @media (max-width: 575px) {
                             width: 100%;
                         }
                     }
@@ -225,12 +209,16 @@ export const Container_bets = styled.section`
                         font-size: 0.9rem;
                         font-weight: 900;
 
-                        @media (max-width: 475px) {
+                        @media (max-width: 575px) {
                             width: 100%;
                             text-align: center;
                         }
                     }
                     
+                }
+
+                @media (max-width: 575px) {
+                    justify-content: center;
                 }
             }
         }

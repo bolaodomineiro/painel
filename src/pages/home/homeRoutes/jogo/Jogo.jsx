@@ -77,7 +77,7 @@ const Jogo = () => {
             setTimeout(() => {
                 setBalls([]);
                 localStorage.removeItem("balls");
-            }, 100);
+            }, 1000);
             
         } else if (balls.length > 0) { 
             // Armazena bolas selecionadas APENAS se houver números escolhidos

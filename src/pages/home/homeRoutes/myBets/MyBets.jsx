@@ -87,10 +87,13 @@ const MyBets = () => {
                                                 .sort((a, b) => a - b)
                                                 .map((ball, i) => (
                                                     <span key={i} className="ball">{ball}</span>
-                                                ))}
+                                            ))}
                                         </div>
                                     </div>
-                                    <p className="date">{`Data do Sorteio: ${aposta.drawDate?.toDate ? aposta.drawDate.toDate().toLocaleString() : new Date(aposta.drawDate).toLocaleString()}`}</p>
+                                    <div className="date">
+                                        <h4>Data do Sorteio</h4>
+                                        <p>{`${aposta.drawDate?.toDate ? aposta.drawDate.toDate().toLocaleString() : new Date(aposta.drawDate).toLocaleString()}`}</p>
+                                    </div>
                                 </div>
                                 <div className="action-status">
                                     { aposta.paymentStatus === "Pago" &&
