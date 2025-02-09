@@ -8,7 +8,6 @@ import { useBetPool } from "../../context/BetPoolContext";
 // hooks
 import useScroll from "../../hooks/Scroll";
 
-
 const Home = () => {
 
     const elementRef = useRef(null);

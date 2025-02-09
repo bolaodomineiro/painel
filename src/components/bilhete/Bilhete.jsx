@@ -4,11 +4,11 @@ import  Logo from "../logo/Logo"
 import Qr from "../../assets/qr.png"
 // content
 import { useBetPool } from "../../context/BetPoolContext"
-import { useAuthContext } from "../../context/AuthContext"
+// import { useAuthContext } from "../../context/AuthContext"
 
 const Bilhete = ({id, apostaItem}) => {
 
-    const { user } = useAuthContext();
+    // const { user } = useAuthContext();
     const { jogos, jogoId } = useBetPool();
     const getJogoItem = jogos.find((jogo) => jogo.id === apostaItem?.jogo_id && apostaItem?.paymentStatus === "Pago");
 
@@ -49,10 +49,10 @@ const Bilhete = ({id, apostaItem}) => {
                 </div>
             )}
                 <section className="bilhete-userData">
-                    <p><b>Nome:</b> {user.name}</p>
+                    {/* <p><b>Nome:</b> {user.name}</p>
                     <p><b>CPF:</b> {user.CPF || "Sem CPF"}</p>
                     <p><b>Telefone:</b> {user.phone}</p>
-                    <p><b>Cidade:</b> {user.city}</p>
+                    <p><b>Cidade:</b> {user.city}</p> */}
                 </section>
             </section>
             <section className="bilhete-bets">

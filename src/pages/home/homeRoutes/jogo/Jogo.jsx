@@ -5,11 +5,8 @@ import { useAuthContext } from "../../../../context/AuthContext";
 import { useBetPool } from "../../../../context/BetPoolContext";
 import  {Timestamp} from "firebase/firestore";
 import Cart from "../../../../components/cart/Cart";
-import CryptoJS from "crypto-js";
 
 const Jogo = () => {
-
-    const secretKey = "sua-chave-secreta";
 
     const { jogoId, jogos, balls, setBalls, setApostas, apostas } = useBetPool();
     const { message, setMessage } = useAuthContext();
@@ -48,8 +45,6 @@ const Jogo = () => {
         // Armazena jogos finalizados (quando 10 números são selecionados)
         if (balls.length === 10) {
             const getUserId = localStorage.getItem("userId");
-            const decryptedBytes = CryptoJS.AES.decrypt(getUserId , secretKey);
-            const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
             // Obtém a data do sorteio como objeto Date
             const drawDate = jogo.drawDate instanceof Date ? jogo.drawDate : jogo.drawDate.toDate(); 
             // Subtrai 2 horas para definir a expiração antes do sorteio
@@ -59,7 +54,7 @@ const Jogo = () => {
 
             const newAposta = {
                 title: jogo.title,
-                user_id: decryptedUid,
+                user_id: getUserId ,
                 jogo_id: jogoId, 
                 numbers: [...balls],
                 price: jogo.price,

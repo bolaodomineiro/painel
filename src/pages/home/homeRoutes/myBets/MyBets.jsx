@@ -8,16 +8,22 @@ import Bilhete from "../../../../components/bilhete/Bilhete";
 // context
 import { useBetPool } from "../../../../context/BetPoolContext";
 import { useMyBets } from "../../../../context/MyBetsContext";
+import { useAuthContext } from "../../../../context/AuthContext";
 //utils
 import html2canvas from 'html2canvas';
 
 const MyBets = () => {
-    const secretKey = "sua-chave-secreta";
-
+    const { authenticated } = useAuthContext();
     const {jogos, jogoId, setJogoId } = useBetPool();
-    const { apostas } = useMyBets();
-
+    const { apostas, getMyBets } = useMyBets();
     const [apostaItem, setApostaItem] = useState([]);
+
+    useEffect(() => {
+        const storedUserId = localStorage.getItem("userId");
+        const storedJogoId = localStorage.getItem("jogoId");
+        getMyBets(storedUserId, storedJogoId);
+        
+    }, [authenticated]);
 
     useEffect(() => {
         const getApostaItem = apostas.find((aposta) => aposta.jogo_id === jogoId && aposta.paymentStatus  === "Pago" );

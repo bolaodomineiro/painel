@@ -5,10 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGauge, faUser, faGear, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../logo/Logo";
 import { useBetPool } from "../../context/BetPoolContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 const Menu = ({ $menuToggle, $setTitle }) => {
 
+    const { logoutUser } = useAuthContext();
     const {setBalls, setApostas } = useBetPool();
+    
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -49,14 +52,6 @@ const Menu = ({ $menuToggle, $setTitle }) => {
 
     }, [location.pathname, $setTitle]);
 
-    // Função para logout
-    const handleLogout = () => {
-        localStorage.clear();
-        setBalls([])
-        setApostas([])
-        window.location.href = "https://www.bolaodomineiro.com.br/";
-    };
-
 
     return (
         <Aside $menuToggle={$menuToggle}>
@@ -95,7 +90,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                         Componentes
                     </li>
                 </Link> */}
-                <li className="logout-button" onClick={handleLogout}>
+                <li className="logout-button" onClick={logoutUser}>
                     <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
                     Sair
                 </li>

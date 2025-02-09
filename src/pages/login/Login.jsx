@@ -1,86 +1,78 @@
-// import React, { useState } from "react";
-// import { useAuthContext } from "../../context/AuthContext";
-// import { useNavigate } from "react-router-dom";
-// import { auth, signInWithEmailAndPassword } from '../../firebase/firebase';  // Corrigido
-// import { ContainerLogin } from "./loginStyles";
-// import Logo from "../../components/logo/Logo";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import {faEyeSlash, faEye} from '@fortawesome/free-solid-svg-icons';
+import { useState } from "react";
+import { ContainerLogin } from "./LoginStyles";
+import Btn from "../../components/button/Btn";
+import { Link } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-// const Login = () => {
-//   const [visibile, setVisibile] = useState(false);
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const { setAuthenticated } = useAuthContext();
-//   const navigate = useNavigate();
+// icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-//   const handleLogin = async (e) => {
-//     e.preventDefault();
+const Login = () => {
 
-//     try {
-//       const userCredential = await signInWithEmailAndPassword(auth, email, password);  // Chamando corretamente
-//       const user = userCredential.user;
-//       setAuthenticated(true);
-//       localStorage.setItem("token", user.accessToken);
-//       localStorage.setItem("Authenticated", true);
+    const { signInUser } = useAuthContext();
 
-//       console.log(user.accessToken)
-//       navigate("/dashboard");
-//     } catch (error) {
-//       console.error(error.message);
-//       alert("Credenciais inválidas");
-//     }
-//   };
+    const [visibilePassword, setVisibilePassword] = useState(false);
+    const { setAuthenticated, Authenticated } = useAuthContext();
+    
+    const navigate = useNavigate();
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
 
-//   return (
-//     <ContainerLogin>
-//       <form onSubmit={handleLogin}>
-//         <div className="logo-container">
-//           <Logo $width="150px" />
-//         </div>
-//         <h3>Login</h3>
-//         <div>
-//           <label>Email:</label>
-//           <input
-//             type="email"
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//             placeholder="Digite seu email"
-//             autoComplete="username"
-//           />
-//         </div>
-//         <div>
-//           <label>Senha:</label>
-//           <div className="password-container">
-//             <input
-//               type={visibile ? "text" : "password"}
-//               value={password}
-//               onChange={(e) => setPassword(e.target.value)}
-//               placeholder="Digite sua senha"
-//               autoComplete="correct-password"
-//             />
-//             { visibile ? 
-//               <FontAwesomeIcon icon={faEye}
-//                 className="eye-icon" 
-//                 onClick={() => setVisibile(!visibile)}
-//               /> :
-//               < FontAwesomeIcon icon={faEyeSlash}
-//                 className="eye-icon" 
-//                 onClick={() => setVisibile(!visibile)}
-//               />
-//             }
-//           </div>
-//         </div>
-//         <div>
-//             <p className="recovery-password"
-//                 onClick={() => window.location.href = "http://localhost:4000/passwordRecovery"}
-//             > Esqueceu sua senha ?</p>
-//         </div>
-//         <button type="submit">Entrar</button>
-//       </form>
-//     </ContainerLogin>
-//   );
-// };
+        const result = await signInUser(email, password);// await signInUser(email, password);
 
-// export default Login;
+        if (result.success) {
+            // alert("Login realizado com sucesso!");
+            setAuthenticated(!Authenticated);
+            localStorage.setItem("authenticated", "true");
+            navigate("/dashboard/jogo");
+        } else {
+            alert(`Erro ao realizar login: ${result.message}`);
+        }
+    };
+
+    return (
+        <ContainerLogin>
+            <form onSubmit={handleSubmit}>
+                <h3>Login</h3>
+                <div>
+                    <label htmlFor="email">E-mail</label>
+                    <input id="email" name="email" type="text" placeholder="Exemplo@gmail.com" required />
+                </div>
+                <div>
+                    <label htmlFor="password">Senha</label>
+                    <div className="password-container">
+                        <input id="password" name="password" type={visibilePassword ? "text" : "password"} placeholder="Insira sua senha" required />
+                        { visibilePassword ?
+                            <FontAwesomeIcon 
+                                icon={faEye} 
+                                className="eye-icon"
+                                onClick={() => setVisibilePassword(!visibilePassword)} 
+                            />
+                            :
+                            <FontAwesomeIcon 
+                                icon={faEyeSlash} 
+                                className="eye-icon" 
+                                onClick={() => setVisibilePassword(!visibilePassword)}
+                            /> 
+                        }
+                    </div>
+                </div>
+                <Btn text="Entrar" type="submit" />
+                <div className="forgot">
+                    <Link className="forgot_link" to="/passwordRecovery">Esqueceu sua senha?</Link>
+                </div>
+                <Link className="register_link" to="/register">
+                    Criar conta
+                </Link>
+            </form>
+        </ContainerLogin>
+    );
+};
+
+export default Login;

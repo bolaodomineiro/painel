@@ -1,20 +1,20 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { db } from "../firebase/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import CryptoJS from "crypto-js";
 //context
 import { useBetPool } from "./BetPoolContext";
+import { useAuthContext } from "./AuthContext";
 
 const MyBetsContext = createContext();
 
 export const MyBetsProvider = ({ children }) => {
-    const secretKey = "sua-chave-secreta";
 
+    const { authenticated } = useAuthContext();
     const { jogoId } = useBetPool();
     const [apostas, setApostas] = useState([]);
 
     const getMyBets = async (userId, jogoId) => {
-
+        console.log(userId, jogoId);
         if (!userId || !jogoId) {
             console.warn("getApostas: userId ou jogoId inválidos", { userId, jogoId });
             return [];
@@ -49,14 +49,6 @@ export const MyBetsProvider = ({ children }) => {
             return [];
         }
     };
-
-    useEffect(() => {
-        
-        const storedUserId = localStorage.getItem("userId");
-        const storedJogoId = localStorage.getItem("jogoId");
-        getMyBets(storedUserId, storedJogoId);
-        
-    }, [])
     
     useEffect(() => {
         const storedUserId = localStorage.getItem("userId");
@@ -68,16 +60,12 @@ export const MyBetsProvider = ({ children }) => {
         }
 
         const fetchApostas = async () => {
-            const decryptedBytes = CryptoJS.AES.decrypt(storedUserId, secretKey);
-            const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
-
-            const getApostas = await getMyBets(decryptedUid, storedJogoId);
+            const getApostas = await getMyBets(storedUserId, storedJogoId);
             const getApostaItem = getApostas.find((aposta) => aposta.jogo_id === localStorage.getItem("jogoId"));
             localStorage.setItem("apostaItem", JSON.stringify(getApostaItem));
         };
-
         fetchApostas();
-    }, [jogoId]);
+    }, [jogoId, authenticated]);
 
     return (
         <MyBetsContext.Provider value={{ apostas, setApostas, getMyBets }}>

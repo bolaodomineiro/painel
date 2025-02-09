@@ -1,8 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "../firebase/firebase";
-import CryptoJS from "crypto-js";
+import {
+  setPersistence,
+  browserLocalPersistence,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../firebase/firebase";
 
 const AuthContext = createContext();
 
@@ -10,58 +16,84 @@ export const AuthProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null); // Estado para armazenar o usuário
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const secretKey = "sua-chave-secreta";
 
+  // Verifica a autenticação ao carregar a página
   useEffect(() => {
-    const verifyUser = async () => {
-      try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlUid = urlParams.get("uid");
-        const getUid = localStorage.getItem("userId");
-
-        let encryptedUid = decodeURIComponent(getUid || urlUid);
-        if (!encryptedUid) throw new Error("Nenhum UID encontrado.");
-
-        const decryptedBytes = CryptoJS.AES.decrypt(encryptedUid, secretKey);
-        const decryptedUid = decryptedBytes.toString(CryptoJS.enc.Utf8);
-        if (!decryptedUid) throw new Error("UID descriptografado é inválido.");
-
-        const userDocRef = doc(db, "users", decryptedUid);
-        const userDocSnap = await getDoc(userDocRef);
-
-        if (!userDocSnap.exists()) throw new Error("Usuário não encontrado.");
-
-        const userData = userDocSnap.data();
-        setUser({ id: decryptedUid, ...userData }); // Salvando o usuário no state
-
-        localStorage.setItem("userId", getUid || urlUid);
-        setAuthenticated(true);
-        localStorage.setItem("authenticated", "true");
-      } catch (error) {
-        console.error("Erro ao autenticar usuário:", error.message);
-        setMessage(error.message);
-        navigate("/error");
-      } finally {
-        setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        localStorage.setItem("userId", currentUser.uid);
+        try {
+          await currentUser.getIdToken(true); // Garante que o token está atualizado
+          setUser(currentUser);
+          setAuthenticated(true);
+        } catch (error) {
+          console.error("Erro ao obter token:", error);
+          setUser(null);
+          setAuthenticated(false);
+        }
+      } else {
+        setUser(null);
+        setAuthenticated(false);
       }
-    };
+      setLoading(false);
+    });
 
-    verifyUser();
-  }, [navigate]);
+    return () => unsubscribe();
+  }, []);
+
+  // Função de login
+  const signInUser = async (email, password) => {
+    try {
+      await setPersistence(auth, browserLocalPersistence); // Garante a persistência
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      localStorage.setItem("userId", user.uid);
+
+      const userRef = doc(db, "users", user.uid);
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        setUser(user);
+        setAuthenticated(true);
+        navigate("/dashboard/jogo"); // Redireciona após login
+        return { success: true, user, userData: userDoc.data() };
+      } else {
+        setMessage("Usuário não encontrado.");
+        return { success: false, message: "Usuário não encontrado." };
+      }
+    } catch (error) {
+      setMessage(error.message);
+      return { success: false, message: error.message };
+    }
+  };
+
+  // Função de logout
+  const logoutUser = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      setAuthenticated(false);
+      localStorage.clear();
+      navigate("/login");
+    } catch (error) {
+      console.error("Erro ao deslogar:", error);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ authenticated, loading, message, setMessage, user }}>
-      {children}
+    <AuthContext.Provider value={{ authenticated, setAuthenticated, loading, message, setMessage, signInUser, logoutUser }}>
+      {!loading && children} {/* Garante que os filhos só renderizam quando o estado de loading terminar */}
     </AuthContext.Provider>
   );
 };
 
+// Hook personalizado para acessar o contexto de autenticação
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuthContext must be used within an AuthProvider");
+    throw new Error("useAuthContext deve ser usado dentro de um AuthProvider");
   }
   return context;
 };
