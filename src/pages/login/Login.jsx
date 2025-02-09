@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { ContainerLogin } from "./LoginStyles";
+import { ContainerLogin } from "./loginStyles";
 import Btn from "../../components/button/Btn";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
 // icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
