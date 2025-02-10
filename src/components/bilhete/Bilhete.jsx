@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react"
+
 import { Container_bilhete } from "./BilheteStyles"
 import  Logo from "../logo/Logo"
 import Qr from "../../assets/qr.png"
 // content
 import { useBetPool } from "../../context/BetPoolContext"
-// import { useAuthContext } from "../../context/AuthContext"
+
 
 const Bilhete = ({id, apostaItem}) => {
 
-    // const { user } = useAuthContext();
+    const getUserData = JSON.parse(localStorage.getItem("userData"));
+
+
     const { jogos, jogoId } = useBetPool();
     const getJogoItem = jogos.find((jogo) => jogo.id === apostaItem?.jogo_id && apostaItem?.paymentStatus === "Pago");
 
@@ -49,10 +51,10 @@ const Bilhete = ({id, apostaItem}) => {
                 </div>
             )}
                 <section className="bilhete-userData">
-                    {/* <p><b>Nome:</b> {user.name}</p>
-                    <p><b>CPF:</b> {user.CPF || "Sem CPF"}</p>
-                    <p><b>Telefone:</b> {user.phone}</p>
-                    <p><b>Cidade:</b> {user.city}</p> */}
+                    <p><b>Nome:</b> {getUserData?.name}</p>
+                    <p><b>CPF:</b> {getUserData?.CPF || "Sem CPF"}</p>
+                    <p><b>Telefone:</b> {getUserData?.phone}</p>
+                    <p><b>Cidade:</b> {getUserData?.city}</p>
                 </section>
             </section>
             <section className="bilhete-bets">
