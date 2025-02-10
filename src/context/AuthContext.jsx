@@ -37,6 +37,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
         setAuthenticated(false);
       }
+
       setLoading(false);
     });
 
@@ -83,8 +84,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authenticated, setAuthenticated, loading, message, setMessage, signInUser, logoutUser }}>
-      {!loading && children} {/* Garante que os filhos só renderizam quando o estado de loading terminar */}
+    <AuthContext.Provider value={{ authenticated, setAuthenticated, loading, setLoading, message, setMessage, signInUser, logoutUser }}>
+      {children} {/* Garante que os filhos só renderizam quando o estado de loading terminar */}
     </AuthContext.Provider>
   );
 };

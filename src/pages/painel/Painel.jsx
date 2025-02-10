@@ -5,27 +5,32 @@ import Header from "../../components/header/Header"
 import AppRoutes from "../../AppRoutes";
 
 const Painel = () => {
+    const getStorageAuthenticated = localStorage.getItem("authenticated");
 
     const [title, setTitle] = useState("Dashboard")
     const [menuToggle, setMenuToggle] = useState(true)
 
     return (
-        <Container $menuToggle={menuToggle}>
-            <Menu
-                $menuToggle={menuToggle}
-                $setTitle={setTitle}
-            />
-            <section className="content">
-                <Header
-                    setMenuToggle={setMenuToggle}
-                    menuToggle={menuToggle}
-                    title={title}
-                />
-                <AppRoutes
-                    $menuToggle={menuToggle}
-                />
-            </section>
-        </Container>
+        <>
+            { getStorageAuthenticated  &&
+                <Container $menuToggle={menuToggle}>
+                    <Menu
+                        $menuToggle={menuToggle}
+                        $setTitle={setTitle}
+                    />
+                    <section className="content">
+                        <Header
+                            setMenuToggle={setMenuToggle}
+                            menuToggle={menuToggle}
+                            title={title}
+                        />
+                        <AppRoutes
+                            $menuToggle={menuToggle}
+                        />
+                    </section>
+                </Container>
+            }
+        </>
     )
 }
 

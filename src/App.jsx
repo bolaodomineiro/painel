@@ -7,7 +7,6 @@ import { MyBetsProvider } from "./context/MyBetsContext";
 import ProtectedRoute from "./ProtectedRoute";// Importe a rota protegida
 import Login from "./pages/login/Login";
 import Painel from "./pages/painel/Painel";
-// import Error from "./pages/error/Error";
 
 const App = () => {
   return (
@@ -24,7 +23,7 @@ const App = () => {
             </Route>
 
             {/* Redirecionamento para erro caso a rota não exista */}
-            <Route path="*" element={<Navigate to="/error" />} />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </MyBetsProvider>
       </BetPoolProvider>
