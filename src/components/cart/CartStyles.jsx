@@ -92,6 +92,10 @@ export const Container_cart = styled.section`
 
     .main-cart {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
         overflow: auto;
         padding: 10px;
 
@@ -110,9 +114,9 @@ export const Container_cart = styled.section`
 
         .cart-item {
             display: flex;
+            width: 100%;
             flex-direction: column;
             justify-content: center;
-            height: 80px;
             background:rgb(255, 255, 255);
             margin-bottom: 10px;
             position: relative;
@@ -121,14 +125,13 @@ export const Container_cart = styled.section`
 
             .icon-delete {
                 position: absolute;
-                font-size: 1.2rem;
                 color:rgb(0, 0, 0);
                 cursor: pointer;
                 right: 10px;
-                top: 8px;
+                top: 7px;
                 z-index: 1;
                 font-weight: 900;
-                font-size: 0.8rem;
+                font-size: 1rem;
                 trasition: all 0.2s;
 
                 &:hover {
@@ -137,35 +140,52 @@ export const Container_cart = styled.section`
             }
 
             h3 {
-                font-size: 1rem;
+                font-size: 1.1rem;
                 font-weight: 900;
-                padding: 5px 5px;
+                padding: 8px 10px;
+                background-color:#f2f2f2;
             }
             
             .balls-container {
                 display: flex;
-                justify-content: space-between;
-                padding: 2px 5px;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 8px 0;
+                padding-left: 24px;
 
                 .ball {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    width: 20px;
-                    height: 20px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: 50%;
                     background: #AB0519;
                     color: #fff;
                     font-weight: 900;
                     font-size: 0.7rem;
+                    position: relative;
+                }
+
+                .ball::after {
+                    content: " ";  
+                    position: absolute;
+                    top:5px;
+                    left: 4px;
+                    border-radius: 50%;
+                    width: 5px;
+                    height: 14px;
+                    background:rgb(255, 255, 255);
+                    filter: blur(2.5px);
                 }
             }
 
             p {
-                font-size: 0.7rem;
+                font-size: 0.8rem;
                 font-weight: 900;
                 text-align: right;
                 padding: 6px 5px;
+                color: green;
             }
         }
     

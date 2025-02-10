@@ -28,7 +28,7 @@ export const Container_header = styled.header`
         top: 180px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 0.8rem;
+        font-size: 1.4rem;
         font-weight: 900;
         text-align: center;
         z-index: 99;
@@ -75,7 +75,7 @@ export const Container_header = styled.header`
 
 
         @media (max-width: 818px) {
-            width: 400px;
+            width: 510px;
             height: auto;
             position: fixed;
             background-color:rgba(50, 48, 48, 0.84);
@@ -85,6 +85,7 @@ export const Container_header = styled.header`
             border-radius: 0 0 10px 10px;
             gap: 10px;
             padding-left: 15px;
+            padding: 10px;
         }
 
         @media (max-width: 545px) {
