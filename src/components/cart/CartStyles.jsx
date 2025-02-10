@@ -165,6 +165,7 @@ export const Container_cart = styled.section`
                     font-weight: 900;
                     font-size: 0.7rem;
                     position: relative;
+                    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
                 }
 
                 .ball::after {

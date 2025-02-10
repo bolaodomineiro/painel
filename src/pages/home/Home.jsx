@@ -110,7 +110,7 @@ const Home = () => {
             <Contests_style style={{borderTopColor: jogo?.color, backgroundColor: jogo?.color}}>
                 <section className="header_contests" >
                     <div className="header_infor">
-                        <p>Valor do bolão: {jogo?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                        <p>{jogo?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                         <h2  className="title">
                             {jogo?.title || "Bolão"}
                         </h2>

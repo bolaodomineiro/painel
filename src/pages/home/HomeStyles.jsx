@@ -69,12 +69,14 @@ export const Contests_style = styled.section`
     .header_contests{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         flex-wrap: wrap;
         padding: 0 0.5em;
         gap: 5px;
 
-        @media (max-width: 430px) {
+        @media (max-width:816px) {
             justify-content: center;
+            gap: 0px;
         }
 
         p {
@@ -82,7 +84,7 @@ export const Contests_style = styled.section`
             font-weight: 900;
             padding-bottom: 0.4em;
 
-            @media (max-width: 430px) {
+            @media (max-width: 6000px) {
                 font-size: 0.8em;
                 text-align: center;
             }
@@ -95,49 +97,57 @@ export const Contests_style = styled.section`
             align-items: center;
 
             p {
-                font-size: 0.8em;
+                font-size: 1em;
                 font-weight: 900;
                 color: #fff;
             }
 
             .title {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 30px;
+                width: 120px;
                 font-size: 1em;
                 font-weight: 700;
-                text-align: center;
-                padding: 0.5em;
                 background-color:#fff;
                 box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
                 color: #000;
                 border-radius: 4px;
                 margin-right: 0.5em;
 
-                @media (max-width: 430px) {
+                @media (max-width: 500px) {
                     font-size: 0.8em;
+                    width: 200px;
                 }
             }
         }
     }
     
     .header_select {
-    
         p {
-            font-size: 0.8em;
+            font-size: 01em;
             font-weight: 900;
             color: #fff;
         }
     
         .select {
             height: 30px;
+            width: 250px;
             border-radius: 5px;
             background-color: white;
             color: #333;
             font-size: 0.8em;
             cursor: pointer;
 
-            @media (max-width: 430px) {
-                height: 26px;
+            @media (max-width: 500px) {
                 font-size: 0.8em;
             }
+        }
+
+        @media (max-width: 500px) {
+            margin-top: 0.5em;
+            margin-bottom: 0.8em;
         }
     }
 
@@ -146,7 +156,6 @@ export const Contests_style = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: ;
         padding: 0.5em;
 
         .link {
@@ -160,32 +169,54 @@ export const Contests_style = styled.section`
         }
 
         nav ul {
-        display: flex;
-        list-style: none;
-        gap: 8px;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+
+            @media (max-width: 815px) {
+                padding: 0 17%;
+            }
+
+            @media (max-width: 627px) {
+                padding: 0 6%;
+            }
+
+            @media (max-width: 416px) {
+                padding: 0;
+            }
         
-        li {
-            font-size: 1em;
-            font-weight: 500;
-            background-color: #fff;
-            padding: 0.5em;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
+            li {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 30px;
+                width: 120px;
+                font-size: 1em;
+                font-weight: 900;
+                background-color: #fff;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.2s;
+                box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
 
-            @media (max-width: 430px) {
-                font-size: 0.7em;
-            }
+                @media (max-width: 500px) {
+                    font-size: 0.8em;
+                    width: 100px;
+                }
 
-            &:hover {
-                background-color:rgb(48, 48, 48);
-                color: #fff;
+                @media (max-width: 376px) {
+                    width: 75px;
+                    font-size: 0.7em;
+                }
+
+                &:hover {
+                    background-color:rgb(48, 48, 48);
+                    color: #fff;
+                }
             }
-        }
         }
     }
 
