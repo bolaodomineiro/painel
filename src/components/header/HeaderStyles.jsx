@@ -74,7 +74,7 @@ export const Container_header = styled.header`
         
 
 
-        @media (max-width: 818px) {
+        @media (max-width: 845px) {
             width: 510px;
             height: auto;
             position: fixed;
@@ -175,21 +175,25 @@ export const Container_header = styled.header`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 3px;
         position: absolute;
         right: 50px;
 
         p {
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             font-weight: 900;
             color: #AB0519;
 
             span {
+                display:flex;
+                align-items: center;
+                justify-content: center;
+                width: 88px;
                 font-size: 0.7rem;
                 font-weight: 900;
                 box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
                 padding: 2px 5px;
                 background: #fff;
+                border-radius: 5px 5px 0 0;
             }
         }
     }

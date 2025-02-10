@@ -59,7 +59,8 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
             </div>
             <div className="saldo-container" >
                 <p><span style={{ color: getDataUser?.balance >= 0 ? "green" : "red" }}> 
-                    { (Number( getDataUser?.balance) || 0 ).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span></p>
+                    { (Number( getDataUser?.balance) || 0 ).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                </p>
                 <Btn text={"Adicionar saldo"}  />
             </div>
         </Container_header>

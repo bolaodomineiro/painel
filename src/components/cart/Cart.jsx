@@ -59,7 +59,7 @@ const Cart = () => {
                                     icon={faTrash} 
                                     className="icon-delete" 
                                     onClick={() => handleRemoveJogo(index)}
-                                />
+                                /> 
                                 <h3>{jogo.title}</h3>
                                 <div className="balls-container">
                                     {jogo.numbers.slice().sort((a, b) => a - b).map((ball, i) => 
