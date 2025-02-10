@@ -13,6 +13,11 @@ export const Container_header = styled.header`
     z-index: 2;
     box-shadow: 1px 2px 6px #7979797c;
 
+    h3 {
+        font-size: 0.9rem;
+        font-weight: 900;
+    }
+
     .message{
         min-width: 280px;
         padding: 10px 20px;
@@ -69,7 +74,7 @@ export const Container_header = styled.header`
         gap: 20px;
 
 
-        @media (max-width: 674px) {
+        @media (max-width: 818px) {
             width: 400px;
             height: auto;
             position: fixed;
@@ -139,6 +144,45 @@ export const Container_header = styled.header`
         to {
             margin-top: 0px;
             opacity: 1;
+        }
+    }
+
+    .welcome {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 900;
+        position: absolute;
+        right: 150px;
+
+        span {
+            color: #AB0519;
+        }
+    }
+
+    .saldo-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3px;
+        position: absolute;
+        right: 50px;
+
+        p {
+            font-size: 0.7rem;
+            font-weight: 900;
+            color: #AB0519;
+
+            span {
+                font-size: 0.7rem;
+                font-weight: 900;
+                box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+                padding: 2px 5px;
+                background: #fff;
+            }
         }
     }
 

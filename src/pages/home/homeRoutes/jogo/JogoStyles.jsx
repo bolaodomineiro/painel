@@ -58,6 +58,10 @@ export const Container_jogo = styled.section`
             p{
                 font-weight: 500;
             }
+
+            @media (max-width: 500px) {
+                flex-direction: column;
+            }
         }
 
         .balls-container {

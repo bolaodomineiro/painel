@@ -14,6 +14,7 @@ export const Container_cart = styled.section`
     border-radius: 10px 0px 0px 10px;
     box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.49);
     overflow: hidden;
+    z-index: 2;
 
 
     .cart-icon-container {

@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }) => {
 
       if (userDoc.exists()) {
         setUser(user);
+        localStorage.setItem("userData", JSON.stringify(userDoc.data()));
         setAuthenticated(true);
         navigate("/dashboard/jogo"); // Redireciona após login
         return { success: true, user, userData: userDoc.data() };
