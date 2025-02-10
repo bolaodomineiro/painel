@@ -82,7 +82,7 @@ const Jogo = () => {
     }, [balls]);
 
     return (
-        <Container_jogo>
+        <Container_jogo >
             { jogo.status &&
                 <section className="jogo-balls">
                 <div className="balls-header">

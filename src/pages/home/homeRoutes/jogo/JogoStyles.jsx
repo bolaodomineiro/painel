@@ -9,12 +9,14 @@ export const Container_jogo = styled.section`
     width: 100%;
     position: relative;
     border-radius: 10px;
-    padding: 10px 0  40px 0;
+    padding: 0px 0  30px 0;
 
     .info {
         padding: 20px ;
+        max-width: 280px;
         border-radius: 10px;
         background-color: #F3EED9;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
 
         h3 {
             font-size: 1.3rem;
@@ -44,18 +46,24 @@ export const Container_jogo = styled.section`
         .balls-header {
             display: flex;
             width: 100%;
+            min-height: 40px;
             justify-content: center;
             flex-wrap: wrap;
             align-items: center;
-            padding: 20px 0;
             gap: 5px;
+            background-color: #F3EED9;
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            border-radius: 10px 10px 0 0;
+            padding: 10px 0;
 
             h3 {
-                font-size: 0.9rem;
+                font-size: 1.1.2rem;
                 font-weight: 900;
             }
 
             p{
+                font-size: 1rem;
                 font-weight: 500;
             }
 
@@ -66,12 +74,16 @@ export const Container_jogo = styled.section`
 
         .balls-container {
             display: flex;
-            width: 94%;
+            width: 100%;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
             gap: 17px;
             border-radius: 6px;
+
+            @media (max-width: 575px) {
+                gap: 10px;
+            }
 
             .balls {
                 display: flex;
@@ -83,12 +95,13 @@ export const Container_jogo = styled.section`
                 background:rgb(148, 144, 145);
                 color: #fff;
                 font-weight: 900;
-                font-size: 0.9rem;
+                font-size: 1rem;
                 cursor: pointer;
                 trasition: all 0.2s;
-                box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+                box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.59);
                 user-select: none;
                 aoutline: none;
+                position: relative;
 
                 .ball-message {
                     min-width: 280px;
@@ -120,16 +133,27 @@ export const Container_jogo = styled.section`
                     color:#fff;
                 }
 
-                @media (max-width: 475px) {
+                @media (max-width: 575px) {
                     width: 40px;
                     height: 40px;
                 }
 
-                @media (max-width: 375px) {
-                    width: 30px;
-                    height: 30px;
-                }
             }
+
+            .balls::after {
+                content: " ";  
+                position: absolute;
+                top:6px;
+                left: 6px;
+                border-radius: 50%;
+                width: 5px;
+                height: 14px;
+                background:rgb(255, 255, 255);
+                filter: blur(2.5px);
+                
+            }
+
+
         }
     }
 

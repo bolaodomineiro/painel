@@ -162,20 +162,20 @@ export const Contests_style = styled.section`
         nav ul {
         display: flex;
         list-style: none;
-        gap: 5px;
+        gap: 8px;
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-        border-radius: 4px;
         
         li {
-            font-size: 0.9em;
+            font-size: 1em;
             font-weight: 500;
             background-color: #fff;
             padding: 0.5em;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             transition: all 0.2s;
+            box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
 
             @media (max-width: 430px) {
                 font-size: 0.7em;
@@ -190,7 +190,7 @@ export const Contests_style = styled.section`
     }
 
     .routes_contests {
-        padding: 1em;
+        padding: 1em 0.5em;
         
         @media (max-width: 500px) {
             padding-bottom: 100px;
