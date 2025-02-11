@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Aside } from "./MenuStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGauge, faUser, faGear, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faGauge, faUser, faGear, faSignOutAlt, faClover } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../logo/Logo";
 import { useBetPool } from "../../context/BetPoolContext";
 import { useAuthContext } from "../../context/AuthContext";
@@ -35,6 +35,10 @@ const Menu = ({ $menuToggle, $setTitle }) => {
             case "/users":
                 $setTitle("Usuários");
                 setActive("/users");
+                break;
+            case "/createBetPool":
+                $setTitle("Bolões");
+                setActive("/createBetPool");
                 break;
             // case "contests":
             //     $setTitle("Concursos");
@@ -70,6 +74,12 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                     <li className={active === "/users" ? "active" : ""}>
                         <FontAwesomeIcon className="icon" icon={faUser} />
                         Usuários
+                    </li>
+                </Link>
+                <Link className="link" to="/createBetPool">
+                    <li className={active === "/createBetPool" ? "active" : ""}>
+                        <FontAwesomeIcon className="icon" icon={faClover} />
+                        Bolões
                     </li>
                 </Link>
                 {/* <Link className="link" to="/contests">

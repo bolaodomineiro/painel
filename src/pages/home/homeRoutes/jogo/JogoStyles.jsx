@@ -93,7 +93,7 @@ export const Container_jogo = styled.section`
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
-                background:rgb(148, 144, 145);
+                background:#242222;
                 color: #fff;
                 font-weight: 900;
                 font-size: 1rem;
@@ -115,7 +115,7 @@ export const Container_jogo = styled.section`
                     top: 180px;
                     left: 50%;
                     transform: translateX(-50%);
-                    background-color:   #2D2E30;
+                    background-color: #2D2E30;
                     color: #fff;
                     font-weight: 500;
                     font-size: 0.8rem;

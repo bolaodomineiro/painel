@@ -106,8 +106,8 @@ export const Contests_style = styled.section`
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 30px;
-                width: 120px;
+                height: 40px;
+                width: 185px;
                 font-size: 1em;
                 font-weight: 700;
                 background-color:#fff;
@@ -116,10 +116,6 @@ export const Contests_style = styled.section`
                 border-radius: 4px;
                 margin-right: 0.5em;
 
-                @media (max-width: 500px) {
-                    font-size: 0.8em;
-                    width: 200px;
-                }
             }
         }
     }
@@ -132,12 +128,13 @@ export const Contests_style = styled.section`
         }
     
         .select {
-            height: 30px;
-            width: 250px;
+            height: 40px;
+            width: 185px;
             border-radius: 5px;
             background-color: white;
             color: #333;
             font-size: 0.8em;
+            font-weight: 900;
             cursor: pointer;
 
             @media (max-width: 500px) {
@@ -202,7 +199,7 @@ export const Contests_style = styled.section`
                 transition: all 0.2s;
                 box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
                 text-align: center;
-                line-height: 13px;
+                line-height: 15px;
 
                 @media (max-width: 500px) {
                     font-size: 0.8em;

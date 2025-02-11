@@ -5,6 +5,7 @@ import Header from "../../components/header/Header"
 import AppRoutes from "../../AppRoutes";
 
 const Painel = () => {
+    
     const getStorageAuthenticated = localStorage.getItem("authenticated");
 
     const [title, setTitle] = useState("Dashboard")

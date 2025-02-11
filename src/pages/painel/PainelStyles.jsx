@@ -7,7 +7,6 @@ export const Container = styled.section`
     width: 100%;
 
     .content {
-        height: 100svh;
         transition: all 0.5s;
         position: relative;
         width:${({ $menuToggle }) => ($menuToggle ? "calc(100% - 38px)" : "calc(100% - 170px)")};

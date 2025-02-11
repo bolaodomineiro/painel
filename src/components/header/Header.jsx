@@ -30,39 +30,43 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
 
 
     return (
-        <Container_header>
-            <FontAwesomeIcon 
-                className="icon" 
-                icon={faBars} 
-                onClick={() => setMenuToggle(!menuToggle)}
-            />
-            {menuToggle && <h3>{title}</h3>}
-            { balls.length > 0 &&  
-                <div className="select-boalls">
-                    {balls.map((ball, index) => (
-                        <div 
-                            key={index} 
-                            className="ball"
-                            onClick={() =>  hendleBallsUpdate(ball, index)}
-                        >
-                            {ball}
-                        </div>
-                    ))}
+        <Container_header menuToggle={menuToggle} >
+            <div className="left-container">
+                <FontAwesomeIcon 
+                    className="icon" 
+                    icon={faBars} 
+                    onClick={() => setMenuToggle(!menuToggle)}
+                />
+                {menuToggle && <h3>{title}</h3>}
+                { balls.length > 0 &&  
+                    <div className="select-boalls">
+                        {balls.map((ball, index) => (
+                            <div 
+                                key={index} 
+                                className="ball"
+                                onClick={() =>  hendleBallsUpdate(ball, index)}
+                            >
+                                {ball}
+                            </div>
+                        ))}
+                    </div>
+                }
+            </div>
+            <div className="right-container">
+                <div className="welcome">
+                    Bem vindo 
+                    <span>{getDataUser?.name.split(" ")[0]}</span>
                 </div>
-            }
+                <div className="saldo-container" >
+                    <p><span style={{ color: getDataUser?.balance >= 0 ? "green" : "red" }}> 
+                        { (Number( getDataUser?.balance) || 0 ).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                    </p>
+                    <Btn text={"Adicionar saldo"}  />
+                </div>
+            </div>
             {  message &&
                 <div className="message">{message}</div>
             }
-            <div className="welcome">
-                Bem vindo 
-                <span>{getDataUser?.name.split(" ")[0]}</span>
-            </div>
-            <div className="saldo-container" >
-                <p><span style={{ color: getDataUser?.balance >= 0 ? "green" : "red" }}> 
-                    { (Number( getDataUser?.balance) || 0 ).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-                </p>
-                <Btn text={"Adicionar saldo"}  />
-            </div>
         </Container_header>
     )
 }
