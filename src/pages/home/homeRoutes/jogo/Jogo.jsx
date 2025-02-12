@@ -94,7 +94,7 @@ const Jogo = () => {
                         <div
                             style={{
                                 backgroundColor:
-                                    balls.includes(ball) ? "#ab0519" : "",
+                                    balls.includes(ball) ? "#ab0519" : jogo.color,
                             }}
                             className="balls"
                             key={index}
