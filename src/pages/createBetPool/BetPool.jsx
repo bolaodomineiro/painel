@@ -1,6 +1,6 @@
 import { Container_betPool } from "./createBetPoolStyles"
 
-const CreateBetPool = () => {
+const BetPool = () => {
     return (
         <Container_betPool>
             <h1>CreateBetPool</h1>
@@ -8,5 +8,5 @@ const CreateBetPool = () => {
     )
 }
 
-export default CreateBetPool
+export default BetPool;
 
