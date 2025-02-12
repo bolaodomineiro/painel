@@ -11,7 +11,7 @@ export const Container_header = styled.header`
     position: fixed;
     top: 0;
     gap: 5px;
-    z-index: 2;
+    z-index: 3;
     box-shadow: 1px 2px 6px #7979797c;
 
     .left-container {
