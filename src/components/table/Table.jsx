@@ -14,7 +14,7 @@ function formatBalance(balance) {
 }
 
 const Table = ({ useSelect }) => {
-  
+
   const inputRef = useRef(null);
 
   const [userFilter, setUserFilter] = useState("");
@@ -99,7 +99,7 @@ const Table = ({ useSelect }) => {
                   alt={user.name}
                 />
               </li>
-              <li>{user.name.split(" ").slice(0, 2).join(" ")}</li>
+              {/* <li>{user.name.split(" ").slice(0, 2).join(" ")}</li> */}
               <li> {user.phone} </li>
               <li>{user.city}</li>
               <li>{formatBalance(user.balance)}</li>

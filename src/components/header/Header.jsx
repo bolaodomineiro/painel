@@ -6,7 +6,7 @@ import { useBetPool } from "../../context/BetPoolContext";
 import Btn from "../button/Btn";
 
 
-const Header = ({setMenuToggle, menuToggle, title}) => {
+const Header = ({ setMenuToggle, menuToggle, title }) => {
 
     const getDataUser = JSON.parse(localStorage.getItem("userData"));
     const getBalance = getDataUser?.balance;
@@ -24,7 +24,7 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
         setTimeout(() => {
             setMessage(null);
         }, 2000);
-        
+
         return newBalls;
     }
 
@@ -32,19 +32,19 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
     return (
         <Container_header menuToggle={menuToggle} >
             <div className="left-container">
-                <FontAwesomeIcon 
-                    className="icon" 
-                    icon={faBars} 
+                <FontAwesomeIcon
+                    className="icon"
+                    icon={faBars}
                     onClick={() => setMenuToggle(!menuToggle)}
                 />
                 {menuToggle && <h3>{title}</h3>}
-                { balls.length > 0 &&  
+                {balls.length > 0 &&
                     <div className="select-boalls">
                         {balls.map((ball, index) => (
-                            <div 
-                                key={index} 
+                            <div
+                                key={index}
                                 className="ball"
-                                onClick={() =>  hendleBallsUpdate(ball, index)}
+                                onClick={() => hendleBallsUpdate(ball, index)}
                             >
                                 {ball}
                             </div>
@@ -54,17 +54,17 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
             </div>
             <div className="right-container">
                 <div className="welcome">
-                    Bem vindo 
-                    <span>{getDataUser?.name.split(" ")[0]}</span>
+                    Bem vindo
+                    {/* <span>{getDataUser?.name.split(" ")[0]}</span> */}
                 </div>
                 <div className="saldo-container" >
-                    <p><span style={{ color: getDataUser?.balance >= 0 ? "green" : "red" }}> 
-                        { (Number( getDataUser?.balance) || 0 ).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                    <p><span style={{ color: getDataUser?.balance >= 0 ? "green" : "red" }}>
+                        {(Number(getDataUser?.balance) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                     </p>
-                    <Btn text={"Adicionar saldo"}  />
+                    <Btn text={"Adicionar saldo"} />
                 </div>
             </div>
-            {  message &&
+            {message &&
                 <div className="message">{message}</div>
             }
         </Container_header>
