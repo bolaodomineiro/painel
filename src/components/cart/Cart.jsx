@@ -3,16 +3,11 @@ import { Container_cart } from "./CartStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faCartShopping, faRectangleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useBetPool } from "../../context/BetPoolContext";
-import { enviarApostas } from "./CartData";
 
 const Cart = () => {
 
-    
-
     const {apostas, setApostas} = useBetPool();
     const [cartOpen, setCartOpen] = useState(false);
-
-    
 
     const handleRemoveJogo = (index) => {
         // Cria uma nova lista sem o jogo removido
@@ -66,7 +61,10 @@ const Cart = () => {
                                         <span key={i} className="ball">{ball}</span>
                                     )}
                                 </div>
-                                <p>+ {jogo.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                <div className="cart-item-footer">
+                                    <span>{new Date(jogo.created.seconds * 1000).toLocaleString()}</span>
+                                    <p>+ {jogo.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -78,7 +76,7 @@ const Cart = () => {
                         />
                         <button 
                             className="btn-finsh"
-                            onClick={() => enviarApostas(apostas)}
+                            onClick={() => {""}}
                         >
                             Finalizar Aposta
                         </button>

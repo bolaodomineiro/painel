@@ -143,7 +143,7 @@ export const Container_cart = styled.section`
                 font-size: 1.1rem;
                 font-weight: 900;
                 padding: 8px 10px;
-                background-color:#f2f2f2;
+                background-color:rgb(218, 215, 215);
             }
             
             .balls-container {
@@ -181,12 +181,24 @@ export const Container_cart = styled.section`
                 }
             }
 
-            p {
-                font-size: 0.8rem;
-                font-weight: 900;
-                text-align: right;
-                padding: 6px 5px;
-                color: green;
+            .cart-item-footer {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                padding: 5px 10px;
+
+                span {
+                    font-size: 0.8rem;
+                    font-weight: 900;
+                    color:rgb(83, 83, 83);
+                }
+
+                p {
+                    font-size: 0.8rem;
+                    font-weight: 900;
+                    text-align: left;
+                    color: green;
+                }
             }
         }
     

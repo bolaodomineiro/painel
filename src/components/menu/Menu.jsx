@@ -19,12 +19,15 @@ const Menu = ({ $menuToggle, $setTitle }) => {
 
     // Atualizar o estado de menu ativo com base no caminho
     useEffect(() => {
-        const pathSegments = location.pathname.split('/dashboard/jogo', ).filter(Boolean);
+        const pathSegments = location.pathname.split('/dashboard/jogo', );
         const lastSegment = pathSegments[pathSegments.length - 1] || "/dashboard/jogo";
         setActive(lastSegment);
         console.log();
 
         switch (lastSegment) {
+            case "/":
+                navigate("/dashboard/jogo");
+                break;
             case "/dashboard/jogo":
                 $setTitle("Dashboard");
                 setActive("/dashboard/jogo");

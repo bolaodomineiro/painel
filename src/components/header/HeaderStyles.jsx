@@ -7,7 +7,7 @@ export const Container_header = styled.header`
     background: #F3EED9;
     min-height: 50px;
     width: 100%;
-    padding: ${ props => props.menuToggle ? "0 45px 0 10px" : "0 175px 0 10px" };
+    padding: ${ props => props.$menuToggle ? "0 45px 0 10px" : "0 175px 0 10px" };
     position: fixed;
     top: 0;
     gap: 5px;

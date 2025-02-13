@@ -95,6 +95,21 @@ export const Container_bets = styled.section`
                             border-radius: 50%;
                             background-color: #AB0519;
                             color: #fff;
+                            font-weight: 900;
+                            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+                            position: relative;
+                        }
+
+                        .ball::after {
+                            content: " ";  
+                            position: absolute;
+                            top:2px;
+                            left: 3.5px;
+                            border-radius: 50%;
+                            width: 5px;
+                            height: 12px;
+                            background:rgb(255, 255, 255);
+                            filter: blur(2.5px);
                         }
                         
                         @media (max-width: 575px) {
@@ -108,6 +123,11 @@ export const Container_bets = styled.section`
                     font-size: 0.9rem;
                     font-weight: 900;
                     padding-top: 10px ;
+
+                    p {
+                        margin-bottom: 8px;
+                        font-weight: 400;
+                    }
 
                     @media (max-width: 575px) {
                         text-align: center;
@@ -163,7 +183,6 @@ export const Container_bets = styled.section`
                         padding: 10px;
                         background-color:#f29b12;
                         color: #fff;
-                        cursor: pointer;
                         border-radius: 5px;
                         font-size: 0.9rem;    
                         font-weight: 900;
@@ -179,7 +198,7 @@ export const Container_bets = styled.section`
                         align-items: center;
                         gap: 10px;
                         padding: 10px;
-                        background-color: rgb(58, 58, 58);
+                        background-color: green;
                         box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
                         color: #fff;
                         cursor: pointer;

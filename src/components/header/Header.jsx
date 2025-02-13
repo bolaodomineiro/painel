@@ -6,7 +6,7 @@ import { useBetPool } from "../../context/BetPoolContext";
 import Btn from "../button/Btn";
 
 
-const Header = ({setMenuToggle, menuToggle, title}) => {
+const Header = ({$setMenuToggle, $menuToggle, title}) => {
 
     const getDataUser = JSON.parse(localStorage.getItem("userData"));
     const getBalance = getDataUser?.balance;
@@ -30,14 +30,14 @@ const Header = ({setMenuToggle, menuToggle, title}) => {
 
 
     return (
-        <Container_header menuToggle={menuToggle} >
+        <Container_header $menuToggle={$menuToggle} >
             <div className="left-container">
                 <FontAwesomeIcon 
                     className="icon" 
                     icon={faBars} 
-                    onClick={() => setMenuToggle(!menuToggle)}
+                    onClick={() => $setMenuToggle(!menuToggle)}
                 />
-                {menuToggle && <h3>{title}</h3>}
+                {$menuToggle && <h3>{title}</h3>}
                 { balls.length > 0 &&  
                     <div className="select-boalls">
                         {balls.map((ball, index) => (

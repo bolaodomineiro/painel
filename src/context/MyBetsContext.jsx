@@ -12,6 +12,7 @@ export const MyBetsProvider = ({ children }) => {
     const { authenticated } = useAuthContext();
     const { jogoId } = useBetPool();
     const [apostas, setApostas] = useState([]);
+    const [apostaNotpayment, setApostaNotpayment] = useState([]);
 
     const getMyBets = async (userId, jogoId) => {
         console.log(userId, jogoId);
@@ -65,10 +66,19 @@ export const MyBetsProvider = ({ children }) => {
             localStorage.setItem("apostaItem", JSON.stringify(getApostaItem));
         };
         fetchApostas();
+
     }, [jogoId, authenticated]);
 
+
+    // useEffect(() => {
+    //     const apostaFitradaNotPayment = apostas.filter((aposta) => aposta.paymentStatus !== "Cancelado" && aposta.paymentStatus !== "Pago");
+    //     setApostaNotpayment(apostaFitradaNotPayment);
+    //     localStorage.setItem("apostas", JSON.stringify(apostaFitradaNotPayment));
+    // }, [apostas]);
+
+
     return (
-        <MyBetsContext.Provider value={{ apostas, setApostas, getMyBets }}>
+        <MyBetsContext.Provider value={{ apostas, setApostas, getMyBets, apostaNotpayment, setApostaNotpayment }}>
             {children}
         </MyBetsContext.Provider>
     );

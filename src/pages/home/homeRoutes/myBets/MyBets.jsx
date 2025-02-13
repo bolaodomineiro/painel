@@ -12,7 +12,9 @@ import { useAuthContext } from "../../../../context/AuthContext";
 //utils
 import html2canvas from 'html2canvas';
 
+
 const MyBets = () => {
+
     const { authenticated } = useAuthContext();
     const {jogos, jogoId, setJogoId } = useBetPool();
     const { apostas, getMyBets } = useMyBets();
@@ -99,6 +101,8 @@ const MyBets = () => {
                                     <div className="date">
                                         <h4>Data do Sorteio</h4>
                                         <p>{`${aposta.drawDate?.toDate ? aposta.drawDate.toDate().toLocaleString() : new Date(aposta.drawDate).toLocaleString()}`}</p>
+                                        <h4>Data da Aposta</h4>
+                                        <p>{new Date(aposta.created.seconds * 1000).toLocaleString()}</p>
                                     </div>
                                 </div>
                                 <div className="action-status">
@@ -126,7 +130,8 @@ const MyBets = () => {
 
                                     { aposta.paymentStatus === "Cancelado"  ? null :
                                         <button 
-                                            style={{ backgroundColor: aposta.paymentStatus === "Pago" && "green" }}
+                                            className="btn-pagamento"
+                                            style={{pointerEvents: aposta.paymentStatus === "Pago" ? "none"  : "auto"}}
                                         >{aposta.paymentStatus === "Pago" ? "Pago" : "Fazer pagamento"}</button>
                                     }
                                     <p className="bilhete">Bilhete: {aposta.ticket}</p>
