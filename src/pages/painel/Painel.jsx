@@ -21,8 +21,8 @@ const Painel = () => {
                     />
                     <section className="content">
                         <Header
-                            setMenuToggle={setMenuToggle}
-                            menuToggle={menuToggle}
+                            $setMenuToggle={setMenuToggle}
+                            $menuToggle={menuToggle}
                             title={title}
                         />
                         <AppRoutes
