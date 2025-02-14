@@ -15,7 +15,6 @@ export const MyBetsProvider = ({ children }) => {
     const [apostaNotpayment, setApostaNotpayment] = useState([]);
 
     const getMyBets = async (userId, jogoId) => {
-        console.log(userId, jogoId);
         if (!userId || !jogoId) {
             console.warn("getApostas: userId ou jogoId inválidos", { userId, jogoId });
             return [];

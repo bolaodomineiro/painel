@@ -6,7 +6,6 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { db } from "../../firebase/firebase";
 import { collection, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import Perfil from "../../assets/perfil.jpg";
-import InputMask from "react-input-mask";
 import EditUserModal from "./EditUserModal";
 
 function formatBalance(balance) {
