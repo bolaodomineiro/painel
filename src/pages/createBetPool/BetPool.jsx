@@ -2,37 +2,25 @@ import  { useState } from "react"
 import { Container_betPool } from "./createBetPoolStyles"
 import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
-import { Button } from "../../components/btn/BtnStyles";
+import FormBetPool from "./formBetPool";
 
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
-
-const regras = [
-    { pontos: "10", premio: 1600 },
-    { pontos: "09", premio: 700 },
-    { pontos: "08", premio: 500 },
-    { pontos: "07", premio: 400 },
-    { pontos: "06", premio: 300 },
-    { pontos: "05", premio: 100 },
-]
-
-const result = [
-    { premio: "01", result: 23456 },
-    { premio: "02", result: 35476 },
-    { premio: "03", result: 19675 },
-    { premio: "04", result: 23589 },
-    { premio: "05", result: 12300 },
-]
-
 
 
 const BetPool = () => {
 
     const { jogos } = useBetPool();
     const [useSelect, setUseSelect] = useState("Todos")
+    const  [showForm, setShowForm] = useState(false);
 
     return (
         <Container_betPool>
-            <UtilityBar data={data} useSelect={useSelect} setUseSelect={setUseSelect} />
+            <UtilityBar 
+                data={data} 
+                useSelect={useSelect} 
+                setUseSelect={setUseSelect}
+                onClick={() => setShowForm(!showForm)} 
+            />
             <section className="content">
                 { jogos.map((jogo, index) => ( 
                     <div className="card-content" key={jogo.id}>
@@ -97,6 +85,7 @@ const BetPool = () => {
 
                 ))}
             </section>
+            <FormBetPool $showForm={showForm} $setShowForm={setShowForm} />
         </Container_betPool>
     )
 }

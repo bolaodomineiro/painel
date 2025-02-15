@@ -49,16 +49,21 @@ export const ModalWindow = styled.div`
     display: flex;
     flex-direction: column;
     gap: 15px;
+
+    
   }
 
   .modal-content h2 {
     margin: 0 0 15px 0;
     font-size: 1.5rem;
     color: #333;
+    text-align: center;
   }
 
   .modal-content label {
-    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    font-weight: b80;
     color: #555;
   }
 

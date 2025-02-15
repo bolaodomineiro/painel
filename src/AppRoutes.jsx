@@ -20,7 +20,7 @@ function AppRoutes({ $menuToggle }) {
             <Route path="/users" element={<Users $menuToggle={$menuToggle} />} />
             <Route path="/createBetPool" element={<BetPool />} />
             <Route path="/pages" element={<Pages />} />
-            <Route path="/components" element={<Components />} />
+            {/* <Route path="/components" element={<Components />} /> */}
         </Routes>
     );
 }

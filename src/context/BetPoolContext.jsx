@@ -54,7 +54,7 @@ export const BetPoolProvider = ({ children }) => {
         };
         getJogos();
 
-    }, [authenticated, jogoId ]);
+    }, [authenticated, jogoId, loading ]);
     
 
     return (
@@ -71,7 +71,7 @@ export const BetPoolProvider = ({ children }) => {
             jogoPrice,
             setJogoPrice,
             apostas,
-            setApostas
+            setApostas,
         }}>
 
         {children}

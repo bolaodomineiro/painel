@@ -5,8 +5,9 @@ export const Container_betPool = styled.section`
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 10px;
+    padding: 10px ;
     background-color:rgb(255, 255, 255);
+
 
     .content {
         display: flex;

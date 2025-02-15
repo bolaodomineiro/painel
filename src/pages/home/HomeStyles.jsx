@@ -273,7 +273,7 @@ export const Container_card = styled.div`
         }
 
         h3 {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 900;
             padding-bottom: 6px;
 
@@ -294,6 +294,8 @@ export const Container_card = styled.div`
         .description {
             font-size: 0.6rem;
             font-weight: 400;
+            height: 40px;
+    
         }
 
         .primeio {
@@ -303,7 +305,7 @@ export const Container_card = styled.div`
 
         .icon {
             width: 40px;
-            height: 40px;
+            height: 50px;
             color: rgba(0, 128, 9, 0.89);
         }
     }
