@@ -1,31 +1,32 @@
 import React, { useEffect } from "react";
 import { Container_jogo } from "./JogoStyles";
+// components
 import Balls from "./dataBalls";
+import Cart from "../../../../components/cart/Cart";
+// context
 import { useAuthContext } from "../../../../context/AuthContext";
 import { useBetPool } from "../../../../context/BetPoolContext";
-import {EnviarApostas} from "../../../../components/cart/CartData";
+// firebase
 import  {Timestamp} from "firebase/firestore";
-import Cart from "../../../../components/cart/Cart";
-
+// hooks
+import {EnviarApostas} from "../../../../components/cart/CartData";
+import { use } from "react";
 
 const Jogo = () => {
 
     const { jogoId, jogos, balls, setBalls, setApostas, apostas } = useBetPool();
-    const { message, setMessage } = useAuthContext();
+    const { message, setMessage, userId } = useAuthContext();
     
     const jogo = jogos.find((jogo) => jogo.id === jogoId);
 
     const handleBalls = (ball) => {
-
         const count = balls.filter((b) => b === ball).length;
-        
         if (balls.length === 10) {
             return;
         }
-        
+
         if (count < 3 ) {
             setBalls((prevBalls) => [...prevBalls, ball]);
-
             if (balls.length === 9) {
                 setMessage({ ball, text: "Seu Jogo foi adicionado ao Carrinho!" });
                 setTimeout(() => {
@@ -35,20 +36,18 @@ const Jogo = () => {
             }
         } else {
             setMessage({ ball, text: `O número ${ball} já foi escolhido 3 vezes!` });
-            
             setTimeout(() => {
                 setMessage(null);
             }, 4000);
         }
     };
 
-
     useEffect(() => {
-
         const handleBalls = async () => {
              // Armazena jogos finalizados (quando 10 números são selecionados)
             if (balls.length === 10) {
-                const getUserId = localStorage.getItem("userId");
+                const getUserId = localStorage.getItem("userId");// obitem o id do jogo para salvar na aposta
+
                 // Obtém a data do sorteio como objeto Date
                 const drawDate = jogo.drawDate instanceof Date ? jogo.drawDate : jogo.drawDate.toDate(); 
                 // Subtrai 2 horas para definir a expiração antes do sorteio
@@ -58,20 +57,19 @@ const Jogo = () => {
 
                 const newAposta = {
                     title: jogo.title,
-                    user_id: getUserId ,
+                    user_id: userId,
                     jogo_id: jogoId, 
                     numbers: [...balls],
                     price: jogo.price,
-                    ticket: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER) + 1000 , //gera numbers
+                    ticket: jogo.ticket,
                     paymentStatus: "pendente",
                     created: Timestamp.now(),
                     expirationDate: expirationTimestamp,
                     drawDate: jogo.drawDate,
                 };
-
                 // Se newAposta não for um array, transforme em array
                 const apostasToSend = Array.isArray(newAposta) ? newAposta : [newAposta];
-                await EnviarApostas(apostasToSend); // Envia como um array de apostas
+                await EnviarApostas([newAposta]); // Envia como um array de apostas
 
                 const newDataAposta = [...apostas, newAposta]; // Cria um novo array com a aposta adicionada
                 setApostas(newDataAposta); // Atualiza o estado com o novo array

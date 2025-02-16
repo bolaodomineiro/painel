@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { db } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
+// context
 import { useAuthContext } from "./AuthContext";
 
 const BetPoolContext = createContext();
 
 export const BetPoolProvider = ({ children }) => {
-
     const { authenticated } = useAuthContext();
 
     const [balls, setBalls] = useState([]);
@@ -15,20 +15,6 @@ export const BetPoolProvider = ({ children }) => {
     const [jogos, setJogos] = useState([]);
     const [jogoId, setJogoId] = useState("");
     const [loading, setLoading] = useState(true); 
-
-    useEffect(() => {
-        const getJogoPrice = localStorage.getItem("JogoPrice");
-        const getJogoId = localStorage.getItem("jogoId");
-        const getBalls = JSON.parse(localStorage.getItem("balls"));
-        const getApostas = JSON.parse(localStorage.getItem("apostas"));
-        const getJogos = JSON.parse(localStorage.getItem("jogos"));
-    
-        setBalls(getBalls || []);
-        setApostas(getApostas || []);
-        setJogoPrice(getJogoPrice);
-        setJogoId(getJogoId);
-        setJogos(getJogos || []);
-    }, []);
 
     useEffect(() => {
         const getJogos = async () => {

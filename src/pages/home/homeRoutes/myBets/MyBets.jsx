@@ -15,16 +15,14 @@ import html2canvas from 'html2canvas';
 
 const MyBets = () => {
 
-    const { authenticated } = useAuthContext();
-    const {jogos, jogoId, setJogoId } = useBetPool();
+    const { authenticated, userId,} = useAuthContext();
+    const {jogoId} = useBetPool();
     const { apostas, getMyBets } = useMyBets();
     const [apostaItem, setApostaItem] = useState([]);
 
     useEffect(() => {
-        const storedUserId = localStorage.getItem("userId");
         const storedJogoId = localStorage.getItem("jogoId");
-        getMyBets(storedUserId, storedJogoId);
-        
+        getMyBets(userId, storedJogoId);
     }, [authenticated]);
 
     useEffect(() => {
@@ -35,7 +33,6 @@ const MyBets = () => {
     const captureModal = async (aposta_id) => {
         const getApostaItem = await apostas.find((aposta) => aposta.id === aposta_id);
         setApostaItem(getApostaItem);
-        console.log(getApostaItem);
     // Seleciona o modal pelo ID (alterar o ID 'online' conforme necessário)
         const modal = document.getElementById('online');
         // Captura a imagem do modal com html2canvas

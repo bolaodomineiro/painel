@@ -9,7 +9,7 @@ const MyBetsContext = createContext();
 
 export const MyBetsProvider = ({ children }) => {
 
-    const { authenticated } = useAuthContext();
+    const { authenticated, userId, message } = useAuthContext();
     const { jogoId } = useBetPool();
     const [apostas, setApostas] = useState([]);
     const [apostaNotpayment, setApostaNotpayment] = useState([]);
@@ -27,7 +27,6 @@ export const MyBetsProvider = ({ children }) => {
                 where("user_id", "==", userId),
                 where("jogo_id", "==", jogoId)
             );
-
             const apostasSnapshot = await getDocs(apostasQuery);
 
             if (apostasSnapshot.empty) {
@@ -40,9 +39,9 @@ export const MyBetsProvider = ({ children }) => {
                 id: doc.id,
                 ...doc.data(),
             }));
-
             setApostas(fetchedApostas);
             return fetchedApostas;
+
         } catch (error) {
             console.error("Erro ao buscar apostas:", error);
             setApostas([]);
@@ -51,30 +50,19 @@ export const MyBetsProvider = ({ children }) => {
     };
     
     useEffect(() => {
-        const storedUserId = localStorage.getItem("userId");
         const storedJogoId = localStorage.getItem("jogoId");
-        
-        if (!storedUserId || !storedJogoId) {
+        if (!storedJogoId) {
             console.warn("Nenhum userId ou jogoId encontrado no localStorage");
             return;
         }
 
         const fetchApostas = async () => {
-            const getApostas = await getMyBets(storedUserId, storedJogoId);
-            const getApostaItem = getApostas.find((aposta) => aposta.jogo_id === localStorage.getItem("jogoId"));
-            localStorage.setItem("apostaItem", JSON.stringify(getApostaItem));
+            const getApostas = await getMyBets(userId, storedJogoId );
+            // const getApostaItem = getApostas.find((aposta) => aposta.jogo_id === localStorage.getItem("jogoId"));
+            // localStorage.setItem("apostaItem", JSON.stringify(getApostaItem));
         };
         fetchApostas();
-
-    }, [jogoId, authenticated]);
-
-
-    // useEffect(() => {
-    //     const apostaFitradaNotPayment = apostas.filter((aposta) => aposta.paymentStatus !== "Cancelado" && aposta.paymentStatus !== "Pago");
-    //     setApostaNotpayment(apostaFitradaNotPayment);
-    //     localStorage.setItem("apostas", JSON.stringify(apostaFitradaNotPayment));
-    // }, [apostas]);
-
+    }, [userId, message, jogoId, authenticated]);
 
     return (
         <MyBetsContext.Provider value={{ apostas, setApostas, getMyBets, apostaNotpayment, setApostaNotpayment }}>
@@ -86,3 +74,4 @@ export const MyBetsProvider = ({ children }) => {
 export const useMyBets = () => {
     return useContext(MyBetsContext);
 };
+

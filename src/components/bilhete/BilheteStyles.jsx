@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 export const Container_bilhete = styled.section`
     width: 300px;
-    min-height: calc(100svh - 80px);
     position: fixed;
     top: 65px;
     left: 50%;
     transform: translateX(-50%);
     background:#F3EED9;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
-    z-index: -1;
+    z-index:-1;
 
     .bilhete-header {
         display: flex;
@@ -40,6 +39,7 @@ export const Container_bilhete = styled.section`
             font-size: 0.7rem;
             font-weight: 500;
             text-align: center;
+            padding-bottom: 5px;
         }
 
         .bilhete-prize {
@@ -58,9 +58,23 @@ export const Container_bilhete = styled.section`
 
         .bilhete-rules {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            padding: 5px 10px;
+            justify-content: center;
+            padding: 15px 10px;
             color: #000;
+
+            h3 {
+                padding-bottom: 5px;
+            }
+
+            ul {
+                list-style: none;
+                li {
+                    display: flex;
+                    gap: 20px;
+                }
+            }
 
             p {
                 white-space: pre;
@@ -70,9 +84,9 @@ export const Container_bilhete = styled.section`
 
         .bilhete-concurso {
             display: flex;
-            justify-content: center;
+            justify-content: space-evenly;
             align-items: center;
-            padding: 5px 10px;
+            padding: 10px 10px;
             gap: 10px;
             background-color: #fff;
 
@@ -93,12 +107,12 @@ export const Container_bilhete = styled.section`
             display: flex;
             flex-direction: column;
             gap: 3px;
-            padding-left: 10px;
-            padding-bottom: 6px;
-            padding-top: 5px;
+            padding-left: 20px;
+            padding-bottom: 10px;
+            padding-top: 10px;
 
             p {
-                font-size: 0.6rem;
+                font-size: 0.8rem;
                 font-weight: 400;
             }
         }
@@ -112,21 +126,14 @@ export const Container_bilhete = styled.section`
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 5px 10px;
-            gap: 15px;
-
-            h4 {
-                font-size: 0.8rem;
-                font-weight: 900;
-                text-align: center;
-            }
-
+            padding: 10px;
+            
             p {
-                font-size: 0.7rem;
+                font-size: 0.9rem;
                 font-weight: 500;
                 text-align: center;
                 background-color: green;
-                padding: 3px 10px;
+                padding: 5px 20px;
                 border-radius: 5px;
                 color: #fff;
             }
@@ -140,14 +147,14 @@ export const Container_bilhete = styled.section`
                 flex-direction: column;
                 justify-content: center;
                 background: #f2f2f2;
-                height: 60px;
+                height: 70px;
                 margin-bottom: 5px;
                 box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
 
                 .bilhete-jogo-Header {
                     display: flex;
                     justify-content: space-between;
-                    padding: 3px 16px 0;
+                    padding: 0 15px 5px;
 
                     p {
                         font-size: 0.6rem;
@@ -167,7 +174,7 @@ export const Container_bilhete = styled.section`
                     align-items: center;
                     justify-content: center;
                     width: 100%;
-                    gap: 4px;
+                    gap: 5px;
                     padding: 5px 5px 8px;
 
                     span {
@@ -195,7 +202,7 @@ export const Container_bilhete = styled.section`
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding: 0px 20px;
+            padding: 5px 20px;
             gap: 15px;
 
             h4 {
@@ -249,17 +256,25 @@ export const Container_bilhete = styled.section`
             align-items: center;
             padding-bottom: 10px;
 
-            p {
-                font-size: 0.7rem;
-                font-weight: 500;
-                text-align: center;
+            .bilhete-footer-contact {
+                background-color:#fff;
+                margin-bottom: 5px;
+                margin-top: 8px;
+                padding: 10px 30px;
+
+                p {
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    word-spacing: 10px;
+                    padding: 2px 0;
+                }
             }
         }
 
     }
 
     .bilhete-footer-copyright {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
         font-weight: 500;
         text-align: center;
         background-color:#242222;

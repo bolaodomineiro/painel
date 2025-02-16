@@ -2,15 +2,14 @@
 import { Container_bilhete } from "./BilheteStyles"
 import  Logo from "../logo/Logo"
 import Qr from "../../assets/qr.png"
-// content
+// context
 import { useBetPool } from "../../context/BetPoolContext"
+import { useAuthContext } from "../../context/AuthContext"
 
 
 const Bilhete = ({id, apostaItem}) => {
 
-    const getUserData = JSON.parse(localStorage.getItem("userData"));
-
-
+    const { user } = useAuthContext();
     const { jogos, jogoId } = useBetPool();
     const getJogoItem = jogos.find((jogo) => jogo.id === apostaItem?.jogo_id && apostaItem?.paymentStatus === "Pago");
 
@@ -27,7 +26,10 @@ const Bilhete = ({id, apostaItem}) => {
                 <div>
                     <h3>{getJogoItem.title}</h3>
                     <h5>Via do cliente - Bilhete Online</h5>
-                    <div className="bilhete-prize">
+                    <div 
+                        className="bilhete-prize"
+                        style={{ backgroundColor: getJogoItem?.color }}
+                    >
                         <p><b>Prêmio Estimado</b></p>
                         <p>
                             {getJogoItem.award?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}  
@@ -35,26 +37,40 @@ const Bilhete = ({id, apostaItem}) => {
                         </p>
                     </div>
                     <div className="bilhete-rules">
-                        <p> <b>Regras do Prêmio</b>
-                            <br/>
-                            10 pontos - R$ 10.000,00
-                            <br/>
-                            9 pontos - R$ 2.000,00
-                            <br/>
-                            8 pontos - R$ 1.000,00
-                        </p>
+                        <h3>Regras de Pontuação</h3>
+                        <ul>
+                            {getJogoItem.rules.length > 0 ? (
+                                    getJogoItem.rules.map((regra, index) => (
+                                        <li key={index}>
+                                            <span><b>{regra.pts}</b> Pontos -------→ </span>
+                                            {regra.isValue && regra.isValue > 0 
+                                                ? regra.isValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
+                                                : "Não Definido"}
+                                        </li>
+                                    ))
+                                
+                            ) : (
+                                <p>Regras não Definidas</p>
+                            )}
+                        </ul>
                     </div>
                     <div className="bilhete-concurso">
-                        <h4>Concurso: 302</h4>
-                        <p>Data do Sorteio: 20/05/2023</p>
+                        <div>
+                            <h4>Concurso</h4>
+                            <p>{getJogoItem.ticket}</p>
+                        </div>
+                        <div>
+                            <h4>Data do Sorteio</h4>
+                            <p>{new Date(getJogoItem.drawDate.seconds * 1000).toLocaleString()}</p>
+                        </div>
                     </div>
                 </div>
             )}
                 <section className="bilhete-userData">
-                    <p><b>Nome:</b> {getUserData?.name}</p>
-                    <p><b>CPF:</b> {getUserData?.CPF || "Sem CPF"}</p>
-                    <p><b>Telefone:</b> {getUserData?.phone}</p>
-                    <p><b>Cidade:</b> {getUserData?.city}</p>
+                    <p><b>Nome:</b> {user?.name}</p>
+                    <p><b>CPF:</b> {user?.CPF || "Sem CPF"}</p>
+                    <p><b>Telefone:</b> {user?.phone}</p>
+                    <p><b>Cidade:</b> {user?.city}</p>
                 </section>
             </section>
             <section className="bilhete-bets">
@@ -91,17 +107,22 @@ const Bilhete = ({id, apostaItem}) => {
                     <p>Confira seus bilhetes</p>
                 </div>
                 <div className="bilhete-footer-qr">
-                    <img src={Qr} alt="" />
+                    <img src={Qr} alt="qr" />
                     <p>Escaneie o QR CODE, e veja seus bilhetes Online</p>
                 </div>
                 <div className="bilhete-footer-info">
-                    <h4>Boa Sorte</h4>
+                    <h4>Boa Sorte !</h4>
                     <h5>Equipe Bolão do Mineiro</h5>
-                    <p>Atendimento: (99) 99999-9999</p>
-                    <p>Site: www.bolaodomineiro.com.br</p>
-                    <p>Instagram: @bolaodomineiro</p>
+                    <div className="bilhete-footer-contact">
+                        <p><b>Site:</b> www.bolaodomineiro.com.br</p>
+                        <p> <b>Instagram:</b> @bolaodomineiro</p>
+                        <p><b>Atendimento:</b> (35)99231-5263</p>
+                    </div>
                 </div>
-                <p className="bilhete-footer-copyright">Há  anos realizando Sonhos!</p>
+                <p 
+                    className="bilhete-footer-copyright"
+                    style={{ backgroundColor: getJogoItem?.color }}
+                >Há  anos realizando Sonhos!</p>
             </section>
         </Container_bilhete>
     )

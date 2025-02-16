@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Container_home, Contests_style, Container_card } from "./HomeStyles";
+// icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../../assets/loading.webp";// gif
@@ -11,7 +12,7 @@ import useScroll from "../../hooks/Scroll";
 const Home = () => {
 
     const elementRef = useRef(null);
-
+    const {setJogoPrice, jogos, jogoId, setJogoId, loading } = useBetPool();
     const { hendleScroll } = useScroll();
     const location = useLocation();
     const [active, setActive] = useState("myBest");
@@ -20,7 +21,6 @@ const Home = () => {
         const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);
         const lastSegment = pathSegments[pathSegments.length - 1] || "/dashboard/myBets";
         setActive(lastSegment);
-
         switch (lastSegment) {
             case "/dashboard/myBets":
                 setActive("/dashboard/myBets");
@@ -33,17 +33,6 @@ const Home = () => {
                 break;
         }
     }, [location.pathname, setActive]);
-
-    
-    const { 
-        jogoPrice,
-        setJogoPrice,
-        jogos, 
-        jogoId,
-        setJogoId, 
-        loading 
-        
-    } = useBetPool();
 
     const jogo = jogos.find((jogo) => jogo?.id === jogoId);
 
@@ -75,7 +64,6 @@ const Home = () => {
         localStorage.setItem("jogoPrice", jogoPrice);
         setJogoPrice(jogoPrice);
     };
-    
     
     return (
         <Container_home >

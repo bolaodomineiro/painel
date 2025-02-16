@@ -15,6 +15,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [message, setMessage] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
+  const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
@@ -23,24 +24,22 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        localStorage.setItem("userId", currentUser.uid);
         try {
           await currentUser.getIdToken(true); // Garante que o token está atualizado
-          setUser(currentUser);
           setAuthenticated(true);
+          getuser(currentUser.uid);
         } catch (error) {
           console.error("Erro ao obter token:", error);
           setUser(null);
           setAuthenticated(false);
+          setUserId(null);
         }
       } else {
         setUser(null);
         setAuthenticated(false);
       }
-
       setLoading(false);
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -50,21 +49,9 @@ export const AuthProvider = ({ children }) => {
       await setPersistence(auth, browserLocalPersistence); // Garante a persistência
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      localStorage.setItem("userId", user.uid);
-
-      const userRef = doc(db, "users", user.uid);
-      const userDoc = await getDoc(userRef);
-
-      if (userDoc.exists()) {
-        setUser(user);
-        localStorage.setItem("userData", JSON.stringify(userDoc.data()));
-        setAuthenticated(true);
-        navigate("/dashboard/jogo"); // Redireciona após login
-        return { success: true, user, userData: userDoc.data() };
-      } else {
-        setMessage("Usuário não encontrado.");
-        return { success: false, message: "Usuário não encontrado." };
-      }
+      getuser(user.uid);
+      navigate("/dashboard/jogo"); // Redireciona após login
+      return { success: true, message: "Login realizado com sucesso!" };
     } catch (error) {
       setMessage(error.message);
       return { success: false, message: error.message };
@@ -84,9 +71,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Função para obter os dados do usuário
+  const getuser = async (userId) => {
+    if (!userId) return { success: false, message: "userId não encontrado." };
+    const userRef = doc(db, "users", userId);
+    const userDoc = await getDoc(userRef);
+    if (userDoc.exists()) {
+      setAuthenticated(true);
+      setUserId(userId);
+      setUser(userDoc.data());
+    } else {
+      setMessage("Usuário não encontrado.");
+      return { success: false, message: "Usuário não encontrado." };
+    }
+  }
+
+  console.log(user);
+
   return (
-    <AuthContext.Provider value={{ authenticated, setAuthenticated, loading, setLoading, message, setMessage, signInUser, logoutUser }}>
-      {children} {/* Garante que os filhos só renderizam quando o estado de loading terminar */}
+    <AuthContext.Provider value=
+    {{ 
+      authenticated, setAuthenticated, 
+      loading, setLoading, 
+      message, setMessage, 
+      signInUser, logoutUser,
+      userId, setUserId,
+      user,
+    }}>
+      {children}
     </AuthContext.Provider>
   );
 };

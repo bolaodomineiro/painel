@@ -1,33 +1,29 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container_header } from "./HeaderStyles"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCartShopping } from "@fortawesome/free-solid-svg-icons"
-import { useBetPool } from "../../context/BetPoolContext";
+// components
 import Btn from "../button/Btn";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// icons
+import { faBars } from "@fortawesome/free-solid-svg-icons"
+// contexts
+import { useBetPool } from "../../context/BetPoolContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 const Header = ({$setMenuToggle, $menuToggle, title}) => {
-
-    const getDataUser = JSON.parse(localStorage.getItem("userData"));
-    const getBalance = getDataUser?.balance;
-
+    const { user } = useAuthContext();
     const { balls, setBalls } = useBetPool();
     const [message, setMessage] = useState(null);
-
 
     const hendleBallsUpdate = (baall, index) => {
         const newBalls = [...balls];
         newBalls.splice(index, 1);
         setBalls(newBalls);
         setMessage(`Dezena ${baall} removida com sucesso!`);
-
         setTimeout(() => {
             setMessage(null);
         }, 2000);
-
         return newBalls;
     }
-
 
     return (
         <Container_header $menuToggle={$menuToggle} >
@@ -55,11 +51,11 @@ const Header = ({$setMenuToggle, $menuToggle, title}) => {
             <div className="right-container">
                 <div className="welcome">
                     Bem vindo
-                    <span>{getDataUser?.name.split(" ")[0]}</span>
+                    <span>{user?.name.split(" ")[0] || "Usuário"} </span>
                 </div>
                 <div className="saldo-container" >
-                    <p><span style={{ color: getDataUser?.balance >= 0 ? "green" : "red" }}>
-                        {(Number(getDataUser?.balance) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                    <p><span style={{ color: user?.balance > 0 ? "green" : "red" }}>
+                        {(Number(user?.balance) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                     </p>
                     <Btn text={"Adicionar saldo"} />
                 </div>
@@ -72,3 +68,4 @@ const Header = ({$setMenuToggle, $menuToggle, title}) => {
 }
 
 export default Header;
+
