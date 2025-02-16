@@ -19,31 +19,10 @@ export const Container_header = styled.header`
         align-items: center;
         gap: 10px;
 
+
         h3 {
             font-size: 0.9rem;
             font-weight: 900;
-        }
-
-        .message{
-            min-width: 280px;
-            padding: 10px 20px;
-            background-color: #2D2E30;
-            color: #fff;
-            border-radius: 8px;
-            position: absolute;
-            top: 180px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.4rem;
-            font-weight: 900;
-            text-align: center;
-            z-index: 99;
-
-            @media (max-width: 546px) {
-                left: 45%;
-                transform: translateX(-50%);
-            }
-            
         }
 
         .icon {
@@ -207,5 +186,68 @@ export const Container_header = styled.header`
                 }
             }
         }
+    }
+
+    .message{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        min-width: 270px;
+        padding: 20px 10px;
+        background-color: #2D2E30;
+        color: #fff;
+        border-radius: 8px;
+        position: absolute;
+        top: 180px;
+       
+        transform: translateX(-50%);
+        font-size: 1.3rem;
+        font-weight: 500;
+        text-align: center;
+        z-index: 99;
+        animation: message-animation 0.5s ease forwards;
+
+        @keyframes message-animation {
+            from {
+                right: -700px;
+            }
+            to {
+                right: -140px;
+            }
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #AB0519;
+            color: #fff;
+            font-size: 1.2rem;
+            position: relative;
+
+            &::before {
+                content: " ";  
+                position: absolute;
+                top:8px;
+                left: 5px;
+                border-radius: 50%;
+                width: 5px;
+                height: 12px;
+                background:rgb(255, 255, 255);
+                filter: blur(3px);
+            }
+        }
+
+        @media (max-width: 546px) {
+            left: 45%;
+            transform: translateX(-50%);
+        }
+        
     }
 `;

@@ -104,31 +104,6 @@ export const Container_jogo = styled.section`
                 aoutline: none;
                 position: relative;
 
-                .ball-message {
-                    min-width: 280px;
-                    padding: 10px 20px;
-                    position: fixed;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 40px;
-                    top: 180px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background-color: #2D2E30;
-                    color: #fff;
-                    font-weight: 500;
-                    font-size: 0.8rem;
-                    border-radius: 6px;
-                    z-index: 2;
-
-                    @media (max-width: 475px) {
-                        left: 55%;
-                        trasform: translateX(-50%);
-                    }
-
-                }
-
                 &:hover {
                     background:rgb(250, 13, 40);
                     color:#fff;
@@ -151,11 +126,152 @@ export const Container_jogo = styled.section`
                 height: 14px;
                 background:rgb(255, 255, 255);
                 filter: blur(2.5px);
-                
             }
-
-
         }
     }
 
+    .ball-message {
+        min-width: 270px;
+        padding: 20px 20px;
+        position: fixed;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        bottom: 180px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #2D2E30;
+        color: #fff;
+        font-weight: 500;
+        font-size: 1.2rem;
+        border-radius: 6px;
+        z-index: 2;
+
+        span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #AB0519;
+            color: #fff;
+            font-size: 1.2rem;
+            position: relative;
+
+            &::before {
+                content: " ";  
+                position: absolute;
+                top:8px;
+                left: 5px;
+                border-radius: 50%;
+                width: 5px;
+                height: 12px;
+                background:rgb(255, 255, 255);
+                filter: blur(3px);
+            }
+        }
+
+        @media (max-width: 475px) {
+            left: 55%;
+            trasform: translateX(-50%);
+        }
+
+    }
+
+    .jogo-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        border-radius: 10px;
+        padding: 20px 15px 20px 35px;
+        animation: fadeIn 0.3s ease-in-out;
+
+        @keyframes fadeIn {
+            from {
+            opacity: 0;
+            }
+            to {
+            opacity: 1;
+            }
+        }
+
+        .container-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            padding: 20px 0;
+            background-color:rgb(255, 255, 255);
+            border-radius: 10px;
+            margin-left: 20px;
+            animation: slideIn 0.3s ease-in-out;
+
+            @keyframes slideIn {
+                from {
+                transform: translateY(-20px);
+                opacity: 0;
+                }
+                to {
+                transform: translateY(0);
+                opacity: 1;
+                }
+            }
+
+            h3 {
+                width: 100%;
+                font-size: 1.2rem;
+                font-weight: 900;
+                padding: 10px 0;
+                text-align: center;
+                color: #fff;
+            }
+
+            p {
+                font-size: 1.2rem;
+                font-weight: 900;
+                padding: 5px 10px;
+                text-align: center;
+                color: green;
+            }
+
+            span {
+                padding: 0 10px;
+                font-size: 0.9rem;
+                font-weight: 800;
+                text-align: center;
+            }
+
+            button {
+                width:70%;
+                font-size: 1.3rem;
+                font-weight: 900;
+                padding: 8px 0;
+                text-align: center;
+                color: #fff;
+                background-color: #AB0519;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.2s;
+                margin-top: 15px;
+
+                &:hover {
+                    background:rgb(250, 13, 40);
+                }
+            }
+        }
+
+    }
 `

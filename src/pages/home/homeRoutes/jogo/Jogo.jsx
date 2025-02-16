@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container_jogo } from "./JogoStyles";
 // components
 import Balls from "./dataBalls";
@@ -10,44 +10,42 @@ import { useBetPool } from "../../../../context/BetPoolContext";
 import  {Timestamp} from "firebase/firestore";
 // hooks
 import {EnviarApostas} from "../../../../components/cart/CartData";
-import { use } from "react";
 
 const Jogo = () => {
-
+    const timeoutRef = useRef(null);
+    const [jogoMessage, setJogoMessage] = useState(null);
     const { jogoId, jogos, balls, setBalls, setApostas, apostas } = useBetPool();
     const { message, setMessage, userId } = useAuthContext();
     
     const jogo = jogos.find((jogo) => jogo.id === jogoId);
-
+    
     const handleBalls = (ball) => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current); // Cancela o timeout anterior antes de iniciar um novo
+        }
+        
         const count = balls.filter((b) => b === ball).length;
-        if (balls.length === 10) {
+
+        if(balls.length === 10) {
             return;
         }
 
         if (count < 3 ) {
             setBalls((prevBalls) => [...prevBalls, ball]);
-            if (balls.length === 9) {
-                setMessage({ ball, text: "Seu Jogo foi adicionado ao Carrinho!" });
-                setTimeout(() => {
-                    setMessage(null);
-                    return
-                }, 4000);
-            }
         } else {
-            setMessage({ ball, text: `O número ${ball} já foi escolhido 3 vezes!` });
-            setTimeout(() => {
+            setMessage(ball);
+            timeoutRef.current =setTimeout(() => {
                 setMessage(null);
             }, 4000);
         }
     };
 
     useEffect(() => {
-        const handleBalls = async () => {
+        const handleJogo = async () => {
              // Armazena jogos finalizados (quando 10 números são selecionados)
             if (balls.length === 10) {
-                const getUserId = localStorage.getItem("userId");// obitem o id do jogo para salvar na aposta
-
+                setJogoMessage(true);
+                setMessage(null);
                 // Obtém a data do sorteio como objeto Date
                 const drawDate = jogo.drawDate instanceof Date ? jogo.drawDate : jogo.drawDate.toDate(); 
                 // Subtrai 2 horas para definir a expiração antes do sorteio
@@ -68,7 +66,6 @@ const Jogo = () => {
                     drawDate: jogo.drawDate,
                 };
                 // Se newAposta não for um array, transforme em array
-                const apostasToSend = Array.isArray(newAposta) ? newAposta : [newAposta];
                 await EnviarApostas([newAposta]); // Envia como um array de apostas
 
                 const newDataAposta = [...apostas, newAposta]; // Cria um novo array com a aposta adicionada
@@ -78,18 +75,16 @@ const Jogo = () => {
                 setTimeout(() => {
                     setBalls([]);
                     localStorage.removeItem("balls");
-                }, 1000);
+                    setJogoMessage(null);
+                }, 20000);
                 
             } else if (balls.length > 0) { 
                 // Armazena bolas selecionadas APENAS se houver números escolhidos
                 localStorage.setItem("balls", JSON.stringify(balls));
             }
         }
-
-        handleBalls();
-
+        handleJogo();
     }, [balls]);
-
 
     return (
         <Container_jogo >
@@ -102,18 +97,12 @@ const Jogo = () => {
                 <div className="balls-container">
                     {Balls.map((ball, index) => (
                         <div
-                            style={{
-                                backgroundColor:
-                                    balls.includes(ball) ? "#ab0519" : jogo.color,
-                            }}
+                            style={{ backgroundColor: balls.includes(ball) ? "#ab0519" : jogo.color}}
                             className="balls"
                             key={index}
                             onClick={() => handleBalls(ball)}
                         >
                             {ball}
-                            {message && message.ball === ball && (
-                                <div className="ball-message">{message.text}</div>
-                            )}
                         </div>
                     ))}
                 </div>
@@ -130,6 +119,23 @@ const Jogo = () => {
                 </section>
             }
             <Cart />
+            {message &&  (
+                <div className="ball-message"><p>Há Bola</p><span>{message}</span><p>já foi escolhido 3 vezes!</p></div>
+            )}
+            { jogoMessage &&
+                <section className="jogo-message">
+                    <div className="container-message">
+                        <h3 style={{backgroundColor: jogo.color}}>{jogo.title}</h3>
+                        <p>Aposta realizada com sucesso! 😎</p>
+                        <span>confira sua aposta no carrinho ou na sessão Meus jogos.</span>
+                        <button 
+                            onClick={() => {setJogoMessage(null), setBalls([])}}
+                        >
+                            OK
+                        </button>
+                    </div>
+                </section>
+            }
         </Container_jogo>
     );
 };

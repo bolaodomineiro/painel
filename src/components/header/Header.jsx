@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Container_header } from "./HeaderStyles"
 // components
 import Btn from "../button/Btn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // icons
-import { faBars } from "@fortawesome/free-solid-svg-icons"
+import { faBars} from "@fortawesome/free-solid-svg-icons"
 // contexts
 import { useBetPool } from "../../context/BetPoolContext";
 import { useAuthContext } from "../../context/AuthContext";
@@ -14,16 +14,25 @@ const Header = ({$setMenuToggle, $menuToggle, title}) => {
     const { balls, setBalls } = useBetPool();
     const [message, setMessage] = useState(null);
 
-    const hendleBallsUpdate = (baall, index) => {
+    const timeoutRef = useRef(null);
+
+    const hendleBallsUpdate = (ball, index) => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current); // Cancela o timeout anterior antes de iniciar um novo
+        }
+    
         const newBalls = [...balls];
         newBalls.splice(index, 1);
         setBalls(newBalls);
-        setMessage(`Dezena ${baall} removida com sucesso!`);
-        setTimeout(() => {
+        setMessage(ball);
+    
+        timeoutRef.current = setTimeout(() => {
             setMessage(null);
+            timeoutRef.current = null; // Reseta a referência após a execução
         }, 2000);
+    
         return newBalls;
-    }
+    };
 
     return (
         <Container_header $menuToggle={$menuToggle} >
@@ -61,11 +70,14 @@ const Header = ({$setMenuToggle, $menuToggle, title}) => {
                 </div>
             </div>
             {message &&
-                <div className="message">{message}</div>
+                <div className="message">
+                    <p>Há Bola</p>
+                    <span className="ball">{message}</span>
+                    <p>removida com sucesso!</p>
+                </div>
             }
         </Container_header>
     )
 }
 
 export default Header;
-
