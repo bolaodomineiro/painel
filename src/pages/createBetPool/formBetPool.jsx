@@ -24,7 +24,7 @@ const Formulario = ({ $showForm, $setShowForm }) => {
         prizeQuantity: 6,
         ticket: 2121,
         title: "",
-        color: "#ffffff",
+        color: "#aaaaaa",
         result: [],
         rules: [],
         status: "Aberto",
@@ -65,54 +65,54 @@ const Formulario = ({ $showForm, $setShowForm }) => {
 
                 <FormGroup>
                     <Label>Título:</Label>
-                    <Input type="text" name="title" value={formData.title} onChange={handleChange} />
+                    <Input type="text" name="title" value={formData.title} onChange={handleChange} required />
                 </FormGroup>
 
                 <FormGroup>
                     <Label>Valor do Prêmio:</Label>
-                    <Input type="number" name="award" value={formData.award} onChange={handleChange} />
+                    <Input type="number" name="award" value={formData.award} onChange={handleChange} required />
                 </FormGroup>
 
                 <FormGroup>
                     <Label>Descrição:</Label>
-                    <Input type="text" name="description" value={formData.description} onChange={handleChange} />
+                    <Input type="text" name="description" value={formData.description} onChange={handleChange} required />
                 </FormGroup>
 
                 <section className="data-color">
                     <FormGroup>
                         <Label>Data do Sorteio:</Label>
-                        <Input type="datetime-local" name="drawDate" value={formData.drawDate} onChange={handleChange} />
+                        <Input type="datetime-local" name="drawDate" value={formData.drawDate} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
                         <Label>Cor:</Label>
-                        <Input type="color" name="color" value={formData.color} onChange={handleChange} className="color-input" />
+                        <Input type="color" name="color" value={formData.color} onChange={handleChange} className="color-input" required />
                     </FormGroup>
                 </section>
 
                 <FormGroup>
                     <Label>Imagem:</Label>
-                    <Input type="text" name="image" value={formData.image} onChange={handleChange} />
+                    <Input type="text" name="image" value={formData.image} onChange={handleChange} required />
                     <ImagePreview src={formData.image} alt="Preview" />
                 </FormGroup>
 
                 <section className="ticket">
                     <FormGroup>
                         <Label>Preço:</Label>
-                        <Input type="number" name="price" value={formData.price} onChange={handleChange} />
+                        <Input type="number" name="price" value={formData.price} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
                         <Label>Bilhete:</Label>
-                        <Input type="number" name="ticket" value={formData.ticket} onChange={handleChange} />
+                        <Input type="number" name="ticket" value={formData.ticket} onChange={handleChange} required />
                     </FormGroup>
                 </section>
 
                 <section className="prize">
                     <FormGroup>
                         <Label>Quantidade de Prêmios:</Label>
-                        <Input type="number" name="prizeQuantity" value={formData.prizeQuantity} onChange={handleChange} />
+                        <Input type="number" name="prizeQuantity" value={formData.prizeQuantity} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup className="acumulado">
-                        <Input type="checkbox" name="isAcumuled" checked={formData.isAcumuled} onChange={handleChange} />
+                        <Input type="checkbox" name="isAcumuled" checked={formData.isAcumuled} onChange={handleChange}   />
                         <Label>Acumulado</Label>
                     </FormGroup>
                 </section>
