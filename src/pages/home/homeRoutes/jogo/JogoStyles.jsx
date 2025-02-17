@@ -131,15 +131,15 @@ export const Container_jogo = styled.section`
     }
 
     .ball-message {
-        min-width: 270px;
-        padding: 20px 20px;
+        width: 400px;
+        padding: 20px;
         position: fixed;
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
         justify-content: center;
         align-items: center;
-        bottom: 180px;
+        bottom: 130px;
         left: 50%;
         transform: translateX(-50%);
         background-color: #2D2E30;
@@ -148,6 +148,14 @@ export const Container_jogo = styled.section`
         font-size: 1.2rem;
         border-radius: 6px;
         z-index: 2;
+
+        @media (max-width: 475px) {
+            width: 250px;
+            gap: 5px;
+            padding: 10px 5px ;
+            font-size: 0.8rem;
+            left: 56%;
+        }
 
         span {
             display: flex;
@@ -173,11 +181,6 @@ export const Container_jogo = styled.section`
                 background:rgb(255, 255, 255);
                 filter: blur(3px);
             }
-        }
-
-        @media (max-width: 475px) {
-            left: 55%;
-            trasform: translateX(-50%);
         }
 
     }

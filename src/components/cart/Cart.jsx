@@ -41,7 +41,7 @@ const Cart = () => {
     return (
         <>
             {apostas.length > 0 && (
-                <Container_cart ref={cartRef} style={{ height: cartOpen ? "calc(100svh - 70px)" : "70px" }}>
+                <Container_cart ref={cartRef} style={{ height: cartOpen ? "calc(100vh - 70px)" : "70px" }}>
                     <div 
                         className="cart-header"
                         onClick={() => setCartOpen(!cartOpen)}

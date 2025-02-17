@@ -119,7 +119,7 @@ const Jogo = () => {
                 </section>
             }
             <Cart />
-            {message &&  (
+            { message &&  (
                 <div className="ball-message"><p>Há Bola</p><span>{message}</span><p>já foi escolhido 3 vezes!</p></div>
             )}
             { jogoMessage &&
