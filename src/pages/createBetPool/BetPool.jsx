@@ -3,15 +3,33 @@ import { Container_betPool } from "./createBetPoolStyles"
 import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
 import FormBetPool from "./formBetPool";
+import RuleForm from "./ruleForm";
+import Loading from "../../assets/loading.webp"
 
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 
 
 const BetPool = () => {
 
-    const { jogos } = useBetPool();
+    const { jogos, loading, setJogoId, jogoId } = useBetPool();
     const [useSelect, setUseSelect] = useState("Todos")
-    const  [showForm, setShowForm] = useState(false);
+    const  [showForm, setShowForm] = useState(null);
+
+    if (loading) {
+        return (
+            <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+                fontSize: "24px",
+                fontWeight: "bold"
+            }}>
+                <img  style={{ width: "60px", height: "60px" }} src={Loading} alt="loading" />
+            </div>
+        );
+    }
+
 
     return (
         <Container_betPool>
@@ -19,10 +37,10 @@ const BetPool = () => {
                 data={data} 
                 useSelect={useSelect} 
                 setUseSelect={setUseSelect}
-                onClick={() => setShowForm(!showForm)} 
+                setShowForm={setShowForm}
             />
             <section className="content">
-                { jogos.map((jogo, index) => ( 
+                { jogos.map((jogo) => ( 
                     <div className="card-content" key={jogo.id}>
                         <div className="card-header" style={{ backgroundColor: jogo.color }} >
                             <h3 className="title">{ jogo.title }</h3>
@@ -36,34 +54,34 @@ const BetPool = () => {
                         <div className="card-info-area">
                             <div className="card-info">
                                 <strong>Data de criação</strong>
-                                <span>{new Date(jogo.created.seconds * 1000).toLocaleString()}</span>
+                                <span>{new Date(jogo.created?.seconds * 1000).toLocaleString()}</span>
                             </div>
                             <div className="card-info">
                                 <strong>Data do Sorteio</strong>
-                                <span>{new Date(jogo.drawDate.seconds * 1000).toLocaleString()}</span>
+                                <span>{new Date(jogo.drawDate?.seconds * 1000).toLocaleString()}</span>
                             </div>
                         </div>
                         <div className="card-rules">
                             <h4> Regras de Pontuação:</h4>
                             <ul>
-                                {jogo.rules.length > 0 ? (
+                                {jogo.rules?.length > 0 ? (
                                     jogo.rules.map((regra, index) => (
                                         <li key={index}>
-                                            <span>{regra.pts} Pontos -------------------------→ </span>
+                                            <span>{regra.pts <= 9 ? `0${regra.pts}` : regra.pts} Pontos ----------------------→ </span>
                                             {regra.isValue && regra.isValue > 0 
                                                 ? regra.isValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
                                                 : "Não Definido"}
                                         </li>
                                     ))
                                 ) : (
-                                    <button>Adicionar Regra</button>
+                                    <button onClick={() =>{ setShowForm("rules"), setJogoId(jogo.id), localStorage.setItem("jogoId", jogo.id)}}>Adicionar Regra</button>
                                 )}
                             </ul>
                         </div>
                         <div className="card-result">
                             <h4> Resultado:</h4>
                                 <ul>
-                                    {jogo.result.length > 0 ? (
+                                    {jogo.result?.length > 0 ? (
                                         jogo.result.map((regra, index) => (
                                             <li key={index}>
                                                 <span>Prêmio {regra.premio} -------------------------------→ </span>
@@ -71,7 +89,7 @@ const BetPool = () => {
                                             </li>
                                         ))
                                     ) : (
-                                        <button>Adicionar Resultado</button>
+                                        <button onClick={() => {setShowForm(true), setJogoId(jogo.id)}}>Adicionar Resultado</button>
                                     )}
                                 </ul>
                         </div>
@@ -86,6 +104,7 @@ const BetPool = () => {
                 ))}
             </section>
             <FormBetPool $showForm={showForm} $setShowForm={setShowForm} />
+            <RuleForm jogoId={jogoId} $showForm={showForm} $setShowForm={setShowForm} />
         </Container_betPool>
     )
 }

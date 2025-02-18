@@ -1,5 +1,5 @@
 import { db } from "../../firebase/firebase"; // Certifique-se de importar a configuração do Firebase
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc, Timestamp, doc, updateDoc } from "firebase/firestore";
 
 export const saveJogo = async (gameData) => {
     try {
@@ -24,4 +24,22 @@ export const saveJogo = async (gameData) => {
         throw error;
     }
 };
+
+
+export const saveRules = async (jogoId, rules) => {
+    console.log(jogoId);
+    try {
+
+        const jogoRef = doc(db, "jogos", jogoId);
+        await updateDoc(jogoRef, {
+            rules: rules  
+        })
+        console.log("Regras salvas com sucesso!");
+
+    } catch (error) {
+        console.error("Erro ao salvar regras:", error);
+        throw error;
+    }
+};
+
 

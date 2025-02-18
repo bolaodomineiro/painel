@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }) => {
       navigate("/dashboard/jogo"); // Redireciona após login
       return { success: true, message: "Login realizado com sucesso!" };
     } catch (error) {
-      setMessage(error.message);
+      console.log(error.message);
       return { success: false, message: error.message };
     }
   };
@@ -67,7 +67,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.clear();
       navigate("/login");
     } catch (error) {
-      console.error("Erro ao deslogar:", error);
+      console.log("Erro ao deslogar:", error);
     }
   };
 
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }) => {
       setUserId(userId);
       setUser(userDoc.data());
     } else {
-      setMessage("Usuário não encontrado.");
+      console.log("Usuário não encontrado.");
       return { success: false, message: "Usuário não encontrado." };
     }
   }
@@ -97,6 +97,7 @@ export const AuthProvider = ({ children }) => {
       signInUser, logoutUser,
       userId, setUserId,
       user,
+      getuser
     }}>
       {children}
     </AuthContext.Provider>

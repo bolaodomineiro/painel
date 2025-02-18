@@ -45,6 +45,104 @@ export const Container = styled.div`
         }
     }
 
+    .rule-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 8px;
+        margin-top: 10px;
+
+        .pts {
+            width: 45px;
+            padding-left: 5px;
+        }
+
+        .award {
+            padding-left: 10px;
+        }
+
+        .icon {
+            width: 30px;
+            height: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 4px;
+            position: relative;
+            top: 11.5px;
+            background: green;
+            color: #fff;
+            transition: all 0.2s;
+
+            &:hover {
+                background:rgb(15, 179, 0);
+            }
+        }
+    }
+
+    .rule-preview {
+        height: 210px;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        overflow: auto;
+        padding: 10px;
+
+        &::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #F3EED9;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #AB0519;
+            border-radius: 10px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color:rgb(229, 229, 229);
+                padding: 5px;
+                border-radius: 5px;
+
+                &:nth-child(even) {
+                    background-color:rgb(198, 196, 196);
+                }
+                
+                span {
+                    font-weight: 600;
+                }
+
+                .icon {
+                    transition: all 0.2s;
+                    cursor: pointer;
+                }
+
+                .icon:hover {
+                    color: red;
+                }
+            }
+        }
+
+    }
+
     @keyframes fadeIn {
         from {
         opacity: 0;

@@ -59,7 +59,7 @@ const Formulario = ({ $showForm, $setShowForm }) => {
     };
 
     return (
-        <Container $showForm={$showForm}>
+        <Container $showForm={$showForm === "create"}>
             <Form onSubmit={handleSaveJogo}>
                 <h2 className="title">Cadastro do Bolão</h2>
 

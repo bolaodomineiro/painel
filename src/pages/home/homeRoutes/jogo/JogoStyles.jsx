@@ -93,7 +93,6 @@ export const Container_jogo = styled.section`
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
-                background:#242222;
                 color: #fff;
                 font-weight: 900;
                 font-size: 1rem;
@@ -101,12 +100,10 @@ export const Container_jogo = styled.section`
                 trasition: all 0.2s;
                 box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.59);
                 user-select: none;
-                aoutline: none;
                 position: relative;
 
                 &:hover {
-                    background:rgb(250, 13, 40);
-                    color:#fff;
+                    background:rgb(250, 13, 40)!important;
                 }
 
                 @media (max-width: 575px) {
@@ -252,7 +249,7 @@ export const Container_jogo = styled.section`
             span {
                 padding: 0 10px;
                 font-size: 0.9rem;
-                font-weight: 800;
+                font-weight: 400;
                 text-align: center;
             }
 

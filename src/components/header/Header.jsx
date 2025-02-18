@@ -71,9 +71,9 @@ const Header = ({$setMenuToggle, $menuToggle, title}) => {
             </div>
             {message &&
                 <div className="message">
-                    <p>Há Bola</p>
+                    <p>Bola</p>
                     <span className="ball">{message}</span>
-                    <p>removida com sucesso!</p>
+                    <p>removida</p>
                 </div>
             }
         </Container_header>

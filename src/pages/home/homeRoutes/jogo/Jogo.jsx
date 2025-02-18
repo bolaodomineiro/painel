@@ -75,8 +75,7 @@ const Jogo = () => {
                 setTimeout(() => {
                     setBalls([]);
                     localStorage.removeItem("balls");
-                    setJogoMessage(null);
-                }, 20000);
+                }, 4000);
                 
             } else if (balls.length > 0) { 
                 // Armazena bolas selecionadas APENAS se houver números escolhidos
@@ -88,7 +87,7 @@ const Jogo = () => {
 
     return (
         <Container_jogo >
-            { jogo.status &&
+            { jogo?.status &&
                 <section className="jogo-balls">
                 <div className="balls-header">
                     <h3>Clique em 10 dezenas - </h3>
@@ -109,10 +108,10 @@ const Jogo = () => {
             </section>
             }
 
-            { !jogo.status  &&
+            { !jogo?.status  &&
                 <section className="info">
                     <div>
-                        <h3>{jogo.title}</h3>
+                        <h3>{jogo?.title}</h3>
                         <p>Apostas <b>Encerradas,</b> em breve teremos mais prêmios para voce! 😎</p>
                         <h5>Finalizado!</h5>
                     </div>
@@ -120,14 +119,14 @@ const Jogo = () => {
             }
             <Cart />
             { message &&  (
-                <div className="ball-message"><p>Há Bola</p><span>{message}</span><p>já foi escolhido 3 vezes!</p></div>
+                <div className="ball-message"><p>Bola</p><span>{message}</span><p>já foi escolhido 3 vezes!</p></div>
             )}
             { jogoMessage &&
                 <section className="jogo-message">
                     <div className="container-message">
                         <h3 style={{backgroundColor: jogo.color}}>{jogo.title}</h3>
                         <p>Aposta realizada com sucesso! 😎</p>
-                        <span>confira sua aposta no carrinho ou na sessão Meus jogos.</span>
+                        <span>Confira sua aposta no carrinho ou na sessão Meus jogos.</span>
                         <button 
                             onClick={() => {setJogoMessage(null), setBalls([])}}
                         >
