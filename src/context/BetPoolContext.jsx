@@ -3,7 +3,6 @@ import { db } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 // context
 import { useAuthContext } from "./AuthContext";
-import { use } from "react";
 
 const BetPoolContext = createContext();
 

@@ -81,6 +81,7 @@ export const ContainerLogin = styled.section`
             width: 250px;
             padding: 10px 0px;
             margin-top: 10px;
+            font-size: 1rem;
         }
 
         .register_link {

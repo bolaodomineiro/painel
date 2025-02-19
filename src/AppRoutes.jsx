@@ -8,7 +8,6 @@ import MyBets from './pages/home/homeRoutes/myBets/MyBets';
 import Users from './pages/users/Users';
 import BetPool from './pages/createBetPool/BetPool';
 import Pages from './pages/pagesEdit/Pages';
-import Components from './pages/componentsEdit/Components';
 
 function AppRoutes({ $menuToggle }) {
     return (

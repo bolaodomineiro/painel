@@ -61,7 +61,6 @@ const Home = () => {
     const hendleJogoId = (id, jogoPrice) => {
         localStorage.setItem("jogoId", id);
         setJogoId(id);
-        localStorage.setItem("jogoPrice", jogoPrice);
         setJogoPrice(jogoPrice);
     };
     
@@ -95,7 +94,7 @@ const Home = () => {
                     </Container_card>
                 ))}
             </section>
-            <Contests_style style={{borderTopColor: jogo?.color, backgroundColor: jogo?.color}}>
+            <Contests_style style={{backgroundColor: jogo?.color}}>
                 <section className="header_contests" >
                     <div className="header_infor">
                         <p>{jogo?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>

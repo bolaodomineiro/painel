@@ -23,12 +23,10 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
-        const result = await signInUser(email, password);// await signInUser(email, password);
+        const result = await signInUser(email, password);
 
         if (result.success) {
-            // alert("Login realizado com sucesso!");
             setAuthenticated(!Authenticated);
-            localStorage.setItem("authenticated", "true");
             navigate("/dashboard/jogo");
         } else {
             alert(`Erro ao realizar login: ${result.message}`);
@@ -64,7 +62,7 @@ const Login = () => {
                 </div>
                 <Btn text="Entrar" type="submit" />
                 <div className="forgot">
-                    <Link className="forgot_link" to="/passwordRecovery">Esqueceu sua senha?</Link>
+                    <Link className="forgot_link" to="https://www.bolaodomineiro.com.br/passwordRecovery">Esqueceu sua senha?</Link>
                 </div>
                 <Link className="register_link" to="/register">
                     Criar conta

@@ -58,10 +58,9 @@ export const MyBetsProvider = ({ children }) => {
 
         const fetchApostas = async () => {
             const getApostas = await getMyBets(userId, storedJogoId );
-            // const getApostaItem = getApostas.find((aposta) => aposta.jogo_id === localStorage.getItem("jogoId"));
-            // localStorage.setItem("apostaItem", JSON.stringify(getApostaItem));
         };
         fetchApostas();
+        
     }, [userId, message, jogoId, authenticated]);
 
     return (

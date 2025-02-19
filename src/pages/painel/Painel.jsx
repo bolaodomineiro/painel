@@ -3,17 +3,17 @@ import { Container } from "./PainelStyles"
 import Menu from "../../components/menu/Menu"
 import Header from "../../components/header/Header"
 import AppRoutes from "../../AppRoutes";
+import { useAuthContext } from "../../context/AuthContext";
 
 const Painel = () => {
-    
-    const getStorageAuthenticated = localStorage.getItem("authenticated");
+    const { authenticated} = useAuthContext();
 
     const [title, setTitle] = useState("Dashboard")
     const [menuToggle, setMenuToggle] = useState(true)
 
     return (
         <>
-            { getStorageAuthenticated  &&
+            { authenticated  &&
                 <Container $menuToggle={menuToggle}>
                     <Menu
                         $menuToggle={menuToggle}
