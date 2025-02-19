@@ -25,9 +25,13 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
     const handleSaveRule = async (event) => {
         event.preventDefault();
         try {
+            setLoading(true);
+            const res = confirm("Todos os dados estão corretos ? \n  OK para salvar as regras.");
+            if (!res) {
+                return;
+            }
             await saveRules(jogoId, rules);
             console.log("Jogo salvo com sucesso!");
-            setLoading(true);
             $setShowForm(null);
         } catch (error) {
             console.error("Erro ao cadastrar jogo:", error);
@@ -66,7 +70,7 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                             // Atualiza e ordena o array de regras de forma segura
                             setRules((prevRules) => {
                                 const updatedRules = [...prevRules, { pts: pontos, isValue: award }];
-                                updatedRules.sort((a, b) => b.pontos - a.pontos); // Ordena do maior para o menor
+                                updatedRules.sort((a, b) => b.pts - a.pts); // Ordena do maior para o menor
                                 return updatedRules;  // Retorna o novo array ordenado
                             });
 
@@ -92,7 +96,16 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                     </ul>
                 </section>
                 <Button type="submit">Cadastrar</Button>
-                <Button type="button" style={{ backgroundColor: "#5A6268" }} onClick={() => $setShowForm(false)}>
+                <Button 
+                    type="button" 
+                    style={{ backgroundColor: "#5A6268" }} 
+                    onClick={() => {
+                        $setShowForm(false)
+                        setRules([]);
+                        setpontos(" ");
+                        setAward(" ");
+                    }}
+                >
                     Cancelar
                 </Button>
             </Form>

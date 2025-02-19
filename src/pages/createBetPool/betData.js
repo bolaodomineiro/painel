@@ -42,4 +42,15 @@ export const saveRules = async (jogoId, rules) => {
     }
 };
 
+export const saveResults = async (resultados) => {
+    try {
+        const resultadosRef = collection(db, "resultados");
+        await addDoc(resultadosRef, resultados );
+        console.log("Resultados adicionados com sucesso!");
+
+    } catch (error) {
+        console.error("Erro ao salvar os resultados:", error);
+    }
+}
+
 

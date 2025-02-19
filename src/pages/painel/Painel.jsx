@@ -6,6 +6,7 @@ import AppRoutes from "../../AppRoutes";
 import { useAuthContext } from "../../context/AuthContext";
 
 const Painel = () => {
+    const getAuthenticated = localStorage.getItem("authenticated");
     const { authenticated} = useAuthContext();
 
     const [title, setTitle] = useState("Dashboard")
@@ -13,7 +14,7 @@ const Painel = () => {
 
     return (
         <>
-            { authenticated  &&
+            { getAuthenticated   &&
                 <Container $menuToggle={menuToggle}>
                     <Menu
                         $menuToggle={menuToggle}

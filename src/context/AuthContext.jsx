@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
           await currentUser.getIdToken(true); // Garante que o token está atualizado
           setAuthenticated(true);
           getuser(currentUser.uid);
+          localStorage.setItem("authenticated", true);
         } catch (error) {
           console.error("Erro ao obter token:", error);
           setUser(null);
@@ -85,8 +86,6 @@ export const AuthProvider = ({ children }) => {
       return { success: false, message: "Usuário não encontrado." };
     }
   }
-
-  console.log(user);
 
   return (
     <AuthContext.Provider value=

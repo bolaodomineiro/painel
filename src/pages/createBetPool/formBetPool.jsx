@@ -25,7 +25,6 @@ const Formulario = ({ $showForm, $setShowForm }) => {
         ticket: 2121,
         title: "",
         color: "#aaaaaa",
-        result: [],
         rules: [],
         status: "Aberto",
         created: new Date(),
@@ -48,6 +47,11 @@ const Formulario = ({ $showForm, $setShowForm }) => {
                 drawDate: formData.drawDate ? new Date(formData.drawDate) : new Date(),
                 created: new Date(),
             };
+
+            const res = confirm("Todos os dados estão corretos ? \n  OK para salvar o jogo.");
+            if (!res) {
+                return;
+            }
 
             await saveJogo(formattedData);
             console.log("Jogo salvo com sucesso!");

@@ -1,9 +1,11 @@
-import  { useState } from "react"
+import  { useState, useEffect } from "react"
 import { Container_betPool } from "./createBetPoolStyles"
 import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
+import { useResults } from "../../context/ResultsContext";
 import FormBetPool from "./formBetPool";
 import RuleForm from "./ruleForm";
+import ResultForm from "./resultForm";
 import Loading from "../../assets/loading.webp"
 
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
@@ -11,9 +13,12 @@ const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 
 const BetPool = () => {
 
+    const { results } = useResults();
     const { jogos, loading, setJogoId, jogoId } = useBetPool();
+
     const [useSelect, setUseSelect] = useState("Todos")
     const  [showForm, setShowForm] = useState(null);
+
 
     if (loading) {
         return (
@@ -74,24 +79,40 @@ const BetPool = () => {
                                         </li>
                                     ))
                                 ) : (
-                                    <button onClick={() =>{ setShowForm("rules"), setJogoId(jogo.id), localStorage.setItem("jogoId", jogo.id)}}>Adicionar Regra</button>
+                                    <button onClick={() =>{ 
+                                        setShowForm("rules"), 
+                                        setJogoId(jogo.id), 
+                                        localStorage.setItem("jogoId", jogo.id)}}
+                                    >
+                                        Adicionar Regra
+                                    </button>
                                 )}
                             </ul>
                         </div>
                         <div className="card-result">
                             <h4> Resultado:</h4>
-                                <ul>
-                                    {jogo.result?.length > 0 ? (
-                                        jogo.result.map((regra, index) => (
+                            <ul>
+                                {results?.some(result => result.jogo_id === jogo.id && result.results?.length > 0) ? (
+                                    results
+                                        .filter((result) => result.jogo_id === jogo.id) // Filtra pelo jogo_id
+                                        .flatMap((result) => result.results) // Acessa o array de "results" dentro do objeto filtrado
+                                        .map((result, index) => ( // Agora mapeia os resultados
                                             <li key={index}>
-                                                <span>Prêmio {regra.premio} -------------------------------→ </span>
-                                                {regra.number && regra.number > 0 ? regra.number : "Não Definido"}
+                                                <span>{result.award <= 9 ? `0${result.award}` : result.award} Sorteio -------------------------------→ </span>
+                                                {result.number && result.number > 0 ? result.number : "Não Definido"}
                                             </li>
                                         ))
-                                    ) : (
-                                        <button onClick={() => {setShowForm(true), setJogoId(jogo.id)}}>Adicionar Resultado</button>
-                                    )}
-                                </ul>
+                                ) : (
+                                    <button 
+                                        onClick={() => { 
+                                            setShowForm("result"), 
+                                            setJogoId(jogo.id),
+                                            localStorage.setItem("jogoId", jogo.id)
+                                        }}>
+                                        Adicionar Resultado
+                                    </button>
+                                )}
+                            </ul>
                         </div>
                         <div className="card-status">
                             <p style={{ backgroundColor: jogo.color }}>{ jogo.isAcumuled ? "Acumulado" : " Não Acumulado " }</p>
@@ -105,6 +126,7 @@ const BetPool = () => {
             </section>
             <FormBetPool $showForm={showForm} $setShowForm={setShowForm} />
             <RuleForm jogoId={jogoId} $showForm={showForm} $setShowForm={setShowForm} />
+            <ResultForm jogoId={jogoId} $showForm={showForm} $setShowForm={setShowForm} />
         </Container_betPool>
     )
 }

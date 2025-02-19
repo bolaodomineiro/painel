@@ -17,6 +17,7 @@ export const MyBetsProvider = ({ children }) => {
     const getMyBets = async (userId, jogoId) => {
         if (!userId || !jogoId) {
             console.warn("getApostas: userId ou jogoId inválidos", { userId, jogoId });
+            localStorage.removeItem("jogoId");
             return [];
         }
 
