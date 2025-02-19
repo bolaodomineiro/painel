@@ -15,8 +15,6 @@ import { useBetPool } from "../../context/BetPoolContext";
 
 const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
 
-    console.log(jogoId);
-
     const { setLoading } = useBetPool();
     const [rules, setRules] = useState([])
     const [pontos, setpontos] = useState(" ")

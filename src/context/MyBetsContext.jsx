@@ -16,7 +16,7 @@ export const MyBetsProvider = ({ children }) => {
 
     const getMyBets = async (userId, jogoId) => {
         if (!userId || !jogoId) {
-            console.warn("getApostas: userId ou jogoId inválidos", { userId, jogoId });
+            // console.warn("getApostas: userId ou jogoId inválidos", { userId, jogoId });
             localStorage.removeItem("jogoId");
             return [];
         }
@@ -31,7 +31,6 @@ export const MyBetsProvider = ({ children }) => {
             const apostasSnapshot = await getDocs(apostasQuery);
 
             if (apostasSnapshot.empty) {
-                console.info("Nenhuma aposta encontrada");
                 setApostas([]);
                 return [];
             }
@@ -53,7 +52,7 @@ export const MyBetsProvider = ({ children }) => {
     useEffect(() => {
         const storedJogoId = localStorage.getItem("jogoId");
         if (!storedJogoId) {
-            console.warn("Nenhum userId ou jogoId encontrado no localStorage");
+            // console.warn("Nenhum userId ou jogoId encontrado no localStorage");
             return;
         }
 

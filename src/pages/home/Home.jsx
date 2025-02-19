@@ -54,7 +54,6 @@ const Home = () => {
     const getHeight = () => {
         if (elementRef.current) {
             hendleScroll(elementRef.current.offsetTop);
-            console.log('Altura do elemento:', elementRef.current.offsetHeight);
         }
     };
 
