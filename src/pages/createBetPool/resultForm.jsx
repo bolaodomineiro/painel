@@ -15,7 +15,7 @@ import { useResults } from "../../context/ResultsContext";
 
 const ResultForm = ({$setShowForm, $showForm}) => {
 
-    const { setLoad } = useResults();
+    const { fetchAllResults } = useResults();
 
     const { jogoId } = useBetPool();
     const [dataResult, setDataResult] = useState([])
@@ -26,7 +26,6 @@ const ResultForm = ({$setShowForm, $showForm}) => {
     const handleSaveResult = async (event) => {
         event.preventDefault();
         try {
-            setLoad(true);
             const res = confirm("Todos os dados estão corretos ? \n  OK para salvar os resultados.");
             
             const newResult = {
@@ -42,6 +41,7 @@ const ResultForm = ({$setShowForm, $showForm}) => {
             await saveResults(newResult);
             console.log("Jogo salvo com sucesso!");
             $setShowForm(null);
+            fetchAllResults();
 
         } catch (error) {
             console.error("Erro ao cadastrar jogo:", error);
