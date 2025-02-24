@@ -1,6 +1,7 @@
 import { db } from "../../firebase/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, updateDoc, getDoc } from "firebase/firestore";
 
+// Função para buscar todas as regras de um jogo
 export const fetchAllRules = async (jogoId, setRules, setLoad  ) => {
     setLoad(true);
     try {
@@ -25,5 +26,29 @@ export const fetchAllRules = async (jogoId, setRules, setLoad  ) => {
         console.error("Erro ao buscar regras do jogo:", err);
     } finally {
         setLoad(false);
+    }
+};
+
+// Função para atualizar o campo 'winner' de uma regra
+export const updateWinnerByPts = async (regraId, regraPts) => {
+    try {
+        const regraRef = doc(db, "regras", regraId);
+        const regraSnap = await getDoc(regraRef);
+
+        if (!regraSnap.exists()) {
+            console.log("Regra não encontrada!");
+            return;
+        }
+
+        const regraData = regraSnap.data();
+        const novasRules = regraData.rules.map(rule => 
+            rule.pts === regraPts ? { ...rule, winner: true } : rule
+        );
+
+        await updateDoc(regraRef, { rules: novasRules });
+
+        console.log(`Campo 'winner' atualizado com sucesso para as regras com ${regraPts}  pontos!`);
+    } catch (error) {
+        console.error("Erro ao atualizar a regra:", error);
     }
 };
