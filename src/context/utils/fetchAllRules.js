@@ -21,7 +21,7 @@ export const fetchAllRules = async (jogoId, setRules, setLoad  ) => {
         }));
 
         setRules(fetchedRules);
-        console.log(fetchedRules);
+        
     } catch (err) {
         console.error("Erro ao buscar regras do jogo:", err);
     } finally {

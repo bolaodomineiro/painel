@@ -47,3 +47,37 @@
         ]
     }
 ]
+
+
+// const regraMaisProxima = rules
+// .flatMap(regra => regra.rules)
+// .filter(regras => regras.pts < acertos && !regras.winner)
+// .sort((a, b) => b.pts - a.pts);
+
+// console.log(regraMaisProxima);
+
+// for (const item of rules) {
+//     if (regraMaisProxima.length) {
+//         for (const regra of regraMaisProxima) {
+        
+//             const newGanhador = {
+//                 acertos,
+//                 numerosAcertados,
+//                 aposta
+//             };
+
+//             setGanhadores(prev => {
+//                 const existe = prev.some(g => g.aposta.id === newGanhador.aposta.id);
+//                 return existe ? prev : [...prev, newGanhador];
+//             });
+
+//             // if (sorteios.length === regra.prizeDraw && !regra.winner) {
+//                 await updateWinnerByPts(item.id, regra.pts);
+//                 console.log(`🔍 Regra mais próxima: ${regra.pts} pontos`);
+//                 console.log(regra);
+//             // }
+//         }
+//     } else {
+//         console.log("⚠️ Nenhuma regra aplicável encontrada.");
+//     }
+// }

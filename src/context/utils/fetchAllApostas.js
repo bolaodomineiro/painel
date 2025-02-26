@@ -21,9 +21,9 @@ export const fetchAllApostas = async (jogoId, setApostas, setLoad) => {
                 id: doc.id,
                 ...doc.data()
             }));
-
+            
             setApostas(fetchedApostas);
-            console.log(fetchedApostas);
+            
         } catch (err) {
             console.error("Erro ao buscar apostas:", err);
         } finally {

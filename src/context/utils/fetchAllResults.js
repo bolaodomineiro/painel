@@ -19,7 +19,7 @@ export const fetchAllResults = async (jogoId, setResultados, setLoad) => {
             }));
 
             setResultados(fetchedResults);
-            console.log(fetchedResults);
+
         } catch (err) {
             console.error("Erro ao buscar resultados:", err);
         } finally {

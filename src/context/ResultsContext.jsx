@@ -11,39 +11,42 @@ const ResultsContext = createContext();
 export const ResultsProvider = ({ children }) => {
     const { jogoId } = useBetPool();
 
+    const [updatesApostasGanhadoras, setupdatesApostasGanhadoras] = useState([]);
+    const [ganhadores, setGanhadores] = useState([]);
     const [sorteios, setSorteios] = useState([]);
     const [resultados, setResultados] = useState([]);
     const [rules, setRules] = useState([]);
     const [apostas, setApostas] = useState([]);
     const [load, setLoad] = useState(false);
 
-
-
-     // Buscar resultados quando o contexto for carregado
+    // Buscar resultados quando o contexto for carregado
     useEffect(() => {
         fetchAllResults(jogoId, setResultados, setLoad);
     }, []);
-    
+
     useEffect(() => {
         setSorteios([]);
-        if (resultados?.length > 0) {
-            extractLottoBalls(resultados, jogoId, setSorteios);
-            fetchAllRules( jogoId, setRules, setLoad);
-            fetchAllApostas(jogoId, setApostas, setLoad);
-        }
-    }, [resultados, jogoId]); // Roda somente quando `resultados` ou `jogoId` mudar.
+        const getGrupos = async () => {
+            if (resultados?.length > 0) {
+                await extractLottoBalls(resultados, jogoId, setSorteios);
+                await fetchAllRules(jogoId, setRules, setLoad);
+                await fetchAllApostas(jogoId, setApostas, setLoad);
+            }
+        };
+        getGrupos();
+    }, [resultados]);
 
-    const verificarAcertosApostas = async (apostas, sorteios, rules) => {
+
+    const verificarAcertosApostas = async (apostas, sorteios) => {
         for (const aposta of apostas) {
+
             let acertos = 0;
             let numerosAcertados = [];
-    
             // Juntar todas as bolas de todos os sorteios em um único array
             const numerosSorteados = sorteios
-                .map(item => item.balls)  // Extrai o array de bolas de cada sorteio
-                .flat();  // Junta todos os arrays de bolas em um único array
-            console.log(numerosSorteados);
-    
+                .map(item => item.balls) // Extrai o array de bolas de cada sorteio
+                .flat(); // Junta todos os arrays de bolas em um único array
+                
             aposta.numbers.forEach(num => {
                 if (numerosSorteados.includes(num)) {
                     acertos++;
@@ -51,85 +54,66 @@ export const ResultsProvider = ({ children }) => {
                 }
             });
             
-            let regraAtendida = false;
-    
-            for (const sorteio of sorteios) {
-                for (const regra of rules) {
-                    for (const regras of regra.rules) {
-                        if (acertos === regras.pts && !regras.winner) {
-                            await updateWinnerByPts(regra.id, regras.pts);
-    
-                            console.log(` ✅ Regra de ${acertos} pontos foi atendida com sucesso!`);
-                            const ganhadores = []
-    
-                            const newGanhador = {
-                                acertos,
-                                numerosAcertados,
-                                aposta
-                            }
-                            ganhadores.push(newGanhador);
-                            
-                            console.log(ganhadores);
-                            break;
-                        }
-                    }
-                    if (regraAtendida) break;
-                }
-                if (regraAtendida) break;
-            }
-    
-            if (!regraAtendida) {
-                const regraMaisProxima = rules
-                    .flatMap(regra => regra.rules)
-                    .filter(regras => regras.pts < acertos && !regras.winner)
-                    .sort((a, b) => b.pts - a.pts);
+            const newGanhador = {
+                acertos,
+                numerosAcertados,
+                aposta
+            };
+            
+            setGanhadores(prev => {
+                const existe = prev.some(g => g.aposta.id === newGanhador.aposta.id);
+                return existe ? prev : [...prev, newGanhador];
+            });
+        }
+        
+    };
 
-                console.log(regraMaisProxima); // Imprime as regras com pontos menores que o acertos
-                console.log(sorteios.length); // Imprime o total de sorteios
-    
-                for (const item of rules) {
-                    if (regraMaisProxima.length) {
-                        for (const regra of regraMaisProxima) {
-                            if ((sorteios.length - 1) === regra.prizeDraw && !regra.winner) {
-                                await updateWinnerByPts(item.id, regra.pts);
-                                console.log(`🔍 Regra mais próxima: ${regra.pts} pontos`);
-                                console.log(regra);
-                                
-                                const ganhadores = [];
-                                
-                                const newGanhador = {
-                                    acertos,
-                                    numerosAcertados,
-                                    aposta
-                                };
-                                
-                                ganhadores.push(newGanhador);
-                                console.log(ganhadores);
-                                console.log(item.id);
-                            }
-                        }
-                    } else {
-                        console.log("⚠️ Nenhuma regra aplicável encontrada.");
-                    }
+    useEffect(() => {
+        if (apostas.length > 0 && sorteios.length > 0) {
+            verificarAcertosApostas(apostas, sorteios);
+        }
+
+    }, [apostas, sorteios]);
+
+
+    const verificaApostaPremiada = async () => {
+        
+        for (const ganhador of ganhadores) {
+            for (const regra of rules) {
+                for (const condicao of regra.rules) {
+
+                    if (ganhador.acertos >=  condicao.pts && (sorteios.length  === condicao.prizeDraw || condicao.prizeDraw == null) && !condicao.winner) {
+                        if (updatesApostasGanhadoras.length > 0) console.log(" Ganhadores", updatesApostasGanhadoras)
+                            setupdatesApostasGanhadoras(prevState => [...prevState, ganhador]);
+                        // Atualizar o campo 'winner' da regra
+                        await updateWinnerByPts(regra.id, condicao.pts);
+                        break
+                    } 
                 }
             }
         }
     };
-    
 
     useEffect(() => {
-        verificarAcertosApostas(apostas, sorteios, rules);
-    }, [apostas]);
+        if (apostas.length > 0 && sorteios.length > 0 && rules.length > 0) {
+            console.log(ganhadores);
+            console.log("Sorteios", sorteios);
+            console.log("Regras", rules);
+            verificaApostaPremiada();
+        }
 
-    // Para ver o estado atualizado corretamente:
+    }, [ganhadores, sorteios, rules]);
+
     useEffect(() => {
-        console.log(sorteios);
-    }, [sorteios]);
+        if (updatesApostasGanhadoras.length > 0) {
+            console.log("Ganhadores", updatesApostasGanhadoras);
+        }
+    }, [updatesApostasGanhadoras]);
 
     return (
         <ResultsContext.Provider value={{ fetchAllResults, load, setLoad, sorteios }}>
             {children}
-        </ResultsContext.Provider >
+        </ResultsContext.Provider>
     );
 };
 
