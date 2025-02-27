@@ -25,6 +25,9 @@ const Home = () => {
             case "/dashboard/myBets":
                 setActive("/dashboard/myBets");
                 break;
+            case "/dashboard/resultsBets":
+                setActive("/dashboard/resultsBets");
+                break;
             case "users":
                 setActive("Usuários");
                 break;
@@ -127,7 +130,9 @@ const Home = () => {
                             <Link to="/dashboard/myBets" className="link">
                                 <li className={active === "/dashboard/myBets" ? "active" : ""}>Meus Jogos</li>
                             </Link>
-                            <li>Resultados</li>
+                            <Link to="/dashboard/resultsBets" className="link">
+                                <li className={active === "/dashboard/resultsBets" ? "active" : ""}>Resultados</li>
+                            </Link>
                             <li>Ganhadores</li>
                             <li>Prêmios</li>
                             <li>Como Jogar</li>

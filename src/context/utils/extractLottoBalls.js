@@ -8,7 +8,7 @@ export const extractLottoBalls = async (resultados, jogoId, setSorteios) => {
         return;
     }
 
-    // console.log("Resultados encontrados:", getResults);
+    console.log("Resultados encontrados:", getResults);
 
     // Processa cada sorteio dentro de `results`
     const novosSorteios = getResults.results.map(result => {
@@ -20,9 +20,10 @@ export const extractLottoBalls = async (resultados, jogoId, setSorteios) => {
         });
         return {
             balls: extractedNumbers.flat(), // Une todas as dezenas
-            prizeDraw: result.prizeDraw
+            prizeDraw: result.prizeDraw,
+            drawDate: result.drawDate
         };
     });
     // Adiciona ao estado sem sobrescrever o anterior
     setSorteios(prevState => [...prevState, ...novosSorteios]);
-};
+}; 

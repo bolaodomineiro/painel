@@ -14,7 +14,7 @@ export const Container_bets = styled.section`
         flex-direction: column;
         align-items: center;
         width:100%;
-        padding: 20px 10px 50px;
+        padding: 50px 10px;
 
         h2 {
             display: flex;
@@ -242,16 +242,17 @@ export const Container_bets = styled.section`
             }
         }
 
-        .no-bets {
+        .not_sorteio {
             display: flex;
-            justify-content: center;
+            width:95%;
+            flex-direction: column;
             align-items: center;
-            font-size: 1.3rem;
-            font-weight: 900;
-            border-radius: 10px;
-            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            justify-content: center;
+            gap: 10px;
+            background-color: #F3EED9;
             padding: 20px;
-            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 1px 1px 5px rgba(46, 46, 46, 0.3);
         }
     }
 `

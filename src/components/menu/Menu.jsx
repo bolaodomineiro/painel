@@ -35,6 +35,9 @@ const Menu = ({ $menuToggle, $setTitle }) => {
             case "/dashboard/myBets":
                 setActive("/dashboard/jogo");
                 break;
+            case "/dashboard/resultsBets":
+            setActive("/dashboard/jogo");
+                break;
             case "/users":
                 $setTitle("Usuários");
                 setActive("/users");

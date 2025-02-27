@@ -39,11 +39,11 @@ const Bilhete = ({id, apostaItem}) => {
                     <div className="bilhete-rules">
                         <h3>Regras de Pontuação</h3>
                         <ul>
-                            {getJogoItem.rules.length > 0 ? (
+                            {getJogoItem.rules?.length > 0 ? (
                                     getJogoItem.rules.map((regra, index) => (
                                         <li key={index}>
-                                            <span><b>{regra.pts}</b> Pontos -------→ </span>
-                                            {regra.isValue && regra.isValue > 0 
+                                            <span><b>{regra?.pts}</b> Pontos -------→ </span>
+                                            {regra.isValue && regra?.isValue > 0 
                                                 ? regra.isValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
                                                 : "Não Definido"}
                                         </li>
@@ -57,7 +57,7 @@ const Bilhete = ({id, apostaItem}) => {
                     <div className="bilhete-concurso">
                         <div>
                             <h4>Concurso</h4>
-                            <p>{getJogoItem.ticket}</p>
+                            <p>{getJogoItem?.ticket}</p>
                         </div>
                         <div>
                             <h4>Data do Sorteio</h4>
@@ -82,7 +82,7 @@ const Bilhete = ({id, apostaItem}) => {
                         <ol className="bilhete-jogos" >
                             <div className="bilhete-jogo-container">
                                 <div className="bilhete-jogo-Header">
-                                    <p><b>Bilhete:</b> {apostaItem.ticket}</p>
+                                    <p><b>Bilhete:</b> {apostaItem?.ticket}</p>
                                     <span><b></b>{apostaItem.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                                 </div>
                                 <li className="bilhete-jogo" >

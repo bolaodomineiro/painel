@@ -22,7 +22,8 @@ export const ResultsProvider = ({ children }) => {
     // Buscar resultados quando o contexto for carregado
     useEffect(() => {
         fetchAllResults(jogoId, setResultados, setLoad);
-    }, []);
+        console.log("Buscando resultados...");
+    }, [jogoId]);
 
     useEffect(() => {
         setSorteios([]);
@@ -36,7 +37,7 @@ export const ResultsProvider = ({ children }) => {
         getGrupos();
     }, [resultados]);
 
-
+    // Verificar acertos das apostas
     const verificarAcertosApostas = async (apostas, sorteios) => {
         for (const aposta of apostas) {
 
@@ -75,33 +76,47 @@ export const ResultsProvider = ({ children }) => {
 
     }, [apostas, sorteios]);
 
-
     const verificaApostaPremiada = async () => {
+        let regrasParaAtualizar = []; // Array para armazenar { id, pts }
         
         for (const ganhador of ganhadores) {
             for (const regra of rules) {
                 for (const condicao of regra.rules) {
-
-                    if (ganhador.acertos >=  condicao.pts && (sorteios.length  === condicao.prizeDraw || condicao.prizeDraw == null) && !condicao.winner) {
-                        if (updatesApostasGanhadoras.length > 0) console.log(" Ganhadores", updatesApostasGanhadoras)
-                            setupdatesApostasGanhadoras(prevState => [...prevState, ganhador]);
-                        // Atualizar o campo 'winner' da regra
-                        await updateWinnerByPts(regra.id, condicao.pts);
-                        break
+                    if (ganhador.acertos >=  condicao.pts && (sorteios.length - 1  === condicao.prizeDraw || condicao.prizeDraw == null) && !condicao.winner) {
+                        if (updatesApostasGanhadoras.length > 0) console.log(" Ganhadores", updatesApostasGanhadoras)  
+                        setupdatesApostasGanhadoras(prevState => [...prevState,{...ganhador, rule: condicao.pts}]); 
+                          // Salva a regra apenas se ainda não estiver na lista
+                        if (!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts)) {
+                            regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
+                        }
+                        break;
                     } 
                 }
             }
         }
+        
+         // Atualizar todas as regras no final
+        for (const { id, pts } of regrasParaAtualizar) {
+            await updateWinnerByPts(id, pts);
+        }
     };
 
+    // chama a funcao verificaApostaPremiada quando todos os dados estiverem carregados
     useEffect(() => {
         if (apostas.length > 0 && sorteios.length > 0 && rules.length > 0) {
+            console.log(sorteios);
             console.log(ganhadores);
-            console.log("Sorteios", sorteios);
-            console.log("Regras", rules);
-            verificaApostaPremiada();
+            for (const gregras of rules) {
+                for (const regra of gregras.rules) {
+                    if (regra.pts === 10 && !regra.winner) {
+                        console.log("bolão Aberto");
+                        verificaApostaPremiada();
+                        break
+                    }
+                    console.log("bolão Fechado");
+                }
+            }
         }
-
     }, [ganhadores, sorteios, rules]);
 
     useEffect(() => {
