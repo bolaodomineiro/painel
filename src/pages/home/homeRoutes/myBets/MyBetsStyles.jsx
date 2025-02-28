@@ -78,7 +78,7 @@ export const Container_bets = styled.section`
                 .balls-container {
                     display: flex;
                     justify-content: center;
-                   
+                    
                     
                     .balls{
                         display: flex;
@@ -93,8 +93,8 @@ export const Container_bets = styled.section`
                             width: 30px;
                             height: 30px;
                             border-radius: 50%;
-                            background-color: #AB0519;
-                            color: #fff;
+                            background-color:rgb(228, 227, 227);
+                            color: #242222;
                             font-weight: 900;
                             box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
                             position: relative;
@@ -147,7 +147,7 @@ export const Container_bets = styled.section`
                         justify-content: center;
                         align-items: center;
                         gap: 10px;
-                        padding:10px;
+                        padding: 6.5px 10px;
                         background-color: rgb(255, 255, 255);
                         color: #000;
                         cursor: pointer;
@@ -197,7 +197,8 @@ export const Container_bets = styled.section`
                         justify-content: center;
                         align-items: center;
                         gap: 10px;
-                        padding: 10px;
+                        width: 140px;
+                        padding: 10px 20px;
                         background-color: green;
                         box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
                         color: #fff;
@@ -215,10 +216,11 @@ export const Container_bets = styled.section`
 
                     .bilhete {
                         display: flex;
+                        width: 140px;
                         justify-content: center;
                         align-items: center;
                         gap: 10px;
-                        padding: 10px;
+                        padding: 10px 20px;
                         background-color:rgb(255, 255, 255);
                         box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
                         color: #000;
