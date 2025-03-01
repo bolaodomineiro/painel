@@ -17,22 +17,35 @@ export const Container_winners = styled.section`
         .winners_area_header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 15px ;
+            gap: 10px;
+            padding: 20px ;
             background:#F3EED9;
+            box-shadow: 1px 2px 5px rgba(29, 29, 29, 0.2);
+
+            @media (max-width: 430px) {
+                flex-direction: column;
+            }
+
+            p {
+                font-size:1rem;
+                font-weight: 500;
+            }
         }
 
         .winners_area_main {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            overflow: auto;
+            padding: 10px 0px;
 
             .winners_box {
                 display: flex;
+                min-width: 900px;
                 align-items: center;
                 justify-content: space-between;
                 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-                padding: 5px 20px;
+                padding: 10px;
                 border-radius: 5px;
                 background-color:#f2f2f2;
 
@@ -68,6 +81,14 @@ export const Container_winners = styled.section`
                     font-weight: 500;
                 }
 
+                .prize {
+                    background-color:rgb(137, 137, 137);
+                    color: #fff;
+                    width: 120px;
+                    padding: 5px 15px;
+                    border-radius: 5px;
+                }
+
                 .acertos {
                     background-color:green;
                     color: #fff;
@@ -75,7 +96,9 @@ export const Container_winners = styled.section`
                     border-radius: 5px;
                 }
 
+
                 button {
+                    height: 100%;
                     background-color:#242222;
                     color: #fff;
                     padding: 5px 15px;
@@ -83,6 +106,7 @@ export const Container_winners = styled.section`
                     border: none;
                     cursor: pointer;
                 }
+                
             }
         }
 

@@ -132,7 +132,7 @@ const MyBets = () => {
                                                 style={{pointerEvents: aposta.paymentStatus === "Pago" ? "none"  : "auto"}}
                                             >{aposta.paymentStatus === "Pago" ? "Pago" : "Fazer pagamento"}</button>
                                         }
-                                        <p className="bilhete">Concurso: {aposta.ticket}</p>
+                                        <p className="bilhete">Bilhete: {aposta.ticket}</p>
                                     </div>
                                 </div>
                             ))}

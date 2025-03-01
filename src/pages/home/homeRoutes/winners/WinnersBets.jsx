@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Container_winners } from "./WinnersStyles";
-
 import { useBetPool } from "../../../../context/BetPoolContext";
 import {fetchWinnersByGame} from "./fetchWinnersByGame"
-import { use } from "react";
 
 const WinnersBets = () => {
+
     const {jogos,  jogoId } = useBetPool();
     const [winners, setWinners] = useState([]);
 
     const jogo = jogos.find((jogo) => jogo?.id === jogoId);
+
 
     useEffect(() => {
         const fetchWinners = async () => {
@@ -27,22 +27,25 @@ const WinnersBets = () => {
                 { winners?.length > 0 ? (
                     <>
                         <div className="winners_area_header">
-                            <h3>{winners.length} Ganhadores - Bolão {winners.map((winner) => winner.aposta.title)[0]}</h3>
+                            <h3>{winners.length} Ganhadores - </h3>
+                            <p>Bolão {winners.map((winner) => winner.aposta.title)[0]}</p>
                         </div>
                         <section className="winners_area_main">
                                 { winners.sort((a, b) => b.acertos - a.acertos).map((winner, index) => (
-                                    <div className="winners_box">
+                                    <div className="winners_box" key={index}>
                                         <div className="indicator">
                                             <span>{index + 1}</span>
                                         </div>
                                         <div>
                                             <h4>Nome</h4>
-                                            <p>{winner.ganhador?.name.split(" ")[0]}...</p>
-                                            <p>{winner.ganhador?.city.split(" ")[0]}</p>
+                                            <p>{winner.ganhador?.name.split(" ").slice(0, 2).join(" ")} ...</p>
+                                            <p>Cidade:  { winner.ganhador?.city.split(" ")[0]}</p>
+                                            <p>Estado:  { winner.ganhador?.state}</p>
                                         </div>
-                                        <div>
+                                        <div className="prize">
                                             <h4>Prêmio</h4>
-                                            <p>{winner.money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                            {/* map para dividindo o prêmio entre os ganhadores */}
+                                            <p>{ (winner.money / winners.filter((rule) => rule.rule === winner.rule).length).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                                         </div>
                                         <div>
                                             <h4>Data da Compra</h4>
@@ -57,7 +60,6 @@ const WinnersBets = () => {
                                             <p>{winner.acertos} Pontos</p>
                                         </div>
                                         <div>
-                                            <h4>Ação</h4>
                                             <button>Ver Bilhete</button>
                                         </div>
                                     </div>

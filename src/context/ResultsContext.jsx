@@ -144,7 +144,7 @@ export const ResultsProvider = ({ children }) => {
     }, [ganhadores, sorteios, rules]);
 
     return (
-        <ResultsContext.Provider value={{ fetchAllResults, load, setLoad, sorteios }}>
+        <ResultsContext.Provider value={{ fetchAllResults, load, setLoad, sorteios, rules }}>
             {children}
         </ResultsContext.Provider>
     );

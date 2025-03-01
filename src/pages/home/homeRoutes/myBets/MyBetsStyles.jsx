@@ -216,7 +216,6 @@ export const Container_bets = styled.section`
 
                     .bilhete {
                         display: flex;
-                        width: 140px;
                         justify-content: center;
                         align-items: center;
                         gap: 10px;
