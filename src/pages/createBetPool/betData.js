@@ -1,5 +1,5 @@
 import { db } from "../../firebase/firebase"; // Certifique-se de importar a configuração do Firebase
-import { collection, addDoc, Timestamp, doc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp, doc, updateDoc, arrayUnion} from "firebase/firestore";
 
 export const saveJogo = async (gameData) => {
     try {
@@ -26,18 +26,34 @@ export const saveJogo = async (gameData) => {
 };
 
 
-export const saveRules = async (jogoId, rules) => {
-    console.log(jogoId);
+export const saveRules = async (rules) => {
+    console.log(rules);
     try {
-
-        const jogoRef = doc(db, "jogos", jogoId);
-        await updateDoc(jogoRef, {
-            rules: rules  
-        })
+        const regrasRef = collection(db, "regras");
+        await addDoc(regrasRef,  rules ); // Cria um novo documento automaticamente
         console.log("Regras salvas com sucesso!");
-
     } catch (error) {
         console.error("Erro ao salvar regras:", error);
+        throw error;
+    }
+};
+
+
+export const updateRules = async (id, newRules) => {
+    try {
+        const regrasRef = doc(db, "regras", id); // Referência ao documento
+
+        // Verifique se a estrutura de newRules está correta
+        console.log("Novas regras antes de adicionar:", newRules);
+
+        // Adiciona as novas regras sem sobrescrever as antigas
+        await updateDoc(regrasRef, {
+            "rules": arrayUnion(...newRules)
+        });
+
+        console.log("Novas regras adicionadas com sucesso!");
+    } catch (error) {
+        console.error("Erro ao adicionar novas regras:", error);
         throw error;
     }
 };
@@ -52,5 +68,3 @@ export const saveResults = async (resultados) => {
         console.error("Erro ao salvar os resultados:", error);
     }
 }
-
-

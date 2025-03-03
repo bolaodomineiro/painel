@@ -84,27 +84,33 @@ export const Container_bets = styled.section`
                         display: flex;
                         width: 100%;
                         flex-wrap: wrap;
+                        padding: 10px 0;
                         gap: 10px;
 
                         .ball {
                             display: flex;
                             justify-content: center;
                             align-items: center;
-                            width: 30px;
-                            height: 30px;
+                            width: 40px;
+                            height: 40px;
                             border-radius: 50%;
                             background-color:rgb(228, 227, 227);
                             color: #242222;
                             font-weight: 900;
                             box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
                             position: relative;
+
+                            @media (max-width:375px) {
+                                width: 30px;
+                                height: 30px;
+                            }
                         }
 
                         .ball::after {
                             content: " ";  
                             position: absolute;
-                            top:2px;
-                            left: 3.5px;
+                            top:4.5px;
+                            left: 4px;
                             border-radius: 50%;
                             width: 5px;
                             height: 12px;
@@ -113,8 +119,12 @@ export const Container_bets = styled.section`
                         }
                         
                         @media (max-width: 575px) {
-                            width: 200px;
+                            width: 250px;
                             padding-left: 5px;
+                        }
+
+                        @media (max-width:375px) {
+                            width: 200px;
                         }
                     }
                 }

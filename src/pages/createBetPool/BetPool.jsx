@@ -1,8 +1,12 @@
 import  { useState, useEffect } from "react"
 import { Container_betPool } from "./createBetPoolStyles"
+
+//context
 import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
 import { useResults } from "../../context/ResultsContext";
+import {useRules} from "../../context/RulesContext"
+//components
 import FormBetPool from "./formBetPool";
 import RuleForm from "./ruleForm";
 import ResultForm from "./resultForm";
@@ -13,12 +17,13 @@ const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 
 const BetPool = () => {
 
+    const { rules } = useRules();
+    console.log(rules);
     const { results } = useResults();
     const { jogos, loading, setJogoId, jogoId } = useBetPool();
 
     const [useSelect, setUseSelect] = useState("Todos")
     const  [showForm, setShowForm] = useState(null);
-
 
     if (loading) {
         return (
@@ -69,24 +74,41 @@ const BetPool = () => {
                         <div className="card-rules">
                             <h4> Regras de Pontuação:</h4>
                             <ul>
-                                {jogo.rules?.length > 0 ? (
-                                    jogo.rules.map((regra, index) => (
-                                        <li key={index}>
-                                            <span>{regra.pts <= 9 ? `0${regra.pts}` : regra.pts} Pontos ----------------------→ </span>
-                                            {regra.isValue && regra.isValue > 0 
-                                                ? regra.isValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
-                                                : "Não Definido"}
-                                        </li>
-                                    ))
-                                ) : (
-                                    <button onClick={() =>{ 
-                                        setShowForm("rules"), 
-                                        setJogoId(jogo.id), 
-                                        localStorage.setItem("jogoId", jogo.id)}}
-                                    >
-                                        Adicionar Regra
-                                    </button>
-                                )}
+                                {rules?.length > 0 &&
+                                    <>
+                                        {
+                                            rules
+                                                .filter((rules) => rules.jogo_id === jogo.id) // Filtra apenas os que correspondem ao jogo.id
+                                                .map((item) => {
+                                                // Ordena o array 'rules' dentro de cada item
+                                                const sortedRules = item.rules.sort((x, y) => y.pts - x.pts);
+
+                                                return (
+                                                    <div key={item.id}>
+                                                    <ul>
+                                                        {sortedRules.map((rule, index) => (
+                                                        <li key={index}>
+                                                            <span>{rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos ----------------→ </span>
+                                                            {rule.money && rule.money > 0 
+                                                            ? rule.money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
+                                                            : "Não Definido"
+                                                            }
+                                                        </li>
+                                                        ))}
+                                                    </ul>
+                                                    </div>
+                                                );
+                                                })
+                                            }
+                                    </>
+                                }
+                                <button onClick={() =>{ 
+                                    setShowForm("rules"), 
+                                    setJogoId(jogo.id), 
+                                    localStorage.setItem("jogoId", jogo.id)}}
+                                >
+                                    Adicionar Regra
+                                </button>
                             </ul>
                         </div>
                         <div className="card-result">

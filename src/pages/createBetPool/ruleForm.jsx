@@ -10,29 +10,68 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { saveRules } from "./betData";
+import {updateRules} from "./betData"
+// context
 import { useBetPool } from "../../context/BetPoolContext";
+import { useRules} from "../../context/RulesContext";
 
 
 const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
 
+    const { rules } = useRules();
     const { setLoading } = useBetPool();
-    const [rules, setRules] = useState([])
+
+    const [regras, setRegras] = useState([])
     const [pontos, setpontos] = useState(" ")
     const [award, setAward] = useState(" ")
+    const [sorteioValido, setSorteioValido] = useState(" ")
+
+    const rule = rules.find(rule => rule.jogo_id === jogoId)
+    console.log(rules);
+    console.log(rules);
+    
+    const hendleRules = () => {
+
+        setRegras((prevRegras) => {
+            const updatedRules = [...prevRegras, { pts: pontos, money: award, winner: false, prizeDraw: sorteioValido === " " ? null : sorteioValido }];
+            updatedRules.sort((a, b) => b.pts - a.pts); // Ordena do maior para o menor
+            return updatedRules;  // Retorna o novo array ordenado
+        });
+
+        // Limpa os campos de pontos e award
+        setpontos(" ");
+        setAward(" ");
+        setSorteioValido(" ");
+    }
 
     const handleSaveRule = async (event) => {
         event.preventDefault();
         try {
-            setLoading(true);
+
+            const newRules = {
+                created: new Date(),
+                jogo_id: jogoId,
+                rules: regras
+            }
+
             const res = confirm("Todos os dados estão corretos ? \n  OK para salvar as regras.");
             if (!res) {
                 return;
             }
-            await saveRules(jogoId, rules);
-            console.log("Jogo salvo com sucesso!");
+
+            if(rule === undefined){
+                console.log("Regras criadas com sucesso!");
+                await saveRules(newRules);
+            }else{
+                await updateRules(rule?.id, regras);
+                console.log("Regras atualizadas com sucesso!");
+            }
+
+            console.log("regra salvo com sucesso!");
             $setShowForm(null);
+            setLoading(true);
         } catch (error) {
-            console.error("Erro ao cadastrar jogo:", error);
+            console.error("Erro ao cadastrar regra", error);
         }
     };
 
@@ -41,18 +80,18 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
             <Form onSubmit={handleSaveRule}>
                 <h2 className="title">Cadastra Regra de Pontuação</h2>
                 <section className="rule-container">
-                    <FormGroup className="pts">
-                        <Label>Pontos</Label>
+                    <FormGroup >
+                        <Label>* Pontos</Label>
                         <Input 
                             type="number" 
                             name="pontos" 
                             value={pontos} 
                             onChange={(e)=> setpontos(Number(e.target.value) <= 0 ? " " : Number(e.target.value))} 
-                            className="pts"
+                            className="award"
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label>Valor do Prêmio:</Label>
+                        <Label>* Valor do Prêmio:</Label>
                         <Input 
                             type="number" 
                             name="award" 
@@ -61,34 +100,43 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                             className="award"
                         />
                     </FormGroup>
-                    <FontAwesomeIcon
-                        className="icon"
-                        icon={faPlus}
+                    <FormGroup>
+                        <Label>Regra valida para Prêmio:</Label>
+                        <Input 
+                            type="number" 
+                            name="sorteioValido" 
+                            value={sorteioValido} 
+                            onChange={(e)=> setSorteioValido(Number(e.target.value) === " " ? null : Number(e.target.value))} 
+                            className="award"
+                        />
+                    </FormGroup>
+                    <div 
+                        className="add-rule"
                         onClick={() => {
-                            // Atualiza e ordena o array de regras de forma segura
-                            setRules((prevRules) => {
-                                const updatedRules = [...prevRules, { pts: pontos, isValue: award }];
-                                updatedRules.sort((a, b) => b.pts - a.pts); // Ordena do maior para o menor
-                                return updatedRules;  // Retorna o novo array ordenado
-                            });
-
-                            // Limpa os campos de pontos e award
-                            setpontos(" ");
-                            setAward(" ");
+                            hendleRules();
                         }}
-                    />
+                    >
+                        <p>Adicionar Regra</p>
+                        <FontAwesomeIcon
+                            className="icon"
+                            icon={faPlus}
+                        />
+                    </div>
                 </section>
                 <section className="rule-preview">
                     <ul>
-                        {rules.map((rule, index) => (
+                        {regras.map((rule, index) => (
                             <li key={index}>
-                                <span>{`${rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos`}</span>
-                                <span>{rule.isValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-                                <FontAwesomeIcon 
-                                    className="icon"
-                                    icon={faTrash} 
-                                    onClick={() => setRules(rules.filter((_, i) => i !== index))}
-                                />
+                                <div className="rule-price">
+                                    <span>{`${rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos`}</span>
+                                    <span>Valor: { rule.money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                                    <FontAwesomeIcon 
+                                        className="icon"
+                                        icon={faTrash} 
+                                        onClick={() => setRegras(rules.filter((_, i) => i !== index))}
+                                    />
+                                </div>
+                                <span className="rule-valid">{rule.prizeDraw === null ? "Valido em todos os sorteios" : `Valido no ${rule.prizeDraw}º sorteio`}</span>
                             </li>
                         ))}
                     </ul>
@@ -99,9 +147,10 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                     style={{ backgroundColor: "#5A6268" }} 
                     onClick={() => {
                         $setShowForm(false)
-                        setRules([]);
+                        setRegras([]);
                         setpontos(" ");
                         setAward(" ");
+                        setSorteioValido(null);
                     }}
                 >
                     Cancelar

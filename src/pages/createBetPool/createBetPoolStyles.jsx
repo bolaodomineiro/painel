@@ -150,6 +150,7 @@ export const Container_betPool = styled.section`
                         transition: all 0.2s;
                         border-radius: 6px;
                         outline: none;
+                        margin-top: 10px;
 
                         &:hover {
                             background-color:rgb(0, 0, 0);

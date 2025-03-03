@@ -45,7 +45,6 @@ export const Container_winners = styled.section`
                 align-items: center;
                 justify-content: space-between;
                 box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-                padding: 10px;
                 border-radius: 5px;
                 background-color:#f2f2f2;
 
@@ -54,14 +53,14 @@ export const Container_winners = styled.section`
                 }
 
                 div {
-                    height: 100%;
+                    height:100% ;
+                    padding: 5px 0;
                 }
 
                 h4 {
                     font-size: 0.8rem;
                     font-weight: 700;
                     text-transform: uppercase;
-                    padding: 5px 0;
                 }
 
                 p {
@@ -75,25 +74,45 @@ export const Container_winners = styled.section`
                     justify-content: center;
                     background-color: #242222;
                     color: #fff;
-                    padding: 10px 15px;
-                    border-radius: 5px;
-                    font-size: 1.2rem;
-                    font-weight: 500;
+                    padding: 0 15px;
+                    border-radius: 5px 0 0 5px;
+                    font-size: 1rem;
+                    font-weight: 900;
+                }
+
+                .userInfo {
+                    width: 140px;
                 }
 
                 .prize {
-                    background-color:rgb(137, 137, 137);
-                    color: #fff;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    background-color:rgb(212, 212, 212);
+                    color: #000;
                     width: 120px;
-                    padding: 5px 15px;
-                    border-radius: 5px;
+                    padding: 0 15px;
+
+                    p {
+                        color: green;
+                        font-weight: 900;
+                    }
                 }
 
                 .acertos {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
                     background-color:green;
                     color: #fff;
-                    padding: 5px 15px;
-                    border-radius: 5px;
+                    padding: 0 15px;
+
+                    p {
+                        font-size: 1rem;
+                        font-weight: 500;
+                    }
                 }
 
 
@@ -102,9 +121,15 @@ export const Container_winners = styled.section`
                     background-color:#242222;
                     color: #fff;
                     padding: 5px 15px;
-                    border-radius: 5px;
+                    border-radius: 0 5px 5px 0;
                     border: none;
+                    font-size: 0.8rem;
+                    font-weight: 900;
                     cursor: pointer;
+
+                    &:hover {
+                        background-color:#AB0519;
+                    }
                 }
                 
             }

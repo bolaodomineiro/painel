@@ -9,16 +9,19 @@ import Bilhete from "../../../../components/bilhete/Bilhete";
 import { useBetPool } from "../../../../context/BetPoolContext";
 import { useMyBets } from "../../../../context/MyBetsContext";
 import { useAuthContext } from "../../../../context/AuthContext";
+import { useWinners } from "../../../../context/WinnerContex";
 //utils
 import html2canvas from 'html2canvas';
 
-
 const MyBets = () => {
-
+    const { winners } = useWinners();
     const { authenticated, userId,} = useAuthContext();
     const {jogoId} = useBetPool();
     const { apostas, getMyBets } = useMyBets();
     const [apostaItem, setApostaItem] = useState([]);
+
+    const getWinners = winners.filter((winner) => winner.aposta.user_id === userId);
+    console.log(getWinners);
 
     useEffect(() => {
         const storedJogoId = localStorage.getItem("jogoId");
@@ -92,7 +95,16 @@ const MyBets = () => {
                                                     .slice()
                                                     .sort((a, b) => a - b)
                                                     .map((ball, i) => (
-                                                        <span key={i} className="ball">{ball}</span>
+                                                        <span 
+                                                                key={i} 
+                                                                className="ball"
+                                                                style={{
+                                                                    backgroundColor: getWinners?.some((winner) => winner.numerosAcertados.includes(ball)) ? "#AB0519" : "#ddd", 
+                                                                    color: getWinners?.some((winner) => winner.numerosAcertados.includes(ball)) ? "#fff" : "#000"
+                                                                }}
+                                                            >
+                                                                {ball}
+                                                        </span>
                                                 ))}
                                             </div>
                                         </div>

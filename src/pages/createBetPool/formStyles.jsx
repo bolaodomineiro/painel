@@ -47,36 +47,42 @@ export const Container = styled.div`
 
     .rule-container {
         display: flex;
+        flex-direction: column;
         gap: 10px;
         align-items: center;
-        justify-content: flex-start;
         padding-bottom: 8px;
         margin-top: 10px;
-
-        .pts {
-            width: 45px;
-            padding-left: 5px;
-        }
 
         .award {
             padding-left: 10px;
         }
 
-        .icon {
-            width: 30px;
-            height: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+        .add-rule {
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 40px;
+            padding: 5px;
+            background-color: green;
             cursor: pointer;
-            padding: 4px;
-            position: relative;
-            top: 11.5px;
-            background: green;
-            color: #fff;
-            transition: all 0.2s;
+
+            p {
+                color: #fff;
+                font-weight: 900;
+            }
+
+            .icon {
+                width: 20px;
+                height: 20px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px;
+                color: #fff;
+                transition: all 0.2s;
+            }
 
             &:hover {
                 background:rgb(15, 179, 0);
@@ -117,17 +123,33 @@ export const Container = styled.div`
             li {
                 display: flex;
                 align-items: center;
+                flex-direction: column;
                 justify-content: space-between;
                 background-color:rgb(229, 229, 229);
-                padding: 5px;
+                padding: 10px;
                 border-radius: 5px;
+                gap: 10px;
 
                 &:nth-child(even) {
                     background-color:rgb(198, 196, 196);
                 }
-                
+
+                .rule-price {
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                }
+
+                .rule-valid {
+                    display: flex;
+                    width: 100%;
+                    justify-content: center;
+                    background-color:rgb(255, 255, 255);
+                    padding: 5px;
+                }
                 span {
                     font-weight: 600;
+                    font-size: 0.8rem;
                 }
 
                 .icon {
@@ -180,7 +202,6 @@ export const FormGroup = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-top: 5px;
 `;
 
 export const Label = styled.label`
@@ -197,7 +218,6 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-    
     padding: 8px;
     background-color: #AB0519;
     color: white;
