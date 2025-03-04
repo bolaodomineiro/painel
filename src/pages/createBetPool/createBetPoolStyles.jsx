@@ -22,7 +22,7 @@ export const Container_betPool = styled.section`
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
+            gap: 6px;
             border-radius: 8px;
             background-color:#f2f2f2;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
@@ -36,13 +36,12 @@ export const Container_betPool = styled.section`
                 flex-direction: column;
                 align-items: center;
                 gap: 2px;
-                padding: 10px;
+                padding: 5px;
                 width: 92%;
-                background-color:rgb(255, 157, 0);
                 border-radius: 0 0 8px 8px; 
 
                 .title {
-                    font-size: 0.9rem;
+                    font-size: 0.7rem;
                     font-weight: 900;
                     color:rgb(255, 255, 255);
                     text-align: center;
@@ -50,7 +49,7 @@ export const Container_betPool = styled.section`
                 }
 
                 .subtitle {
-                    font-size: 0.7rem;
+                    font-size: 0.6rem;
                     font-weight: 900;
                     color:rgb(255, 255, 255);
                     text-align: center;
@@ -58,27 +57,26 @@ export const Container_betPool = styled.section`
             }
 
             .conc {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
                 font-weight: 900;
                 text-align: center;
             }
 
             .card-description {
-                padding: 0 10px;
+                padding: 3px 10px 0;
                 text-align: center;
                 background-color:rgb(255, 255, 255);
                 width: 92%;
-                padding: 5px 0;
 
                 h4 {
-                    font-size: 0.7rem;
+                    font-size: 0.6rem;
                     font-weight: 900;
                     color:rgb(0, 0, 0); 
                     text-align: center;
                 }
 
                 p {
-                    font-size: 0.7rem;
+                    font-size: 0.6rem;
                     font-weight: 400;
                     color:rgb(0, 0, 0);
                     padding: 5px 10px;
@@ -102,11 +100,11 @@ export const Container_betPool = styled.section`
                     gap: 3px;
 
                     strong {
-                        font-size: 0.7rem;
+                        font-size: 0.6rem;
                     }
 
                     span {
-                        font-size: 0.6rem;
+                        font-size: 0.5rem;
                         font-weight: 500;
                         color:rgb(0, 0, 0);
                     }
@@ -123,19 +121,68 @@ export const Container_betPool = styled.section`
                     color:rgb(0, 0, 0);
                     text-align: center;
                     text-transform: uppercase;
-                    padding: 5px 0;
                     background-color:rgb(255, 255, 255);
+                    padding: 5px 0;
                 }
 
                 ul {
+                    display: flex;
+                    flex-direction: column;
                     width: 100%;
                     align-items: center;
                     list-style: none;
-                    padding: 0 10px 10px;
-                    background-color:rgb(255, 255, 255);
                     position: relative;
+                    padding-top: 5px ;
+                    gap: 5px;
 
-                    button {
+                    li {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 100%;
+                        background-color:rgb(214, 214, 214);
+                        font-size: 0.6rem;
+                        padding: 3px 10px;
+
+                        &:nth-child(odd) {
+                            background-color:rgb(232, 232, 232);
+                        }
+
+                        .results {
+                            display: flex;
+                            
+                            justify-content: center;
+                            padding: 5px 0;
+                            gap: 5px;
+                            font-size: 0.6rem;
+                            font-weight: 900;
+
+                            .premios {
+                                display: flex;
+                                width: 100%;
+                                flex-direction: column;
+                                justify-content: space-between;
+                                align-items: center;
+                                gap: 3px;
+
+                                p {
+                                    font-size: 0.6rem;
+                                    font-weight: 900;
+                                }
+
+                                span {
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    font-size: 0.7rem;
+                                    font-weight: 500;
+                                    color:rgb(0, 0, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                button {
                         margin: 0 40px;
                         width: 130px;
                         background-color:green;
@@ -149,8 +196,8 @@ export const Container_betPool = styled.section`
                         cursor: pointer;
                         transition: all 0.2s;
                         border-radius: 6px;
+                        // margin-top: 7px;
                         outline: none;
-                        margin-top: 10px;
 
                         &:hover {
                             background-color:rgb(0, 0, 0);
@@ -158,25 +205,41 @@ export const Container_betPool = styled.section`
                         }
                         
                     }
+            }
 
-                    li {
-                        display: flex;
-                        gap: 10px;
-                        font-size: 0.6rem;
-                        font-weight: 400;
-                        color:rgb(0, 0, 0);
+            .card-result, .card-rules {
+                ul {
+                    overflow-y: auto;
+                    padding: 10px 0px;
+                    height: 80px;
+                    margin-bottom: 7px;
 
-                        span {
-                            font-size: 0.6rem;
-                            font-weight: 500;
-                            color:rgb(0, 0, 0);
-                        }
+                    &::-webkit-scrollbar {
+                        width: 4px;
+                        
                     }
+
+                    &::-webkit-scrollbar-track {
+                        background-color:rgb(255, 255, 255);
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background-color:rgb(0, 0, 0);
+                        cursor: pointer;
+                    }
+                    
+                }
+            }
+
+            .card-rules {
+                ul {
+                    height: 50px;
                 }
             }
 
             .card-status {
                 width: 92%;
+
                 p {
                     font-size: 0.7rem;
                     font-weight: 900;

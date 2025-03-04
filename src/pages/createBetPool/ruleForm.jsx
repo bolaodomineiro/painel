@@ -27,8 +27,6 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
     const [sorteioValido, setSorteioValido] = useState(" ")
 
     const rule = rules.find(rule => rule.jogo_id === jogoId)
-    console.log(rules);
-    console.log(rules);
     
     const hendleRules = () => {
 

@@ -13,7 +13,6 @@ const ResultsContext = createContext();
 export const ResultsProvider = ({ children }) => {
     const { jogoId } = useBetPool();
 
-    const [updatesApostasGanhadoras, setupdatesApostasGanhadoras] = useState([]);
     const [ganhadores, setGanhadores] = useState([]);
     const [sorteios, setSorteios] = useState([]);
     const [resultados, setResultados] = useState([]);
@@ -22,11 +21,12 @@ export const ResultsProvider = ({ children }) => {
     const [load, setLoad] = useState(false);
     const [usuarios, setUsuarios] = useState([]);
 
+
+
     // Resetar estados ao mudar de jogo
     useEffect(() => {
         setUsuarios([]);
         setGanhadores([]);
-        setupdatesApostasGanhadoras([]);
     }, [jogoId]);
 
     useEffect(() => {
@@ -86,7 +86,7 @@ export const ResultsProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        if (apostas.length > 0 && sorteios.length > 0) {
+        if (apostas?.length > 0 && sorteios.length > 0) {
             verificarAcertosApostas(apostas, sorteios);
         }
     }, [apostas, sorteios]);
@@ -116,7 +116,6 @@ export const ResultsProvider = ({ children }) => {
 
         if (novosGanhadores.length > 0) {
             console.log("Ganhadores:", novosGanhadores);
-            setupdatesApostasGanhadoras(novosGanhadores);
             await enviarGanhadores(novosGanhadores);
         }
 
@@ -126,7 +125,7 @@ export const ResultsProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        if (apostas.length > 0 && sorteios.length > 0 && rules.length > 0) {
+        if (apostas?.length > 0 && sorteios.length > 0 && rules.length > 0) {
             console.log(sorteios);
             console.log(ganhadores);
             console.log(usuarios);
@@ -144,7 +143,7 @@ export const ResultsProvider = ({ children }) => {
     }, [ganhadores, sorteios, rules]);
 
     return (
-        <ResultsContext.Provider value={{ fetchAllResults, load, setLoad, sorteios, rules }}>
+        <ResultsContext.Provider value={{ fetchAllResults, load, setLoad, sorteios, rules, resultados, setResultados }}>
             {children}
         </ResultsContext.Provider>
     );

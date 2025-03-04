@@ -4,13 +4,14 @@ import { Container_betPool } from "./createBetPoolStyles"
 //context
 import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
-import { useResults } from "../../context/ResultsContext";
 import {useRules} from "../../context/RulesContext"
+import {getResults} from "./betData"
 //components
 import FormBetPool from "./formBetPool";
 import RuleForm from "./ruleForm";
 import ResultForm from "./resultForm";
 import Loading from "../../assets/loading.webp"
+
 
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 
@@ -18,12 +19,22 @@ const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 const BetPool = () => {
 
     const { rules } = useRules();
-    console.log(rules);
-    const { results } = useResults();
     const { jogos, loading, setJogoId, jogoId } = useBetPool();
 
     const [useSelect, setUseSelect] = useState("Todos")
     const  [showForm, setShowForm] = useState(null);
+    const [results, setResults] = useState([]);
+
+
+    useEffect(() => {
+        const getResultados = async () => {
+            const newResults = await getResults();
+            setResults(newResults);
+            console.log(newResults); // ⬅️ Aqui, os dados estarão corretos
+        };
+
+        getResultados();
+    }, []);
 
     if (loading) {
         return (
@@ -82,59 +93,78 @@ const BetPool = () => {
                                                 .map((item) => {
                                                 // Ordena o array 'rules' dentro de cada item
                                                 const sortedRules = item.rules.sort((x, y) => y.pts - x.pts);
-
                                                 return (
-                                                    <div key={item.id}>
-                                                    <ul>
+                                                    <>
                                                         {sortedRules.map((rule, index) => (
                                                         <li key={index}>
-                                                            <span>{rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos ----------------→ </span>
+                                                            <span>{rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos</span>
                                                             {rule.money && rule.money > 0 
                                                             ? rule.money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) 
                                                             : "Não Definido"
                                                             }
                                                         </li>
                                                         ))}
-                                                    </ul>
-                                                    </div>
+                                                    </>
                                                 );
                                                 })
                                             }
                                     </>
                                 }
-                                <button onClick={() =>{ 
+                            </ul>
+                            <button onClick={() =>{ 
                                     setShowForm("rules"), 
                                     setJogoId(jogo.id), 
                                     localStorage.setItem("jogoId", jogo.id)}}
                                 >
                                     Adicionar Regra
                                 </button>
-                            </ul>
                         </div>
+                        
                         <div className="card-result">
-                            <h4> Resultado:</h4>
+                            <h4> Resultados:</h4> 
                             <ul>
-                                {results?.some(result => result.jogo_id === jogo.id && result.results?.length > 0) ? (
-                                    results
-                                        .filter((result) => result.jogo_id === jogo.id) // Filtra pelo jogo_id
-                                        .flatMap((result) => result.results) // Acessa o array de "results" dentro do objeto filtrado
-                                        .map((result, index) => ( // Agora mapeia os resultados
-                                            <li key={index}>
-                                                <span>{result.award <= 9 ? `0${result.award}` : result.award} Sorteio -------------------------------→ </span>
-                                                {result.number && result.number > 0 ? result.number : "Não Definido"}
-                                            </li>
-                                        ))
-                                ) : (
-                                    <button 
-                                        onClick={() => { 
-                                            setShowForm("result"), 
-                                            setJogoId(jogo.id),
-                                            localStorage.setItem("jogoId", jogo.id)
-                                        }}>
-                                        Adicionar Resultado
-                                    </button>
-                                )}
+                                {results?.length > 0 &&
+                                    <>
+                                        {
+                                            results
+                                                .filter((r) => r.jogo_id === jogo.id) // Filtra apenas os que correspondem ao jogo.id
+                                                .map((item) => {
+                                                    console.log(item);
+                                                    
+                                                    // Ordena pelo campo prizeDraw dentro do array results
+                                                    const sortedResults = item.results.sort((a, b) => a.prizeDraw - b.prizeDraw);
+
+                                                    return (
+                                                        <>
+                                                            {sortedResults.map((result, index) => (
+                                                                <>
+                                                                    <li key={index} style={{ flexDirection: "column" }}>
+                                                                        <h3>{result.prizeDraw}º Sorteio</h3>
+                                                                        <div className="results" >
+                                                                            {result.awards.map((award, index) => (
+                                                                                <div key={index} className="premios">
+                                                                                    <p>{award.isAward}º</p>
+                                                                                    <span> {award.num}</span>
+                                                                                </div>
+                                                                            ))}
+                                                                        </div>
+                                                                    </li>
+                                                                </>
+                                                            ))}
+                                                        </>
+                                                    );
+                                                })
+                                        }
+                                    </>
+                                }
                             </ul>
+                            <button onClick={() =>{ 
+                                    setShowForm("result"), 
+                                    setJogoId(jogo.id), 
+                                    localStorage.setItem("jogoId", jogo.id)}}
+                                >
+                                    Adicionar Resultado
+                            </button>
                         </div>
                         <div className="card-status">
                             <p style={{ backgroundColor: jogo.color }}>{ jogo.isAcumuled ? "Acumulado" : " Não Acumulado " }</p>

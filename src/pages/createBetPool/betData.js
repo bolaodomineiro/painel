@@ -1,5 +1,5 @@
 import { db } from "../../firebase/firebase"; // Certifique-se de importar a configuração do Firebase
-import { collection, addDoc, Timestamp, doc, updateDoc, arrayUnion} from "firebase/firestore";
+import { collection, addDoc, Timestamp, doc, updateDoc, arrayUnion, getDocs} from "firebase/firestore";
 
 export const saveJogo = async (gameData) => {
     try {
@@ -58,6 +58,16 @@ export const updateRules = async (id, newRules) => {
     }
 };
 
+export  const getResults = async () => {
+    const resultCollection = collection(db, "resultados");
+    const resultSnapshot = await getDocs(resultCollection);
+    const resultList = resultSnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+    }));
+    return resultList
+};
+
 export const saveResults = async (resultados) => {
     try {
         const resultadosRef = collection(db, "resultados");
@@ -68,3 +78,21 @@ export const saveResults = async (resultados) => {
         console.error("Erro ao salvar os resultados:", error);
     }
 }
+
+export const updateAwards = async (id, newDraw) => {
+    try {
+        const docRef = doc(db, "resultados", id); // Referência ao Firestore
+
+        console.log("Novo sorteio antes de adicionar:", newDraw);
+
+        // Adiciona um novo sorteio ao array results
+        await updateDoc(docRef, {
+            results: arrayUnion(newDraw) // ✅ Adiciona um novo sorteio corretamente
+        });
+
+        console.log("Novo sorteio adicionado com sucesso!");
+    } catch (error) {
+        console.error("Erro ao adicionar novo sorteio:", error);
+        throw error;
+    }
+};
