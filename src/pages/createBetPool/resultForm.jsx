@@ -21,9 +21,9 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
     const [dataResult, setDataResult] = useState([])
 
-    const [sorteio, setSorteio] = useState(" ")
-    const [premio, setPremio] = useState(" ")
-    const [resultado, setResultado] = useState(" ")
+    const [sorteio, setSorteio] = useState("")
+    const [premio, setPremio] = useState("")
+    const [resultado, setResultado] = useState("")
 
    
     const hendleRusults = () => {
@@ -35,8 +35,8 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
         });
 
         // Limpa os campos de pontos e award
-        setResultado(" ");
-        setPremio(" ");
+        setResultado("");
+        setPremio("");
     }
 
     const handleSaveResult = async (event) => {
@@ -89,9 +89,8 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                         <Label>Sorteio</Label>
                         <Input 
                             type="number" 
-                            name="sorteio" 
                             value={sorteio} 
-                            onChange={(e)=> setSorteio(Number(e.target.value) <= 0 ? " " : Number(e.target.value))} 
+                            onChange={(e)=> setSorteio(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
                             placeholder="Digite o número do sorteio 1, 2, 3... "
                         />
@@ -100,9 +99,8 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                         <Label>Prêmio</Label>
                         <Input 
                             type="number" 
-                            name="premino" 
                             value={premio} 
-                            onChange={(e)=> setPremio(Number(e.target.value) <= 0 ? " " : Number(e.target.value))} 
+                            onChange={(e)=> setPremio(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
                             placeholder="Digite o número do prêmio ex: 1, 2, 3... "
                         />
@@ -111,9 +109,8 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                         <Label>Resultado</Label>
                         <Input 
                             type="number" 
-                            name="award" 
                             value={resultado} 
-                            onChange={(e)=> setResultado(Number(e.target.value) <= 0 ? " " : Number(e.target.value))} 
+                            onChange={(e)=> setResultado(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
                             placeholder="Digite o número do resultado ex: 56437 "
                         />
@@ -153,8 +150,8 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                     onClick={() => {
                         $setShowForm(false);
                         setDataResult([]);
-                        setPremio(" ");
-                        setResultado(" ");
+                        setPremio("");
+                        setResultado("");
                     }}
                 >
                     Cancelar

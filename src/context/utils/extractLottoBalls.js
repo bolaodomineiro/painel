@@ -1,7 +1,7 @@
+// Extrair dígitos do resultado da loteria
+export const extractLottoBalls = async (jogoId, resultados,  setSorteios) => {
 
- // Extrair dígitos do resultado da loteria
-export const extractLottoBalls = async (resultados, jogoId, setSorteios) => {
-    const getResults = resultados.find(result => result.jogo_id === jogoId);
+    const getResults = await resultados.find(result => result.jogo_id === jogoId);
 
     if (!getResults || !getResults.results) {
         console.error("Nenhum resultado encontrado para o jogoId:", jogoId);

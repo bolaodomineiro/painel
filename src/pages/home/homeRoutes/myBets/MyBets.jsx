@@ -14,6 +14,7 @@ import { useWinners } from "../../../../context/WinnerContex";
 import html2canvas from 'html2canvas';
 
 const MyBets = () => {
+
     const { winners } = useWinners();
     const { authenticated, userId,} = useAuthContext();
     const {jogoId} = useBetPool();
@@ -24,8 +25,9 @@ const MyBets = () => {
     console.log(getWinners);
 
     useEffect(() => {
-        const storedJogoId = localStorage.getItem("jogoId");
-        getMyBets(userId, storedJogoId);
+        console.log("carregando .. as aposta do usuario logado");
+        // const storedJogoId = localStorage.getItem("jogoId");
+        getMyBets(userId, jogoId);
     }, [authenticated]);
 
     useEffect(() => {

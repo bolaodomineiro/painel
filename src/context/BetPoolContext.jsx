@@ -11,19 +11,18 @@ export const BetPoolProvider = ({ children }) => {
 
     const [balls, setBalls] = useState([]);
     const [apostas, setApostas] = useState([]);
-    const [jogoPrice, setJogoPrice] = useState();
     const [jogos, setJogos] = useState([]);
-    const [jogoId, setJogoId] = useState("");
+    const [jogoId, setJogoId] = useState(localStorage.getItem("jogoId"));
     const [loading, setLoading] = useState(true); 
 
-    useEffect(() => {
-        const getApostas = localStorage.getItem("apostas");
+    useEffect(() => {// mantem  a pesistencia das apostas no carrinho
+        const getApostas = JSON.parse(localStorage.getItem("apostas"));
         if (getApostas) {
-            setApostas(JSON.parse(getApostas) || []);
+            setApostas(getApostas || []);
         }
     }, []);
 
-    useEffect(() => {
+    useEffect(() => {// precisarar muda para trazer somente os boloes que estao em andamento ou pausados
         const getJogos = async () => {
             try {
                 const jogosCollection = collection(db, "jogos");
@@ -36,7 +35,6 @@ export const BetPoolProvider = ({ children }) => {
                 if (jogosList.length > 0 ) {
                     setJogos(jogosList);
                     setJogoId(localStorage.getItem("jogoId") || jogosList[0].id);
-                    authenticated && localStorage.setItem("jogoId", localStorage.getItem("jogoId") || jogosList[0].id);
                 }
                 
             } catch (error) {
@@ -47,7 +45,7 @@ export const BetPoolProvider = ({ children }) => {
         };
         getJogos();
 
-    }, [authenticated, jogoId, loading ]);
+    }, [authenticated]);
     
 
     return (
@@ -61,8 +59,6 @@ export const BetPoolProvider = ({ children }) => {
             setJogoId,
             balls,
             setBalls,
-            jogoPrice,
-            setJogoPrice,
             apostas,
             setApostas,
         }}>

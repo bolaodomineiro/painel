@@ -22,7 +22,6 @@ export const ResultsProvider = ({ children }) => {
     const [usuarios, setUsuarios] = useState([]);
 
 
-
     // Resetar estados ao mudar de jogo
     useEffect(() => {
         setUsuarios([]);
@@ -38,15 +37,18 @@ export const ResultsProvider = ({ children }) => {
     }, [jogoId]);
 
     useEffect(() => {
-        fetchAllResults(jogoId, setResultados, setLoad);
+        if (!jogoId) return;
+        console.log(jogoId);
         console.log("Buscando resultados...");
+        fetchAllResults(jogoId, setResultados, setLoad);
     }, [jogoId]);
 
     useEffect(() => {
         setSorteios([]);
         const getGrupos = async () => {
             if (resultados?.length > 0) {
-                await extractLottoBalls(resultados, jogoId, setSorteios);
+                console.log(resultados);
+                await extractLottoBalls(jogoId, resultados,  setSorteios);
                 await fetchAllRules(jogoId, setRules, setLoad);
                 await fetchAllApostas(jogoId, setApostas, setLoad);
             }

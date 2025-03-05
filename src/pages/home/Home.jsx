@@ -12,10 +12,20 @@ import useScroll from "../../hooks/Scroll";
 const Home = () => {
 
     const elementRef = useRef(null);
-    const {setJogoPrice, jogos, jogoId, setJogoId, loading } = useBetPool();
+    const {jogos, jogoId, setJogoId, loading } = useBetPool();
     const { hendleScroll } = useScroll();
     const location = useLocation();
     const [active, setActive] = useState("myBest");
+    const [jogoFiltrado, setJogoFiltrado] = useState([]);
+
+    useEffect(() => {
+        if (!jogoId) return console.log("jogoId is undefined, pagina home");
+
+        localStorage.setItem("jogoId", jogoId);
+        const jogo = jogos.find((jogo) => jogo?.id === jogoId );
+        setJogoFiltrado(jogo);
+    },[jogoId, jogos]);
+
 
     useEffect(() => {
         const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);
@@ -40,7 +50,6 @@ const Home = () => {
         }
     }, [location.pathname, setActive]);
 
-    const jogo = jogos.find((jogo) => jogo?.id === jogoId);
 
     if (loading) {
         return (
@@ -63,11 +72,6 @@ const Home = () => {
         }
     };
 
-    const hendleJogoId = (id, jogoPrice) => {
-        localStorage.setItem("jogoId", id);
-        setJogoId(id);
-        setJogoPrice(jogoPrice);
-    };
     
     return (
         <Container_home >
@@ -90,7 +94,7 @@ const Home = () => {
                                 ref={elementRef}
                                 className="container_bottom"
                                 style={{ backgroundColor: jogo.color }}
-                                onClick={() => {hendleJogoId(jogo.id, jogo.price); getHeight();}}
+                                onClick={() => {setJogoId(jogo.id), getHeight();}}
                             >
                                 <p>Faça sua aposta!</p>
                                 <FontAwesomeIcon icon={faCirclePlus} />
@@ -99,12 +103,12 @@ const Home = () => {
                     </Container_card>
                 ))}
             </section>
-            <Contests_style style={{backgroundColor: jogo?.color}}>
+            <Contests_style style={{backgroundColor: jogoFiltrado?.color}}>
                 <section className="header_contests" >
                     <div className="header_infor">
-                        <p>{jogo?.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                        <p>{jogoFiltrado?.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
                         <h2  className="title">
-                            {jogo?.title || "Bolão"}
+                            {jogoFiltrado?.title || "Bolão"}
                         </h2>
                     </div>
                     <div className="header_select">
@@ -120,14 +124,14 @@ const Home = () => {
                 <section className="menu">
                     <nav>
                         <ul>
-                            <Link style={{ pointerEvents: jogo?.status ? "auto" : "none", opacity: jogo?.status ? 1 : 0.7 }} className="link" to="/dashboard/jogo">
+                            <Link style={{ pointerEvents: jogoFiltrado?.status ? "auto" : "none", opacity: jogoFiltrado?.status ? 1 : 0.7 }} className="link" to="/dashboard/jogo">
                                 <li 
                                     style={{
-                                        backgroundColor: jogo?.status ? "green" : "#ab0519",
+                                        backgroundColor: jogoFiltrado?.status ? "green" : "#ab0519",
                                         color: "#ffff"
                                     }}
                                 >
-                                    {jogo?.status ? "Apostar" : "Apostas Encerradas"}
+                                    {jogoFiltrado?.status ? "Apostar" : "Apostas Encerradas"}
                                 </li>
                             </Link>
                             <Link to="/dashboard/myBets" className="link">

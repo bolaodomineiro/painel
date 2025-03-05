@@ -3,10 +3,11 @@ import { collection, getDocs, query, where, doc, updateDoc, getDoc } from "fireb
 
 // Função para buscar todas as regras de um jogo
 export const fetchAllRules = async (jogoId, setRules, setLoad  ) => {
+
     setLoad(true);
     try {
         
-        const q = query(collection(db, "regras"), where("jogo_id", "==", jogoId || localStorage.getItem("jogoId")));
+        const q = query(collection(db, "regras"), where("jogo_id", "==", jogoId));
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {

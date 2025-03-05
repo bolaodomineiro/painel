@@ -207,7 +207,7 @@ export const Container_bets = styled.section`
                         justify-content: center;
                         align-items: center;
                         gap: 10px;
-                        width: 140px;
+                        width: 170px;
                         padding: 10px 20px;
                         background-color: green;
                         box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);

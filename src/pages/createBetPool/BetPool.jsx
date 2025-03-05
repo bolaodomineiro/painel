@@ -90,11 +90,11 @@ const BetPool = () => {
                                         {
                                             rules
                                                 .filter((rules) => rules.jogo_id === jogo.id) // Filtra apenas os que correspondem ao jogo.id
-                                                .map((item) => {
+                                                .map((item, index) => {
                                                 // Ordena o array 'rules' dentro de cada item
                                                 const sortedRules = item.rules.sort((x, y) => y.pts - x.pts);
                                                 return (
-                                                    <>
+                                                    <div key={index}>
                                                         {sortedRules.map((rule, index) => (
                                                         <li key={index}>
                                                             <span>{rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos</span>
@@ -104,7 +104,7 @@ const BetPool = () => {
                                                             }
                                                         </li>
                                                         ))}
-                                                    </>
+                                                    </div>
                                                 );
                                                 })
                                             }
@@ -113,11 +113,11 @@ const BetPool = () => {
                             </ul>
                             <button onClick={() =>{ 
                                     setShowForm("rules"), 
-                                    setJogoId(jogo.id), 
-                                    localStorage.setItem("jogoId", jogo.id)}}
-                                >
-                                    Adicionar Regra
-                                </button>
+                                    setJogoId(jogo.id)
+                                }}
+                            >
+                                Adicionar Regra
+                            </button>
                         </div>
                         
                         <div className="card-result">
@@ -128,17 +128,17 @@ const BetPool = () => {
                                         {
                                             results
                                                 .filter((r) => r.jogo_id === jogo.id) // Filtra apenas os que correspondem ao jogo.id
-                                                .map((item) => {
+                                                .map((item, index) => {
                                                     console.log(item);
                                                     
                                                     // Ordena pelo campo prizeDraw dentro do array results
                                                     const sortedResults = item.results.sort((a, b) => a.prizeDraw - b.prizeDraw);
 
                                                     return (
-                                                        <>
+                                                        <div key={index}>
                                                             {sortedResults.map((result, index) => (
-                                                                <>
-                                                                    <li key={index} style={{ flexDirection: "column" }}>
+                                                                <div key={index}>
+                                                                    <li style={{ flexDirection: "column" }}>
                                                                         <h3>{result.prizeDraw}º Sorteio</h3>
                                                                         <div className="results" >
                                                                             {result.awards.map((award, index) => (
@@ -149,9 +149,9 @@ const BetPool = () => {
                                                                             ))}
                                                                         </div>
                                                                     </li>
-                                                                </>
+                                                                </div>
                                                             ))}
-                                                        </>
+                                                        </div>
                                                     );
                                                 })
                                         }
@@ -160,10 +160,10 @@ const BetPool = () => {
                             </ul>
                             <button onClick={() =>{ 
                                     setShowForm("result"), 
-                                    setJogoId(jogo.id), 
-                                    localStorage.setItem("jogoId", jogo.id)}}
-                                >
-                                    Adicionar Resultado
+                                    setJogoId(jogo.id)
+                                }}
+                            >
+                                Adicionar Resultado
                             </button>
                         </div>
                         <div className="card-status">

@@ -13,6 +13,7 @@ import { auth, db } from "../firebase/firebase";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  
   const [message, setMessage] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }) => {
           setAuthenticated(true);
           getuser(currentUser.uid);
           localStorage.setItem("authenticated", true);
+          localStorage.setItem("userId", currentUser.uid);
         } catch (error) {
           console.error("Erro ao obter token:", error);
           setUser(null);
@@ -51,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       getuser(user.uid);
+      localStorage.setItem("userId", user.uid);
       navigate("/dashboard/jogo"); // Redireciona após login
       return { success: true, message: "Login realizado com sucesso!" };
     } catch (error) {

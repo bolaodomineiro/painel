@@ -2,9 +2,11 @@ import { db } from "../../firebase/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
 export const fetchAllResults = async (jogoId, setResultados, setLoad) => {
+
+
         setLoad(true);
         try {
-            const q = query(collection(db, "resultados"), where("jogo_id", "==", jogoId || localStorage.getItem("jogoId")));
+            const q = query(collection(db, "resultados"), where("jogo_id", "==",jogoId));
             const querySnapshot = await getDocs(q);
 
             if (querySnapshot.empty) {

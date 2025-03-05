@@ -22,9 +22,9 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
     const { setLoading } = useBetPool();
 
     const [regras, setRegras] = useState([])
-    const [pontos, setpontos] = useState(" ")
-    const [award, setAward] = useState(" ")
-    const [sorteioValido, setSorteioValido] = useState(" ")
+    const [pontos, setpontos] = useState("")
+    const [award, setAward] = useState("")
+    const [sorteioValido, setSorteioValido] = useState("")
 
     const rule = rules.find(rule => rule.jogo_id === jogoId)
     
@@ -82,9 +82,8 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                         <Label>* Pontos</Label>
                         <Input 
                             type="number" 
-                            name="pontos" 
                             value={pontos} 
-                            onChange={(e)=> setpontos(Number(e.target.value) <= 0 ? " " : Number(e.target.value))} 
+                            onChange={(e)=> setpontos(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
                         />
                     </FormGroup>
@@ -92,9 +91,8 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                         <Label>* Valor do Prêmio:</Label>
                         <Input 
                             type="number" 
-                            name="award" 
                             value={award} 
-                            onChange={(e)=> setAward(Number(e.target.value) <= 0 ? " " : Number(e.target.value))} 
+                            onChange={(e)=> setAward(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
                         />
                     </FormGroup>
@@ -102,9 +100,8 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                         <Label>Regra valida para Prêmio:</Label>
                         <Input 
                             type="number" 
-                            name="sorteioValido" 
                             value={sorteioValido} 
-                            onChange={(e)=> setSorteioValido(Number(e.target.value) === " " ? null : Number(e.target.value))} 
+                            onChange={(e)=> setSorteioValido(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
                         />
                     </FormGroup>
@@ -146,9 +143,9 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                     onClick={() => {
                         $setShowForm(false)
                         setRegras([]);
-                        setpontos(" ");
-                        setAward(" ");
-                        setSorteioValido(null);
+                        setpontos("");
+                        setAward("");
+                        setSorteioValido("");
                     }}
                 >
                     Cancelar
