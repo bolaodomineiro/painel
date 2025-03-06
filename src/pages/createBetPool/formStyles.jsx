@@ -215,6 +215,7 @@ export const Input = styled.input`
     border: 1px solid #ccc;
     border-radius: 4px;
     height: 25px;
+    padding: 10px;
 `;
 
 export const Button = styled.button`

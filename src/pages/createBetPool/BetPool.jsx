@@ -12,9 +12,7 @@ import RuleForm from "./ruleForm";
 import ResultForm from "./resultForm";
 import Loading from "../../assets/loading.webp"
 
-
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
-
 
 const BetPool = () => {
 
@@ -32,7 +30,7 @@ const BetPool = () => {
             setResults(newResults);
         };
         getResultados();
-    }, [loading, jogoId]);
+    }, []);
 
     if (loading) {
         return (
@@ -48,7 +46,6 @@ const BetPool = () => {
             </div>
         );
     }
-
 
     return (
         <Container_betPool>

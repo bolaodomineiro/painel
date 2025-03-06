@@ -25,7 +25,6 @@ const Formulario = ({ $showForm, $setShowForm }) => {
         ticket: 2121,
         title: "",
         color: "#aaaaaa",
-        rules: [],
         status: "Aberto",
         created: new Date(),
     });
@@ -55,10 +54,12 @@ const Formulario = ({ $showForm, $setShowForm }) => {
 
             await saveJogo(formattedData);
             console.log("Jogo salvo com sucesso!");
-            setLoading(true);
             $setShowForm(false);
+            setLoading(true);
         } catch (error) {
             console.error("Erro ao cadastrar jogo:", error);
+        }finally {
+            setLoading(false);
         }
     };
 
@@ -74,7 +75,7 @@ const Formulario = ({ $showForm, $setShowForm }) => {
 
                 <FormGroup>
                     <Label>Valor do Prêmio:</Label>
-                    <Input type="number" name="award" value={formData.award} onChange={handleChange} required />
+                    <Input type="number" name="award" value={formData.award <= 0 ? "": formData.award} onChange={handleChange} required />
                 </FormGroup>
 
                 <FormGroup>
@@ -105,7 +106,7 @@ const Formulario = ({ $showForm, $setShowForm }) => {
                         <Input type="number" name="price" value={formData.price} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup>
-                        <Label>Bilhete:</Label>
+                        <Label>Concurso:</Label>
                         <Input type="number" name="ticket" value={formData.ticket} onChange={handleChange} required />
                     </FormGroup>
                 </section>

@@ -30,7 +30,7 @@ const Home = () => {
         localStorage.setItem("jogoId", jogoId);
         const jogo = jogos.find((jogo) => jogo?.id === jogoId );
         setJogoFiltrado(jogo);
-    },[jogoId, jogos]);
+    },[jogos , jogoId]);
 
     useEffect(() => {
         const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);
@@ -99,7 +99,7 @@ const Home = () => {
                                 ref={elementRef}
                                 className="container_bottom"
                                 style={{ backgroundColor: jogo.color }}
-                                onClick={() => {setJogoId(jogo.id), getHeight();}}
+                                onClick={() => {setJogoId(jogo.id), localStorage.setItem("jogoId", jogo.id), getHeight();}}
                             >
                                 <p>Faça sua aposta!</p>
                                 <FontAwesomeIcon icon={faCirclePlus} />

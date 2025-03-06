@@ -23,7 +23,7 @@ export const BetPoolProvider = ({ children }) => {
     }, []);
 
     const getJogos = async () => {
-        setLoading(true);
+
         try {
             
             const jogosCollection = collection(db, "jogos");

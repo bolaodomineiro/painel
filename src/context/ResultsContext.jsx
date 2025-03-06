@@ -41,19 +41,6 @@ export const ResultsProvider = ({ children }) => {
         fetchAllResults(jogoId, setResultados);
     }, [jogoId, load]);
 
-    // useEffect(() => {
-    //     const fetchUsuarios = async () => {
-    //         const newUsuarios = await getUsers();
-    //         setUsuarios(newUsuarios);
-    //     };
-    //     fetchUsuarios();
-    // }, [jogoId]);
-
-    // useEffect(() => {
-    //     if (!jogoId) return;
-    //     fetchAllResults(jogoId, setResultados, setLoad);
-    // }, [jogoId]);
-
     useEffect(() => {
         const getGrupos = async () => {
             if (resultados?.length > 0) {

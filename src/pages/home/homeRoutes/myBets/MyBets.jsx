@@ -81,7 +81,7 @@ const MyBets = () => {
                     <>
                         <h2>Apostas</h2>
                         <div className="bets">
-                            {apostas.map((aposta) => (
+                            {apostas?.map((aposta) => (
                                 <div className="aposta" key={aposta.id}  style={{ backgroundColor: aposta.paymentStatus === "Pago" ? "rgb(0, 128, 0, 0.2)" : aposta.paymentStatus === "pendente"  ?  " rgb(255, 168, 58, 0.2)" : "rgb(255, 0, 0, 0.2)", borderLeft: aposta.paymentStatus === "Pago" ? "solid 5px green" : aposta.paymentStatus === "pendente"  ?  " solid 5px #FFA83A": aposta.paymentStatus === "Cancelado" && " solid 5px red"}}>
                                     <div>
                                         <div className="title-price">
