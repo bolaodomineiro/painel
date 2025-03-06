@@ -17,7 +17,7 @@ import { useBetPool } from "../../context/BetPoolContext";
 const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
     const { resultados } = useResults();   
-    const { setLoading } = useBetPool();
+    const { getJogos } = useBetPool();
 
     const [dataResult, setDataResult] = useState([])
 
@@ -25,11 +25,10 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
     const [premio, setPremio] = useState("")
     const [resultado, setResultado] = useState("")
 
-   
     const hendleRusults = () => {
         // Atualiza e ordena o array de regras de forma segura
         setDataResult((prevResult) => {
-            const updatedResult = [...prevResult, { isAward: premio, num: Number(resultado) }];
+            const updatedResult = [...prevResult, { isAward: premio, num: resultado.padStart(5, "0") }];
             updatedResult.sort((a, b) => a.isAward - b.isAward); // Ordena do maior para o menor
             return updatedResult;  // Retorna o novo array ordenado
         });
@@ -73,7 +72,7 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
             }
 
             $setShowForm(null);
-            setLoading(true);
+            await getJogos();
 
         } catch (error) {
             console.error("Erro ao cadastrar sorteio:", error);

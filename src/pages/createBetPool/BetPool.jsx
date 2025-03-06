@@ -31,9 +31,8 @@ const BetPool = () => {
             const newResults = await getResults();
             setResults(newResults);
         };
-
         getResultados();
-    }, []);
+    }, [loading, jogoId]);
 
     if (loading) {
         return (

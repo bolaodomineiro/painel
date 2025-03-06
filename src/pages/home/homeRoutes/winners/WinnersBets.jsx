@@ -57,7 +57,7 @@ const WinnersBets = () => {
                                         </div>
                                         <div className="acertos">
                                             <h4>Pontuação</h4>
-                                            <p>{winner.acertos} Pontos</p>
+                                            <p>{winner.rule} Pontos</p>
                                         </div>
                                         <div>
                                             <button style={{ backgroundColor: jogo?.color }}>Ver Bilhete</button>
@@ -68,8 +68,7 @@ const WinnersBets = () => {
                     </>
                 ) : (
                     <div className="not_sorteio">
-                        <h3>O Bolão ainda não começou...</h3>
-                        <p>Começa: {new Date(jogo?.drawDate?.seconds * 1000).toLocaleString()} Horas</p>
+                        <h3>O Bolão ainda não teve ganhadores</h3>
                     </div>
                 )}
             </section>

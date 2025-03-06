@@ -19,7 +19,7 @@ import { useRules} from "../../context/RulesContext";
 const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
 
     const { rules } = useRules();
-    const { setLoading, loading } = useBetPool();
+    const { getJogos } = useBetPool();
 
     const [regras, setRegras] = useState([])
     const [pontos, setpontos] = useState("")
@@ -60,15 +60,15 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
             if(rule === undefined){
                 console.log("Regras criadas com sucesso!");
                 await saveRules(newRules);
+                await getJogos();
             }else{
                 await updateRules(rule?.id, regras);
+                await getJogos();
                 console.log("Regras atualizadas com sucesso!");
-                setLoading(!loading)
             }
 
             console.log("regra salvo com sucesso!");
             $setShowForm(null);
-            setLoading(true);
         } catch (error) {
             console.error("Erro ao cadastrar regra", error);
         }
@@ -125,7 +125,7 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                 <section className="rule-preview">
                     <ul>
                         {regras.map((rule, index) => (
-                            <li key={index}>
+                            <li key={index} style={{ flexDirection: "column" }}>
                                 <div className="rule-price">
                                     <span>{`${rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos`}</span>
                                     <span>Valor: { rule.money?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>

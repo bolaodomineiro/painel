@@ -22,31 +22,32 @@ export const BetPoolProvider = ({ children }) => {
         }
     }, []);
 
-    useEffect(() => {// precisarar muda para trazer somente os boloes que estao em andamento ou pausados
-        const getJogos = async () => {
-            try {
-                
-                const jogosCollection = collection(db, "jogos");
-                const jogosSnapshot = await getDocs(jogosCollection);
-                const jogosList = jogosSnapshot.docs.map((doc) => ({
-                    ...doc.data(),
-                    id: doc.id,
-                }));
-                
-                if (jogosList.length > 0 ) {
-                    setJogos(jogosList);
-                    setJogoId(localStorage.getItem("jogoId") || jogosList[0].id);
-                }
-                
-            } catch (error) {
-                console.error("Erro ao buscar jogos:", error);
-            } finally {
-                setLoading(false);
+    const getJogos = async () => {
+        setLoading(true);
+        try {
+            
+            const jogosCollection = collection(db, "jogos");
+            const jogosSnapshot = await getDocs(jogosCollection);
+            const jogosList = jogosSnapshot.docs.map((doc) => ({
+                ...doc.data(),
+                id: doc.id,
+            }));
+            
+            if (jogosList.length > 0 ) {
+                setJogos(jogosList);
+                setJogoId(localStorage.getItem("jogoId") || jogosList[0].id);
             }
-        };
-        getJogos();
+            
+        } catch (error) {
+            console.error("Erro ao buscar jogos:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    }, [authenticated, jogoId, loading]);
+    useEffect(() => {// precisarar muda para trazer somente os boloes que estao em andamento ou pausados
+        getJogos();
+    }, [authenticated, jogoId]);
     
 
     return (
@@ -62,6 +63,7 @@ export const BetPoolProvider = ({ children }) => {
             setBalls,
             apostas,
             setApostas,
+            getJogos
         }}>
 
         {children}
