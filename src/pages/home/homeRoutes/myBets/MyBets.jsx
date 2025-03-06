@@ -10,30 +10,28 @@ import { useBetPool } from "../../../../context/BetPoolContext";
 import { useMyBets } from "../../../../context/MyBetsContext";
 import { useAuthContext } from "../../../../context/AuthContext";
 import { useWinners } from "../../../../context/WinnerContex";
+import { useResults } from "../../../../context/ResultsContext";
 //utils
 import html2canvas from 'html2canvas';
 
 const MyBets = () => {
-
-    const { winners } = useWinners();
-    const { authenticated, userId,} = useAuthContext();
+    const { sorteios } = useResults();
+    const { authenticated } = useAuthContext();
     const {jogoId} = useBetPool();
     const { apostas, getMyBets } = useMyBets();
+
     const [apostaItem, setApostaItem] = useState([]);
 
-    const getWinners = winners.filter((winner) => winner.aposta.user_id === userId);
-    console.log(getWinners);
-
     useEffect(() => {
+        getMyBets(localStorage.getItem("userId"), localStorage.getItem("jogoId"));
         console.log("carregando .. as aposta do usuario logado");
-        // const storedJogoId = localStorage.getItem("jogoId");
-        getMyBets(userId, jogoId);
-    }, [authenticated]);
+        console.log("apostas", apostas);
+    }, [authenticated, jogoId]);
 
     useEffect(() => {
         const getApostaItem = apostas.find((aposta) => aposta.jogo_id === jogoId && aposta.paymentStatus  === "Pago" );
         setApostaItem(getApostaItem);
-    }, []);
+    }, [jogoId, apostas]);// somente para o modal as infos apostaItem para  Printar o bilhete
     
     const captureModal = async (aposta_id) => {
         const getApostaItem = await apostas.find((aposta) => aposta.id === aposta_id);
@@ -74,7 +72,6 @@ const MyBets = () => {
                 console.error("Erro ao capturar o modal:", error);
             });
         }, 300)
-
     };
 
     return (
@@ -101,8 +98,8 @@ const MyBets = () => {
                                                                 key={i} 
                                                                 className="ball"
                                                                 style={{
-                                                                    backgroundColor: getWinners?.some((winner) => winner.numerosAcertados.includes(ball)) ? "#AB0519" : "#ddd", 
-                                                                    color: getWinners?.some((winner) => winner.numerosAcertados.includes(ball)) ? "#fff" : "#000"
+                                                                    backgroundColor: sorteios?.some((sorteio) => sorteio.balls.includes(ball)) ? "#AB0519" : "#ddd", 
+                                                                    color: sorteios?.some((sorteio) => sorteio.balls.includes(ball)) ? "#fff" : "#000"
                                                                 }}
                                                             >
                                                                 {ball}

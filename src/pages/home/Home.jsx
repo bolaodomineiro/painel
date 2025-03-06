@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import Loading from "../../assets/loading.webp";// gif
 import {Link, Outlet, useLocation} from "react-router-dom";
+//context
+import {useResults} from "../../context/ResultsContext";
 import { useBetPool } from "../../context/BetPoolContext";
 // hooks
 import useScroll from "../../hooks/Scroll";
@@ -12,6 +14,8 @@ import useScroll from "../../hooks/Scroll";
 const Home = () => {
 
     const elementRef = useRef(null);
+
+    const { load, setLoad } = useResults();
     const {jogos, jogoId, setJogoId, loading } = useBetPool();
     const { hendleScroll } = useScroll();
     const location = useLocation();
@@ -19,13 +23,14 @@ const Home = () => {
     const [jogoFiltrado, setJogoFiltrado] = useState([]);
 
     useEffect(() => {
-        if (!jogoId) return console.log("jogoId is undefined, pagina home");
+        console.log("atualizando... toda aplicação em Home");
+        setLoad(!load);
 
+        if (!jogoId) return console.log("jogoId is undefined, pagina home");
         localStorage.setItem("jogoId", jogoId);
         const jogo = jogos.find((jogo) => jogo?.id === jogoId );
         setJogoFiltrado(jogo);
     },[jogoId, jogos]);
-
 
     useEffect(() => {
         const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);

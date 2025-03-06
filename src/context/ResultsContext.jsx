@@ -26,37 +26,46 @@ export const ResultsProvider = ({ children }) => {
     useEffect(() => {
         setUsuarios([]);
         setGanhadores([]);
-    }, [jogoId]);
+        setSorteios([]);
+        setResultados([]);
+        setRules([]);
+        setApostas([]);
 
-    useEffect(() => {
         const fetchUsuarios = async () => {
             const newUsuarios = await getUsers();
             setUsuarios(newUsuarios);
         };
         fetchUsuarios();
-    }, [jogoId]);
+
+        if (!jogoId) return console.log("jogoId está vazio em ResultsContext");
+        fetchAllResults(jogoId, setResultados);
+    }, [jogoId, load]);
+
+    // useEffect(() => {
+    //     const fetchUsuarios = async () => {
+    //         const newUsuarios = await getUsers();
+    //         setUsuarios(newUsuarios);
+    //     };
+    //     fetchUsuarios();
+    // }, [jogoId]);
+
+    // useEffect(() => {
+    //     if (!jogoId) return;
+    //     fetchAllResults(jogoId, setResultados, setLoad);
+    // }, [jogoId]);
 
     useEffect(() => {
-        if (!jogoId) return;
-        console.log(jogoId);
-        console.log("Buscando resultados...");
-        fetchAllResults(jogoId, setResultados, setLoad);
-    }, [jogoId]);
-
-    useEffect(() => {
-        setSorteios([]);
         const getGrupos = async () => {
             if (resultados?.length > 0) {
-                console.log(resultados);
                 await extractLottoBalls(jogoId, resultados,  setSorteios);
-                await fetchAllRules(jogoId, setRules, setLoad);
-                await fetchAllApostas(jogoId, setApostas, setLoad);
+                await fetchAllRules(jogoId, setRules);
+                await fetchAllApostas(jogoId, setApostas);
             }
         };
         getGrupos();
     }, [resultados]);
 
-    const verificarAcertosApostas = async (apostas, sorteios) => {
+    const verificarAcertosApostas = async (apostas, sorteios, usuarios) => {
         for (const ganhador of usuarios) {
             for (const aposta of apostas) {
                 let acertos = 0;
@@ -78,7 +87,7 @@ export const ResultsProvider = ({ children }) => {
                         ganhador
                     };
 
-                    setGanhadores(prev => {
+                    setGanhadores(prev => { // verificar se o ganhador ja foi adicionado
                         const existe = prev.some(g => g.aposta.id === newGanhador.aposta.id);
                         return existe ? prev : [...prev, newGanhador];
                     });
@@ -88,10 +97,12 @@ export const ResultsProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        if (apostas?.length > 0 && sorteios.length > 0) {
-            verificarAcertosApostas(apostas, sorteios);
+        if (apostas?.length > 0 && sorteios.length > 0 && usuarios.length > 0) {
+            console.log("sorteios", sorteios);
+            console.log("apostas", apostas);
+            verificarAcertosApostas(apostas, sorteios, usuarios);
         }
-    }, [apostas, sorteios]);
+    }, [apostas, sorteios, usuarios]);
 
     const verificaApostaPremiada = async () => {
         let regrasParaAtualizar = [];
@@ -102,7 +113,7 @@ export const ResultsProvider = ({ children }) => {
                 for (const condicao of regra.rules) {
                     if (
                         ganhador.acertos >= condicao.pts &&
-                        (sorteios.length - 1 === condicao.prizeDraw || condicao.prizeDraw == null) &&
+                        (sorteios.length  === condicao.prizeDraw || condicao.prizeDraw == null) &&
                         !condicao.winner
                     ) {
                         novosGanhadores.push({ ...ganhador, rule: condicao.pts, money: condicao.money });
@@ -117,8 +128,9 @@ export const ResultsProvider = ({ children }) => {
         }
 
         if (novosGanhadores.length > 0) {
-            console.log("Ganhadores:", novosGanhadores);
+            console.log("enviando... ganhadores");
             await enviarGanhadores(novosGanhadores);
+            console.log("enviado com sucesso");
         }
 
         for (const { id, pts } of regrasParaAtualizar) {
@@ -127,22 +139,24 @@ export const ResultsProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        if (apostas?.length > 0 && sorteios.length > 0 && rules.length > 0) {
+
+        if (apostas?.length > 0 && sorteios.length > 0 && rules.length > 0 && ganhadores.length > 0) {
+            console.log(" ganhadores", ganhadores);
             console.log(sorteios);
             console.log(ganhadores);
             console.log(usuarios);
             for (const grupoRegras of rules) {
                 for (const regra of grupoRegras.rules) {
                     if (regra.pts === 10 && !regra.winner) {
-                        console.log("Bolão Aberto");
+                        console.log("Ninguem acertou 10 pontos, Bolão Aberto");
                         verificaApostaPremiada();
                         break;
                     }
-                    console.log("Bolão Fechado");
+                    console.log("Bolão Fechado, acertaram 10 pontos");
                 }
             }
         }
-    }, [ganhadores, sorteios, rules]);
+    }, [ganhadores, sorteios, rules, apostas]);
 
     return (
         <ResultsContext.Provider value={{ fetchAllResults, load, setLoad, sorteios, rules, resultados, setResultados }}>

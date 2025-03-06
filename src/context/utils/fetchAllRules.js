@@ -2,9 +2,8 @@ import { db } from "../../firebase/firebase";
 import { collection, getDocs, query, where, doc, updateDoc, getDoc } from "firebase/firestore";
 
 // Função para buscar todas as regras de um jogo
-export const fetchAllRules = async (jogoId, setRules, setLoad  ) => {
+export const fetchAllRules = async (jogoId, setRules) => {
 
-    setLoad(true);
     try {
         
         const q = query(collection(db, "regras"), where("jogo_id", "==", jogoId));
@@ -22,11 +21,10 @@ export const fetchAllRules = async (jogoId, setRules, setLoad  ) => {
         }));
 
         setRules(fetchedRules);
+        console.log("Regras encontradas: em fetchAllRules", fetchedRules);
         
     } catch (err) {
         console.error("Erro ao buscar regras do jogo:", err);
-    } finally {
-        setLoad(false);
     }
 };
 

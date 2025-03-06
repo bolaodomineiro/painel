@@ -123,7 +123,7 @@ export const Container = styled.div`
             li {
                 display: flex;
                 align-items: center;
-                flex-direction: column;
+                flex-direction: row;
                 justify-content: space-between;
                 background-color:rgb(229, 229, 229);
                 padding: 10px;

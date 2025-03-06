@@ -9,6 +9,7 @@ export  const getUsers = async () => {
         id: doc.id,
         balance: doc.data().balance || 0,
     }));
+    console.log("Users encontrados: em fetchAllUsers", userList);
     return userList
 };
 

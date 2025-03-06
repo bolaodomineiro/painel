@@ -8,7 +8,7 @@ export const extractLottoBalls = async (jogoId, resultados,  setSorteios) => {
         return;
     }
 
-    console.log("Resultados encontrados:", getResults);
+    console.log("Resultados encontrados: em extractLottoBalls", getResults);
 
     // Processa cada sorteio dentro de `results`
     const novosSorteios = getResults.results.map(result => {
@@ -24,6 +24,7 @@ export const extractLottoBalls = async (jogoId, resultados,  setSorteios) => {
             drawDate: result.drawDate
         };
     });
+    console.log("Novos sorteios extraídos: em extractLottoBalls", novosSorteios);
     // Adiciona ao estado sem sobrescrever o anterior
     setSorteios(prevState => [...prevState, ...novosSorteios]);
 }; 

@@ -2,25 +2,23 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { db } from "../firebase/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useBetPool } from "./BetPoolContext";
+import {useResults} from "./ResultsContext"
 
 const WinnersContext = createContext();// Criando o contexto
 
 export const WinnersProvider = ({ children }) => {
+    const {load} = useResults();
     const { jogoId } = useBetPool();
 
     const [winners, setWinners] = useState([]);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchWinnersByGame = async (jogoId ) => {
-
              // Verificar se o jogoId não é vazio ou undefined antes de executar a consulta
             if (!jogoId) {
                 console.log("jogoId está vazio ou indefinido, não fazendo consulta.");
                 return; // Não faz a consulta se o jogoId não for válido
             }
-
-            setLoading(true);
     
             try {
                 const ganhadoresRef = collection(db, "ganhadores");
@@ -33,20 +31,17 @@ export const WinnersProvider = ({ children }) => {
                 }));
     
                 setWinners(ganhadores);
-                console.log("Ganhadores encontrados:", ganhadores);
+                console.log("Ganhadores encontrados: em WinnersContext", ganhadores );
             } catch (error) {
                 console.error("Erro ao buscar ganhadores:", error);
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         fetchWinnersByGame( jogoId );
-        console.log("jogoId:", jogoId);
-    }, [jogoId]);
+    }, [jogoId, load]);
 
     return (
-        <WinnersContext.Provider value={{ winners, loading }}>
+        <WinnersContext.Provider value={{ winners}}>
             {children}
         </WinnersContext.Provider>
     );

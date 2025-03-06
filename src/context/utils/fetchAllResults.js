@@ -1,10 +1,8 @@
 import { db } from "../../firebase/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-export const fetchAllResults = async (jogoId, setResultados, setLoad) => {
+export const fetchAllResults = async (jogoId, setResultados) => {
 
-
-        setLoad(true);
         try {
             const q = query(collection(db, "resultados"), where("jogo_id", "==",jogoId));
             const querySnapshot = await getDocs(q);
@@ -21,11 +19,10 @@ export const fetchAllResults = async (jogoId, setResultados, setLoad) => {
             }));
 
             setResultados(fetchedResults);
+            console.log("Resultados encontrados: em fetchAllResults", fetchedResults);
 
         } catch (err) {
             console.error("Erro ao buscar resultados:", err);
-        } finally {
-            setLoad(false);
         }
     };
     

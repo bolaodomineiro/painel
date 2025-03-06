@@ -24,7 +24,7 @@ export const RulesProvider = ({ children }) => {
                 }));
 
                 setRules(regrasList);
-                console.log("Regras encontradas:", regrasList);
+                console.log("Regras encontradas: em RulesContext", regrasList);
             } catch (error) {
                 console.error("Erro ao buscar regras:", error);
             } finally {

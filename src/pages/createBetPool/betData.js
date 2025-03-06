@@ -65,6 +65,7 @@ export  const getResults = async () => {
         ...doc.data(),
         id: doc.id,
     }));
+    console.log(" Resultados encontrados:em betData funçao getResults",resultList);
     return resultList
 };
 

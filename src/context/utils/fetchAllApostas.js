@@ -1,9 +1,8 @@
 import { db } from "../../firebase/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
-export const fetchAllApostas = async (jogoId, setApostas, setLoad) => {
- 
-        setLoad(true);
+export const fetchAllApostas = async (jogoId, setApostas) => {
+
         try {
             const q = query(collection(db, "apostas"), 
                 where("jogo_id", "==", jogoId),
@@ -24,12 +23,11 @@ export const fetchAllApostas = async (jogoId, setApostas, setLoad) => {
             }));
             
             setApostas(fetchedApostas);
+            console.log("Apostas encontradas: em fetchAllApostas", fetchedApostas);
             
         } catch (err) {
             console.error("Erro ao buscar apostas:", err);
-        } finally {
-            setLoad(false);
-        }
+        } 
     };
     
 

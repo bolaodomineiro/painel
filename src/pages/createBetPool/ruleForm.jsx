@@ -19,7 +19,7 @@ import { useRules} from "../../context/RulesContext";
 const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
 
     const { rules } = useRules();
-    const { setLoading } = useBetPool();
+    const { setLoading, loading } = useBetPool();
 
     const [regras, setRegras] = useState([])
     const [pontos, setpontos] = useState("")
@@ -31,15 +31,15 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
     const hendleRules = () => {
 
         setRegras((prevRegras) => {
-            const updatedRules = [...prevRegras, { pts: pontos, money: award, winner: false, prizeDraw: sorteioValido === " " ? null : sorteioValido }];
+            const updatedRules = [...prevRegras, { pts: pontos, money: award, winner: false, prizeDraw: sorteioValido === "" ? null : sorteioValido }];
             updatedRules.sort((a, b) => b.pts - a.pts); // Ordena do maior para o menor
             return updatedRules;  // Retorna o novo array ordenado
         });
 
         // Limpa os campos de pontos e award
-        setpontos(" ");
-        setAward(" ");
-        setSorteioValido(" ");
+        setpontos("");
+        setAward("");
+        setSorteioValido("");
     }
 
     const handleSaveRule = async (event) => {
@@ -63,6 +63,7 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
             }else{
                 await updateRules(rule?.id, regras);
                 console.log("Regras atualizadas com sucesso!");
+                setLoading(!loading)
             }
 
             console.log("regra salvo com sucesso!");
@@ -85,6 +86,7 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                             value={pontos} 
                             onChange={(e)=> setpontos(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
+                            placeholder="Digite a pontuação"
                         />
                     </FormGroup>
                     <FormGroup>
@@ -94,15 +96,17 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                             value={award} 
                             onChange={(e)=> setAward(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
+                            placeholder="Digite o valor"
                         />
                     </FormGroup>
                     <FormGroup>
-                        <Label>Regra valida para Prêmio:</Label>
+                        <Label>Regra valida para o Sorteio:</Label>
                         <Input 
                             type="number" 
                             value={sorteioValido} 
                             onChange={(e)=> setSorteioValido(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
+                            placeholder="Digite o número"
                         />
                     </FormGroup>
                     <div 
@@ -124,7 +128,7 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                             <li key={index}>
                                 <div className="rule-price">
                                     <span>{`${rule.pts <= 9 ? `0${rule.pts}` : rule.pts} Pontos`}</span>
-                                    <span>Valor: { rule.money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+                                    <span>Valor: { rule.money?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                                     <FontAwesomeIcon 
                                         className="icon"
                                         icon={faTrash} 

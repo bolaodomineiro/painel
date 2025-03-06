@@ -30,7 +30,6 @@ const BetPool = () => {
         const getResultados = async () => {
             const newResults = await getResults();
             setResults(newResults);
-            console.log(newResults); // ⬅️ Aqui, os dados estarão corretos
         };
 
         getResultados();
@@ -129,11 +128,8 @@ const BetPool = () => {
                                             results
                                                 .filter((r) => r.jogo_id === jogo.id) // Filtra apenas os que correspondem ao jogo.id
                                                 .map((item, index) => {
-                                                    console.log(item);
-                                                    
                                                     // Ordena pelo campo prizeDraw dentro do array results
                                                     const sortedResults = item.results.sort((a, b) => a.prizeDraw - b.prizeDraw);
-
                                                     return (
                                                         <div key={index}>
                                                             {sortedResults.map((result, index) => (

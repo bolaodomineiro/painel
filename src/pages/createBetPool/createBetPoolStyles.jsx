@@ -142,6 +142,7 @@ export const Container_betPool = styled.section`
                         background-color:rgb(214, 214, 214);
                         font-size: 0.6rem;
                         padding: 3px 10px;
+                        margin-bottom: 8px;
 
                         &:nth-child(odd) {
                             background-color:rgb(232, 232, 232);
@@ -213,6 +214,10 @@ export const Container_betPool = styled.section`
                     padding: 10px 0px;
                     height: 80px;
                     margin-bottom: 7px;
+
+                    li {
+                        width: 220px;
+                    }
 
                     &::-webkit-scrollbar {
                         width: 4px;

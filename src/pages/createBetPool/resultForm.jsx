@@ -29,7 +29,7 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
     const hendleRusults = () => {
         // Atualiza e ordena o array de regras de forma segura
         setDataResult((prevResult) => {
-            const updatedResult = [...prevResult, { isAward: premio, num: resultado }];
+            const updatedResult = [...prevResult, { isAward: premio, num: Number(resultado) }];
             updatedResult.sort((a, b) => a.isAward - b.isAward); // Ordena do maior para o menor
             return updatedResult;  // Retorna o novo array ordenado
         });
@@ -92,7 +92,7 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                             value={sorteio} 
                             onChange={(e)=> setSorteio(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
-                            placeholder="Digite o número do sorteio 1, 2, 3... "
+                            placeholder="Digite o número do sorteio "
                         />
                     </FormGroup>
                     <FormGroup className="pts">
@@ -102,17 +102,19 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                             value={premio} 
                             onChange={(e)=> setPremio(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
                             className="award"
-                            placeholder="Digite o número do prêmio ex: 1, 2, 3... "
+                            placeholder="Digite o número do prêmio"
                         />
                     </FormGroup>
                     <FormGroup>
                         <Label>Resultado</Label>
                         <Input 
-                            type="number" 
+                            type="text" 
                             value={resultado} 
-                            onChange={(e)=> setResultado(Number(e.target.value) <= 0 ? "" : Number(e.target.value))} 
+                            onChange={(e)=> setResultado(e.target.value)} 
                             className="award"
                             placeholder="Digite o número do resultado ex: 56437 "
+                            maxLength={5}
+                            minLength={5}
                         />
                     </FormGroup>
                     <div 
@@ -131,7 +133,7 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                 <section className="rule-preview">
                     <ul>
                         {dataResult.map((result, index) => (
-                            <li key={index} style={{ flexDirection: "row" }}>
+                            <li key={index}>
                                 <span>{`${result.isAward}º  Sorteio`}</span>
                                 <span>{result.num}</span>
                                 <FontAwesomeIcon 

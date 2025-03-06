@@ -25,6 +25,7 @@ export const BetPoolProvider = ({ children }) => {
     useEffect(() => {// precisarar muda para trazer somente os boloes que estao em andamento ou pausados
         const getJogos = async () => {
             try {
+                
                 const jogosCollection = collection(db, "jogos");
                 const jogosSnapshot = await getDocs(jogosCollection);
                 const jogosList = jogosSnapshot.docs.map((doc) => ({
@@ -45,7 +46,7 @@ export const BetPoolProvider = ({ children }) => {
         };
         getJogos();
 
-    }, [authenticated]);
+    }, [authenticated, jogoId, loading]);
     
 
     return (

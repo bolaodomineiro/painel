@@ -3,16 +3,23 @@ import { Container_winners } from "./WinnersStyles";
 // context
 import { useBetPool } from "../../../../context/BetPoolContext";
 import { useWinners } from "../../../../context/WinnerContex";
+import { useResults } from "../../../../context/ResultsContext";
+
 
 
 const WinnersBets = () => {
 
+    const { load, setLoad } = useResults();
     const { winners } = useWinners();
     const {jogos,  jogoId } = useBetPool();
 
-    const jogo = jogos.find((jogo) => jogo?.id === jogoId);
+    const [jogo, setJogo] = useState([]);
 
-
+    useEffect(() => {
+        setLoad(!load);
+        const getJogo = jogos.find((jogo) => jogo?.id === jogoId);
+        setJogo(getJogo);
+    }, [jogos, jogoId]);
 
     return (
         <Container_winners>
@@ -62,7 +69,7 @@ const WinnersBets = () => {
                 ) : (
                     <div className="not_sorteio">
                         <h3>O Bolão ainda não começou...</h3>
-                        <p>Começa: {new Date(jogo?.drawDate.seconds * 1000).toLocaleString()} Horas</p>
+                        <p>Começa: {new Date(jogo?.drawDate?.seconds * 1000).toLocaleString()} Horas</p>
                     </div>
                 )}
             </section>
