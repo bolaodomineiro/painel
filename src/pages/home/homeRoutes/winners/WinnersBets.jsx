@@ -5,7 +5,7 @@ import { useBetPool } from "../../../../context/BetPoolContext";
 import { useWinners } from "../../../../context/WinnerContex";
 import { useResults } from "../../../../context/ResultsContext";
 // components
-import LoadingPoint from "../../../../components/loadingPoints/loadingPoint";
+import Loading from "../../../../components/loading/Loading";
 // icones 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +22,7 @@ const WinnersBets = () => {
 
     useEffect(() => {
         setStatus(true);
-        
+
         setTimeout(() => {
             setStatus(false);
         },5000)
@@ -81,7 +81,7 @@ const WinnersBets = () => {
                     </>
                 ) : (
                     <div className="not_sorteio">
-                        {status && <div className="loading"> <p>Buscando os Ganhadores.</p> <LoadingPoint /> </div>}
+                        {status && <div className="loading"> <p>Buscando os Ganhadores.</p> <Loading /> </div>}
                         {!resultados && !status &&<p>O Bolão ainda não iniciou, aguarde a apuração do sorteio. <FontAwesomeIcon className="icon" icon={faClock} /></p>}
                         {resultados && !status && winners.length === 0 && <p>Ainda não há ganhadores.</p>}
                     </div>

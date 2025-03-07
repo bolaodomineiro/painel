@@ -1,6 +1,6 @@
-import { Loading_container } from "./loadingStyles"
+import { Loading_container } from "./LoadingStyles"
 
-const LoadingPoint = () => {
+const Loading = () => {
     return (
         <Loading_container>
             <div className="dot"></div>
@@ -10,4 +10,4 @@ const LoadingPoint = () => {
     )
 }
 
-export default LoadingPoint;
+export default Loading;

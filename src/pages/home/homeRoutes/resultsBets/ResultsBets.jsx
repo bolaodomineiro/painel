@@ -4,7 +4,7 @@ import { Container_resultsBets } from "./ResultsStyles"
 import { useResults } from "../../../../context/ResultsContext";
 import { useBetPool } from "../../../../context/BetPoolContext";
 // components
-import LoadingPoint from "../../../../components/loadingPoints/loadingPoint";
+import Loading from "../../../../components/loading/Loading";
 // icones 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
@@ -83,7 +83,7 @@ const ResultsBets = () => {
                     </>
                 ) : (
                     <div className="not_sorteio">
-                        {status && <div className="loading"> <p>Buscando os Resultados</p> <LoadingPoint /> </div>}
+                        {status && <div className="loading"> <p>Buscando os Resultados</p> <Loading /> </div>}
                         {!status && sorteios.length === 0 && <p>O Bolão ainda não iniciou, aguarde a apuração do sorteio. <FontAwesomeIcon className="icon" icon={faClock} /></p>}
                     </div>
                 )}
