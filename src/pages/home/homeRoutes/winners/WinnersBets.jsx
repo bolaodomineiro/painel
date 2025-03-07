@@ -4,16 +4,29 @@ import { Container_winners } from "./WinnersStyles";
 import { useBetPool } from "../../../../context/BetPoolContext";
 import { useWinners } from "../../../../context/WinnerContex";
 import { useResults } from "../../../../context/ResultsContext";
-
+// components
+import LoadingPoint from "../../../../components/loadingPoints/loadingPoint";
+// icones 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 
 
 const WinnersBets = () => {
 
-    const { load, setLoad } = useResults();
+    const { load, setLoad, resultados } = useResults();
     const { winners } = useWinners();
     const {jogos,  jogoId } = useBetPool();
 
     const [jogo, setJogo] = useState([]);
+    const [status, setStatus] = useState(true);
+
+    useEffect(() => {
+        setStatus(true);
+        
+        setTimeout(() => {
+            setStatus(false);
+        },5000)
+    }, [jogoId]);
 
     useEffect(() => {
         setLoad(!load);
@@ -24,7 +37,7 @@ const WinnersBets = () => {
     return (
         <Container_winners>
             <section className="winners_area">
-                { winners?.length > 0 ? (
+                { winners?.length > 0 && !status ? (
                     <>
                         <div className="winners_area_header">
                             <h3>{winners.length} Ganhadores - </h3>
@@ -68,7 +81,9 @@ const WinnersBets = () => {
                     </>
                 ) : (
                     <div className="not_sorteio">
-                        <h3>O Bolão ainda não teve ganhadores</h3>
+                        {status && <div className="loading"> <p>Buscando os Ganhadores.</p> <LoadingPoint /> </div>}
+                        {!resultados && !status &&<p>O Bolão ainda não iniciou, aguarde a apuração do sorteio. <FontAwesomeIcon className="icon" icon={faClock} /></p>}
+                        {resultados && !status && winners.length === 0 && <p>Ainda não há ganhadores.</p>}
                     </div>
                 )}
             </section>

@@ -30,6 +30,7 @@ export const ResultsProvider = ({ children }) => {
         setResultados([]);
         setRules([]);
         setApostas([]);
+        setLoad(false);
 
         const fetchUsuarios = async () => {
             const newUsuarios = await getUsers();
@@ -109,7 +110,8 @@ export const ResultsProvider = ({ children }) => {
                             console.log("if 01", regrasParaAtualizar);
                         }
                         break;
-                    }else  if(!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts) && (typeof condicao.prizeDraw === "number" && condicao.prizeDraw <= sorteios.length && !condicao.winner)) {
+                    }else  if(!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts) && 
+                            (typeof condicao.prizeDraw === "number" && condicao.prizeDraw <= sorteios.length && !condicao.winner)) {
                         regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
                         console.log("if 02", regrasParaAtualizar);
                         break

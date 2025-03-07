@@ -30,7 +30,7 @@ const Home = () => {
         localStorage.setItem("jogoId", jogoId);
         const jogo = jogos.find((jogo) => jogo?.id === jogoId );
         setJogoFiltrado(jogo);
-    },[jogos , jogoId]);
+    },[jogos]);
 
     useEffect(() => {
         const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);

@@ -3,18 +3,34 @@ import { Container_resultsBets } from "./ResultsStyles"
 // context
 import { useResults } from "../../../../context/ResultsContext";
 import { useBetPool } from "../../../../context/BetPoolContext";
+// components
+import LoadingPoint from "../../../../components/loadingPoints/loadingPoint";
+// icones 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+
 
 const ResultsBets = () => {
 
     const { sorteios } = useResults();
     const { jogos, jogoId } = useBetPool();
 
+    const [status, setStatus] = useState(true);
+
     const jogo = jogos.find((jogo) => jogo?.id === jogoId);
+
+    useEffect(() => {
+        setStatus(true);
+        
+        setTimeout(() => {
+            setStatus(false);
+        },5000)
+    }, [jogoId]);
 
     return (
         <Container_resultsBets>
             <div className="results_area">
-                {sorteios.length > 0 ? (
+                {sorteios.length > 0 && !status ? (
                     <>
                         <div className="results_header">
                             <p><span>{sorteios.length}</span> Sorteio Apurado</p> |
@@ -67,8 +83,8 @@ const ResultsBets = () => {
                     </>
                 ) : (
                     <div className="not_sorteio">
-                        <h3>O Bolão ainda não começou...</h3>
-                        <p>Começa: {new Date(jogo.drawDate.seconds * 1000).toLocaleString()} Horas</p>
+                        {status && <div className="loading"> <p>Buscando os Resultados</p> <LoadingPoint /> </div>}
+                        {!status && sorteios.length === 0 && <p>O Bolão ainda não iniciou, aguarde a apuração do sorteio. <FontAwesomeIcon className="icon" icon={faClock} /></p>}
                     </div>
                 )}
             </div>
