@@ -9,35 +9,58 @@ export const Container_winners = styled.section`
     padding: 50px 0  30px 0;
 
     .winners_area {
+        width: 95%;
         display: flex;
+        align-items: center;
         flex-direction: column;
         gap: 10px;
-        width: 95%;
 
         .winners_area_header {
             display: flex;
+            width:100%;
             align-items: center;
+            justify-content: space-between;
             gap: 10px;
             padding: 20px ;
             background:#F3EED9;
             box-shadow: 1px 2px 5px rgba(29, 29, 29, 0.2);
 
-            @media (max-width: 430px) {
+            @media (max-width: 530px) {
                 flex-direction: column;
+                align-items: flex-start;
             }
 
             p {
                 font-size:1rem;
-                font-weight: 500;
+                font-weight: 900;
             }
         }
 
         .winners_area_main {
             display: flex;
+            width: 100%;
             flex-direction: column;
             gap: 10px;
             overflow: auto;
-            padding: 10px 0px;
+            padding: 20px 0px;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background:rgba(255, 255, 255, 0);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 5px;
+            }
+
+            &::-webkit-scrollbar-thumb:hover {
+                background: #000;
+            }
 
             .winners_box {
                 display: flex;
@@ -53,8 +76,10 @@ export const Container_winners = styled.section`
                 }
 
                 div {
-                    height:100% ;
-                    padding: 5px 0;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    height:60px;
                 }
 
                 h4 {
@@ -69,19 +94,17 @@ export const Container_winners = styled.section`
                 }
 
                 .indicator {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background-color: #242222;
                     color: #fff;
                     padding: 0 15px;
                     border-radius: 5px 0 0 5px;
-                    font-size: 1rem;
+                    font-size: 1rem;                   
                     font-weight: 900;
                 }
 
                 .userInfo {
                     width: 140px;
+                    background-color:rgb(255, 255, 255);
+                    padding: 0 15px;
                 }
 
                 .prize {
@@ -137,7 +160,7 @@ export const Container_winners = styled.section`
 
         .not_sorteio {
             display: flex;
-            width:100%;
+            width:92%;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -167,6 +190,10 @@ export const Container_winners = styled.section`
                 align-items: center;
                 justify-content: center;
                 gap: 10px;
+
+                @media (max-width: 350px) {
+                    flex-direction: column;
+                }
             }
         }
     }

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 //icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faWhatsapp} from "@fortawesome/free-brands-svg-icons";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
 //components
 import { Container_bets } from "./MyBetsStyles";
 import Bilhete from "../../../../components/bilhete/Bilhete";
+import Loading from "../../../../components/loading/Loading";
 // context
 import { useBetPool } from "../../../../context/BetPoolContext";
 import { useMyBets } from "../../../../context/MyBetsContext";
@@ -21,6 +23,15 @@ const MyBets = () => {
     const { apostas, getMyBets } = useMyBets();
 
     const [apostaItem, setApostaItem] = useState([]);
+    const [status, setStatus] = useState(true);
+
+    useEffect(() => {
+        setStatus(true);
+        
+        setTimeout(() => {
+            setStatus(false);
+        },5000)
+    }, [jogoId]);
 
     useEffect(() => {
         getMyBets(localStorage.getItem("userId"), localStorage.getItem("jogoId"));
@@ -76,7 +87,7 @@ const MyBets = () => {
     return (
         <Container_bets>
             <div className="container-bets">
-                {apostas.length > 0 ? (
+                {apostas.length > 0 && !status ? (
                     <>
                         <h2>Apostas</h2>
                         <div className="bets">
@@ -150,7 +161,8 @@ const MyBets = () => {
                     </>
                 ) : (
                     <div className="not_sorteio">
-                        <h3>Nenhuma aposta encontrada</h3>
+                        {status && <div className="loading"> <p>Buscando suas apostas</p> <Loading /> </div>}
+                        {!status && apostas.length === 0 && <p>Você ainda não fez nenhuma aposta. As apostas se encerram em breve. <FontAwesomeIcon className="icon" icon={faClock} /></p>}
                     </div>
                 )}
             </div>

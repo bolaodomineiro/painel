@@ -39,10 +39,10 @@ const WinnersBets = () => {
             <section className="winners_area">
                 { winners?.length > 0 && !status ? (
                     <>
-                        <div className="winners_area_header">
-                            <h3>{winners.length} Ganhadores - </h3>
-                            <p>Bolão {winners.map((winner) => winner.aposta.title)[0]} </p>
-                            <p>- Concurso: {jogo?.ticket}</p>
+                        <div className="winners_area_header"> 
+                            <p>{winners.length} Ganhadores</p>
+                            <p>Bolão - {winners.map((winner) => winner.aposta.title)[0]} </p>
+                            <p>Concurso: {jogo?.ticket}</p>
                         </div>
                         <section className="winners_area_main">
                                 { winners.sort((a, b) => b.acertos - a.acertos).map((winner, index) => (

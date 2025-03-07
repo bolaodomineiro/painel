@@ -255,15 +255,39 @@ export const Container_bets = styled.section`
 
         .not_sorteio {
             display: flex;
-            width:95%;
+            width:92%;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            font-size: 1rem;
             gap: 10px;
             background-color: #F3EED9;
-            padding: 20px;
+            padding: 20px 10px;
+            line-height: 1.6;
             border-radius: 8px;
+            text-align: center;
             box-shadow: 1px 1px 5px rgba(46, 46, 46, 0.3);
+
+            .icon {
+                animation: spin 3s infinite linear;
+                font-size: 1.4rem;
+                @keyframes spin {
+                    from {
+                        transform: rotate(0deg);
+                    }
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+
+            .loading {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
         }
     }
 `

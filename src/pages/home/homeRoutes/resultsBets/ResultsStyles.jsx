@@ -206,7 +206,7 @@ export const Container_resultsBets = styled.section`
 
         .not_sorteio {
             display: flex;
-            width:100%;
+            width:92%;
             flex-direction: column;
             align-items: center;
             justify-content: center;
