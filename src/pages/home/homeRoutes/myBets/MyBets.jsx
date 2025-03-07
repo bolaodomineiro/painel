@@ -25,7 +25,6 @@ const MyBets = () => {
     useEffect(() => {
         getMyBets(localStorage.getItem("userId"), localStorage.getItem("jogoId"));
         console.log("carregando .. as aposta do usuario logado");
-        console.log("apostas", apostas);
     }, [authenticated, jogoId]);
 
     useEffect(() => {

@@ -60,7 +60,7 @@ const Jogo = () => {
                     numbers: [...balls],
                     price: jogo.price,
                     ticket: Math.floor(1e9 + Math.random() * 9e9).toString(),
-                    paymentStatus: "pendente",
+                    paymentStatus: "Pago",
                     created: Timestamp.now(),
                     expirationDate: expirationTimestamp,
                     drawDate: jogo.drawDate,

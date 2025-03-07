@@ -30,6 +30,7 @@ export const fetchAllRules = async (jogoId, setRules) => {
 
 // Função para atualizar o campo 'winner' de uma regra
 export const updateWinnerByPts = async (regraId, regraPts) => {
+    
     try {
         const regraRef = doc(db, "regras", regraId);
         const regraSnap = await getDoc(regraRef);

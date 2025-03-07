@@ -100,15 +100,19 @@ export const ResultsProvider = ({ children }) => {
                 for (const condicao of regra.rules) {
                     if (
                         ganhador.acertos >= condicao.pts &&
-                        (sorteios.length  === condicao.prizeDraw || condicao.prizeDraw == null) &&
+                        (sorteios.length  === condicao.prizeDraw || condicao.prizeDraw === null) &&
                         !condicao.winner
                     ) {
                         novosGanhadores.push({ ...ganhador, rule: condicao.pts, money: condicao.money });
-
                         if (!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts)) {
                             regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
+                            console.log("if 01", regrasParaAtualizar);
                         }
                         break;
+                    }else  if(!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts) && (typeof condicao.prizeDraw === "number" && condicao.prizeDraw <= sorteios.length && !condicao.winner)) {
+                        regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
+                        console.log("if 02", regrasParaAtualizar);
+                        break
                     }
                 }
             }
@@ -121,6 +125,7 @@ export const ResultsProvider = ({ children }) => {
         }
 
         for (const { id, pts } of regrasParaAtualizar) {
+            console.log(id, pts);
             await updateWinnerByPts(id, pts);
         }
     };
