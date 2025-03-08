@@ -87,7 +87,7 @@ const Jogo = () => {
 
     return (
         <Container_jogo >
-            { jogo?.status &&
+            { jogo?.status === "Aberto" &&
                 <section className="jogo-balls">
                 <div className="balls-header">
                     <h3>Clique em 10 dezenas - </h3>
@@ -108,7 +108,7 @@ const Jogo = () => {
             </section>
             }
 
-            { !jogo?.status  &&
+            { jogo?.status === "Pausado"  &&
                 <section className="info">
                     <div>
                         <h3>{jogo?.title}</h3>
@@ -121,6 +121,7 @@ const Jogo = () => {
             { message &&  (
                 <div className="ball-message"><p>Bola</p><span>{message}</span><p>já foi escolhido 3 vezes!</p></div>
             )}
+            
             { jogoMessage &&
                 <section className="jogo-message">
                     <div className="container-message">

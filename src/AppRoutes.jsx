@@ -9,7 +9,7 @@ import WinnersBets from './pages/home/homeRoutes/winners/WinnersBets';
 // rotas do painel
 import Users from './pages/users/Users';
 import BetPool from './pages/createBetPool/BetPool';
-import Pages from './pages/pagesEdit/Pages';
+
 
 function AppRoutes({ $menuToggle }) {
     return (
@@ -22,7 +22,6 @@ function AppRoutes({ $menuToggle }) {
             </Route>
             <Route path="/users" element={<Users $menuToggle={$menuToggle} />} />
             <Route path="/createBetPool" element={<BetPool />} />
-            <Route path="/pages" element={<Pages />} />
             {/* <Route path="/components" element={<Components />} /> */}
         </Routes>
     );

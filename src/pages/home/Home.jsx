@@ -77,6 +77,14 @@ const Home = () => {
         }
     };
 
+     // Função para comparar datas, ignorando hora, minuto e segundo e mostrar se o bolao hoje
+    const isSameDay = (date1, date2) => {
+        return (
+            date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()
+        );
+    };
     
     return (
         <Container_home >
@@ -85,7 +93,7 @@ const Home = () => {
                     <Container_card key={jogo.id}>
                         <div className="container">
                             <div className="container_top">
-                                <h4 className="acumulado_text">Acumulado</h4>
+                                {jogo.isAcumuled && <h4  className="acumulado_text">Acumulado</h4>}
                                 <div className="container_text">
                                     <h5>Premiação Estimada</h5>
                                     <h3>{jogo.award.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h3>
@@ -101,6 +109,9 @@ const Home = () => {
                                 style={{ backgroundColor: jogo.color }}
                                 onClick={() => {setJogoId(jogo.id), localStorage.setItem("jogoId", jogo.id), getHeight();}}
                             >
+                                {isSameDay(new Date(), new Date(jogo.drawDate.seconds * 1000)) && (
+                                    <span>Hoje</span>
+                                )}
                                 <p>Faça sua aposta!</p>
                                 <FontAwesomeIcon icon={faCirclePlus} />
                             </div>
@@ -111,7 +122,7 @@ const Home = () => {
             <Contests_style style={{backgroundColor: jogoFiltrado?.color}}>
                 <section className="header_contests" >
                     <div className="header_infor">
-                        <p>{jogoFiltrado?.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                        <span>{jogoFiltrado?.price?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
                         <h2  className="title">
                             {jogoFiltrado?.title || "Bolão"}
                         </h2>
@@ -129,14 +140,14 @@ const Home = () => {
                 <section className="menu">
                     <nav>
                         <ul>
-                            <Link style={{ pointerEvents: jogoFiltrado?.status ? "auto" : "none", opacity: jogoFiltrado?.status ? 1 : 0.7 }} className="link" to="/dashboard/jogo">
+                            <Link style={{pointerEvents: jogoFiltrado?.status === "Pausado" ? "none" : "auto", opacity: jogoFiltrado?.status === "Pausado" ? 0.7 : 1 }} className="link" to="/dashboard/jogo">
                                 <li 
                                     style={{
-                                        backgroundColor: jogoFiltrado?.status ? "green" : "#ab0519",
+                                        backgroundColor: jogoFiltrado?.status === "Pausado" ? "#ab0519" : "green",
                                         color: "#ffff"
                                     }}
                                 >
-                                    {jogoFiltrado?.status ? "Apostar" : "Apostas Encerradas"}
+                                    {jogoFiltrado?.status === "Pausado" ? "Apostas Encerradas":  "Apostar"}
                                 </li>
                             </Link>
                             <Link to="/dashboard/myBets" className="link">

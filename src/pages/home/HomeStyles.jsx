@@ -5,7 +5,6 @@ export const Container_home = styled.section`
     position: relative;
     overflow: hidden;
 
-
     .container_cards {
         display: flex;
         width: 100%;
@@ -37,16 +36,7 @@ export const Container_home = styled.section`
                 height: 120px;
             }
         }
-
-        h1 {
-            font-size: 1.6rem;
-            color: #AB0519;
-
-            @media (max-width: 500px) {
-                font-size: 1.2rem;
-            }
-        }
-
+        
         p {
             font-size: 1.1rem;
 
@@ -71,12 +61,11 @@ export const Contests_style = styled.section`
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        padding: 0 0.5em;
-        gap: 5px;
+        padding: 0 1em 1em 1em ;
+        gap: 8px;
 
         @media (max-width:816px) {
             justify-content: center;
-            gap: 0px;
         }
 
         p {
@@ -93,14 +82,11 @@ export const Contests_style = styled.section`
 
         .header_infor {
             display: flex;
-            flex-direction: column;
+            flex-direction:column;
+            flex-direction:;
             align-items: center;
-
-            p {
-                font-size: 1em;
-                font-weight: 900;
-                color: #fff;
-            }
+            gap: 5px;
+            paddding-bottom: 20px;
 
             .title {
                 display: flex;
@@ -111,19 +97,22 @@ export const Contests_style = styled.section`
                 font-size: 1em;
                 font-weight: 700;
                 background-color:#fff;
-                box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.3);
                 color: #000;
-                border-radius: 4px;
-                margin-right: 0.5em;
+                border-radius: 5px;
+            }
 
+            span {
+                font-size:1em;
+                font-weight: 700;
+                color: #fff;
             }
         }
     }
     
     .header_select {
         p {
-            font-size: 01em;
-            font-weight: 900;
+            font-size: 1em;
+            font-weight: 700;
             color: #fff;
         }
     
@@ -134,8 +123,10 @@ export const Contests_style = styled.section`
             background-color: white;
             color: #333;
             font-size: 0.8em;
-            font-weight: 900;
+            font-weight: 700;
             cursor: pointer;
+            padding: 5px;
+            border: none;
 
             @media (max-width: 500px) {
                 font-size: 0.8em;
@@ -257,14 +248,27 @@ export const Container_card = styled.div`
 
         .acumulado_text{
             position: absolute;
-            bottom: 5px;
+            bottom: 8px;
             right: 5px;
-            font-size: 0.6rem;
+            font-size: 0.9rem;
             font-weight: 900;
-            background-color: rgb(61, 67, 60);
             color: #fff;
             border-radius: 4px;
             padding: 0.5em 0.8em;
+            color: #000;
+            animation: acumulado 0.3s linear infinite;
+        }
+
+        @keyframes acumulado {
+            0%{
+                border: 3px solid red;
+            }
+            40%{
+                border: 3px solid  green;
+            }
+            100%{
+                border: 3px solid yellow;
+            }
         }
 
         h5 {
@@ -273,7 +277,7 @@ export const Container_card = styled.div`
         }
 
         h3 {
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 900;
             padding-bottom: 6px;
 
@@ -285,28 +289,30 @@ export const Container_card = styled.div`
         p {
             font-size: 0.9rem;
             font-weight: 900;
-
             @media (max-width: 474px) {
                 font-size: 0.8rem;
             }
         }
 
         .description {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             font-weight: 400;
             height: 40px;
     
         }
 
         .primeio {
-            font-size: 0.7rem;
+            font-size: 1rem;
             font-weight: 900;
         }
 
         .icon {
-            width: 40px;
+            position: absolute;
+            width: 50px;
             height: 50px;
             color: rgba(0, 128, 9, 0.89);
+            right: 10px;
+            top: 10px;
         }
     }
 
@@ -319,6 +325,25 @@ export const Container_card = styled.div`
         border-radius: 0 0 6px 6px;
         color: #fff;
         cursor: pointer;
+
+        span {
+            font-size: 0.8rem;
+            font-weight: 900;
+            animation: alertHoje 0.2s linear infinite;
+            padding: 0.2em 0.8em;
+        }
+
+        @keyframes alertHoje {
+            0%{
+                background-color: red;
+            }
+            40%{
+                background-color: green;
+            }
+            100%{
+                background-color: yellow;
+            }
+        }
 
         p {
             font-size: 0.7rem;

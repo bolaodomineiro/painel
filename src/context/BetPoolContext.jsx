@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { db } from "../firebase/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 // context
 import { useAuthContext } from "./AuthContext";
 
@@ -22,22 +22,27 @@ export const BetPoolProvider = ({ children }) => {
         }
     }, []);
 
+    
     const getJogos = async () => {
-
         try {
-            
+            // Filtra os jogos com status "Aberto" ou "Pausado"
             const jogosCollection = collection(db, "jogos");
-            const jogosSnapshot = await getDocs(jogosCollection);
+            const jogosQuery = query(
+                jogosCollection,
+                where("status", "in", ["Aberto", "Pausado"]) // Filtro para trazer apenas status "Aberto" ou "Pausado"
+            );
+
+            const jogosSnapshot = await getDocs(jogosQuery);
             const jogosList = jogosSnapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id,
             }));
-            
-            if (jogosList.length > 0 ) {
+
+            if (jogosList.length > 0) {
                 setJogos(jogosList);
                 setJogoId(localStorage.getItem("jogoId") || jogosList[0].id);
             }
-            
+
         } catch (error) {
             console.error("Erro ao buscar jogos:", error);
         } finally {
