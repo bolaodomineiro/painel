@@ -250,7 +250,7 @@ export const Container_card = styled.div`
             position: absolute;
             bottom: 8px;
             right: 5px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 900;
             color: #fff;
             border-radius: 4px;

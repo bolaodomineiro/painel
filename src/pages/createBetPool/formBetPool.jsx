@@ -9,10 +9,8 @@ import {
     ImagePreview,
 } from "./formStyles";
 import { saveJogo } from "./betData";
-import { useBetPool } from "../../context/BetPoolContext";
 
 const Formulario = ({ $showForm, $setShowForm }) => {
-    const { setLoading } = useBetPool();
 
     const [formData, setFormData] = useState({
         award: 0,
@@ -20,9 +18,9 @@ const Formulario = ({ $showForm, $setShowForm }) => {
         drawDate: "",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRvIYZiCeA5JRaNTcv-SyryNtKLci1qFjw7DgwVZuHS-JHIsr3h55HNWLZbcH8puIPtOA&usqp=CAU",
         isAcumuled: false,
-        price: 8,
-        prizeQuantity: 6,
-        ticket: 2121,
+        price: "",
+        prizeQuantity: "",
+        ticket: "",
         title: "",
         color: "#aaaaaa",
         status: "Aberto",
@@ -34,6 +32,7 @@ const Formulario = ({ $showForm, $setShowForm }) => {
         setFormData((prevData) => ({
             ...prevData,
             [name]: type === "checkbox" ? checked : value,
+
         }));
     };
 
@@ -55,11 +54,10 @@ const Formulario = ({ $showForm, $setShowForm }) => {
             await saveJogo(formattedData);
             console.log("Jogo salvo com sucesso!");
             $setShowForm(false);
-            setLoading(true);
+            window.location.reload();
+
         } catch (error) {
             console.error("Erro ao cadastrar jogo:", error);
-        }finally {
-            setLoading(false);
         }
     };
 

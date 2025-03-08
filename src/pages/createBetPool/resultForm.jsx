@@ -12,12 +12,10 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { saveResults } from "./betData";
 import {updateAwards} from "./betData"
 import { useResults } from "../../context/ResultsContext";
-import { useBetPool } from "../../context/BetPoolContext";
 
 const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
     const { resultados } = useResults();   
-    const { getJogos } = useBetPool();
 
     const [dataResult, setDataResult] = useState([])
 
@@ -72,7 +70,7 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
             }
 
             $setShowForm(null);
-            await getJogos();
+            window.location.reload();
 
         } catch (error) {
             console.error("Erro ao cadastrar sorteio:", error);

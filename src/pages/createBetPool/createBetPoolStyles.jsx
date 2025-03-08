@@ -24,7 +24,7 @@ export const Container_betPool = styled.section`
             justify-content: space-between;
             gap: 6px;
             border-radius: 8px;
-            background-color:#f2f2f2;
+            background-color:rgb(234, 232, 232);
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
             width: 250px;
             border-radius: 6px;
@@ -133,19 +133,19 @@ export const Container_betPool = styled.section`
                     list-style: none;
                     position: relative;
                     padding-top: 5px ;
-                    gap: 5px;
+                    gap: 4px;
 
                     li {
                         display: flex;
                         justify-content: space-between;
                         width: 100%;
-                        background-color:rgb(214, 214, 214);
+                        background-color:rgb(193, 193, 193);
                         font-size: 0.6rem;
                         padding: 3px 10px;
-                        margin-bottom: 8px;
+                        margin-bottom: 5px;
 
                         &:nth-child(odd) {
-                            background-color:rgb(232, 232, 232);
+                            background-color:rgb(212, 212, 212);
                         }
 
                         .results {
@@ -184,7 +184,8 @@ export const Container_betPool = styled.section`
                 }
 
                 button {
-                        margin: 0 40px;
+                        position: relative;
+                        left: 20%;
                         width: 130px;
                         background-color:green;
                         border: none;
@@ -197,7 +198,6 @@ export const Container_betPool = styled.section`
                         cursor: pointer;
                         transition: all 0.2s;
                         border-radius: 6px;
-                        // margin-top: 7px;
                         outline: none;
 
                         &:hover {
@@ -208,11 +208,11 @@ export const Container_betPool = styled.section`
                     }
             }
 
-            .card-result, .card-rules {
+            .card-result, .card-rules { 
                 ul {
                     overflow-y: auto;
                     padding: 10px 0px;
-                    height: 80px;
+                    height: 60px;
                     margin-bottom: 7px;
 
                     li {
@@ -266,6 +266,27 @@ export const Container_betPool = styled.section`
                 color: red;
                 background-color:rgb(255, 255, 255);
                 width: 92%;
+            }
+
+            .finalizar-btn {
+                padding: 8px 20px;
+                border: none;
+                background-color:#AA0000;
+                color: #fff;
+                font-size: 0.8rem;
+                font-weight: 900;
+                text-align: center;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.2s;
+                border-radius: 6px;
+                margin-top: 7px;
+                outline: none;
+
+                &:hover {
+                    background-color: red;
+                    color: #fff;
+                }
             }
             
         }

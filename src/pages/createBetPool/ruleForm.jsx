@@ -12,14 +12,11 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { saveRules } from "./betData";
 import {updateRules} from "./betData"
 // context
-import { useBetPool } from "../../context/BetPoolContext";
 import { useRules} from "../../context/RulesContext";
 
 
 const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
-
     const { rules } = useRules();
-    const { getJogos } = useBetPool();
 
     const [regras, setRegras] = useState([])
     const [pontos, setpontos] = useState("")
@@ -60,15 +57,14 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
             if(rule === undefined){
                 console.log("Regras criadas com sucesso!");
                 await saveRules(newRules);
-                await getJogos();
             }else{
                 await updateRules(rule?.id, regras);
                 await getJogos();
                 console.log("Regras atualizadas com sucesso!");
             }
-
-            console.log("regra salvo com sucesso!");
+    
             $setShowForm(null);
+            window.location.reload();
         } catch (error) {
             console.error("Erro ao cadastrar regra", error);
         }

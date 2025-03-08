@@ -109,6 +109,7 @@ const BetPool = () => {
                             <button onClick={() =>{ 
                                     setShowForm("rules"), 
                                     setJogoId(jogo.id)
+                                    localStorage.setItem("jogoId", jogo.id)
                                 }}
                             >
                                 Adicionar Regra
@@ -153,6 +154,7 @@ const BetPool = () => {
                             <button onClick={() =>{ 
                                     setShowForm("result"), 
                                     setJogoId(jogo.id)
+                                    localStorage.setItem("jogoId", jogo.id)
                                 }}
                             >
                                 Adicionar Resultado
@@ -162,8 +164,11 @@ const BetPool = () => {
                             <p style={{ backgroundColor: jogo.color }}>{ jogo.isAcumuled ? "Acumulado" : " Não Acumulado " }</p>
                         </div>
                         <p className="status" style={{ color: jogo.status ? "green" : "red" }}>
-                            { jogo.status ? "Aberto" : "Fechado" }
+                            { jogo.status ? "Aberto" : "Pausado" }
                         </p>
+                        <button className="finalizar-btn">
+                            Finalizar Bolão
+                        </button>
                     </div>
 
                 ))}

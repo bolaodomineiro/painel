@@ -52,7 +52,7 @@ export const BetPoolProvider = ({ children }) => {
 
     useEffect(() => {// precisarar muda para trazer somente os boloes que estao em andamento ou pausados
         getJogos();
-    }, [authenticated, jogoId]);
+    }, [authenticated, jogoId, loading]);
     
 
     return (

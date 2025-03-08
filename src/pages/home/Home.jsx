@@ -16,7 +16,7 @@ const Home = () => {
     const elementRef = useRef(null);
 
     const { load, setLoad } = useResults();
-    const {jogos, jogoId, setJogoId, loading } = useBetPool();
+    const {jogos, jogoId, setJogoId, loading} = useBetPool();
     const { hendleScroll } = useScroll();
     const location = useLocation();
     const [active, setActive] = useState("myBest");
@@ -30,7 +30,7 @@ const Home = () => {
         localStorage.setItem("jogoId", jogoId);
         const jogo = jogos.find((jogo) => jogo?.id === jogoId );
         setJogoFiltrado(jogo);
-    },[jogos]);
+    },[jogos, jogoId, setJogoId]);
 
     useEffect(() => {
         const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);
@@ -70,6 +70,8 @@ const Home = () => {
             </div>
         );
     }
+
+    if(jogos.length === 0) return  <section style={{width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center"}}><p>Não existem jogos cadastrados</p></section>
 
     const getHeight = () => {
         if (elementRef.current) {
