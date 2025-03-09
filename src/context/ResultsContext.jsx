@@ -95,28 +95,34 @@ export const ResultsProvider = ({ children }) => {
     const verificaApostaPremiada = async () => {
         let regrasParaAtualizar = [];
         let novosGanhadores = [];
+        let controle = false;
 
         for (const ganhador of ganhadores) {
             for (const regra of rules) {
                 for (const condicao of regra.rules) {
                     if (
                         ganhador.acertos >= condicao.pts &&
-                        (sorteios.length  === condicao.prizeDraw || condicao.prizeDraw === null) &&
+                        (condicao.prizeDraw >= sorteios.length || condicao.prizeDraw === null) &&
                         !condicao.winner
                     ) {
+                        controle = true;
                         novosGanhadores.push({ ...ganhador, rule: condicao.pts, money: condicao.money });
                         if (!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts)) {
                             regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
-                            console.log("if 01", regrasParaAtualizar);
+                            console.log("if 01", { id: regra.id, pts: condicao.pts });
                         }
                         break;
+                    }else{
+                        controle = false;
                     }
-                    // else  if(!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts) && 
-                    //         (typeof condicao.prizeDraw === "number" && condicao.prizeDraw <= sorteios.length && !condicao.winner)) {
-                    //     regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
-                    //     console.log("if 02", regrasParaAtualizar);
-                    //     break
-                    // }
+                    
+                    if(!controle && !regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts) && 
+                        (typeof condicao.prizeDraw === "number" && condicao.prizeDraw <= sorteios.length && !condicao.winner)) {
+                        controle = false;
+                        regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
+                        console.log("if 02", { id: regra.id, pts: condicao.pts });
+                        break
+                    }
                 }
             }
         }

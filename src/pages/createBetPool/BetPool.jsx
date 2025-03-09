@@ -1,4 +1,4 @@
-import  { useState,} from "react"
+import  { useState, useEffect} from "react"
 import { Container_betPool } from "./createBetPoolStyles"
 
 //context
@@ -13,16 +13,21 @@ import RuleForm from "./ruleForm";
 import ResultForm from "./resultForm";
 import Loading from "../../assets/loading.webp"
 
+
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 
 const BetPool = () => {
     const { resultados } = useResults();
     console.log(resultados);
     const { rules } = useRules();
-    const { jogos, loading, setJogoId, jogoId } = useBetPool();
+    const { jogos, loading, setLoading, setJogoId, jogoId } = useBetPool();
 
     const [useSelect, setUseSelect] = useState("Todos")
     const  [showForm, setShowForm] = useState(null);
+
+    useEffect(() => {
+        setLoading(true);
+    }, []);
 
     if (loading) {
         return (
