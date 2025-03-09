@@ -13,10 +13,12 @@ import { saveRules } from "./betData";
 import {updateRules} from "./betData"
 // context
 import { useRules} from "../../context/RulesContext";
+import { useBetPool } from "../../context/BetPoolContext";
 
 
 const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
     const { rules } = useRules();
+    const { setLoading } = useBetPool();
 
     const [regras, setRegras] = useState([])
     const [pontos, setpontos] = useState("")
@@ -59,12 +61,11 @@ const RuleForm = ({$setShowForm, $showForm, jogoId}) => {
                 await saveRules(newRules);
             }else{
                 await updateRules(rule?.id, regras);
-                await getJogos();
                 console.log("Regras atualizadas com sucesso!");
             }
     
             $setShowForm(null);
-            window.location.reload();
+            setLoading(true);
         } catch (error) {
             console.error("Erro ao cadastrar regra", error);
         }

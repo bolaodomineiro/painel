@@ -38,6 +38,11 @@ export const BetPoolProvider = ({ children }) => {
                 id: doc.id,
             }));
 
+            if(jogosList.length === 1) {
+                setJogoId(jogosList[0].id);
+                localStorage.setItem("jogoId", jogosList[0].id);
+            }
+
             if (jogosList.length > 0) {
                 setJogos(jogosList);
                 setJogoId(localStorage.getItem("jogoId") || jogosList[0].id);
@@ -52,6 +57,7 @@ export const BetPoolProvider = ({ children }) => {
 
     useEffect(() => {// precisarar muda para trazer somente os boloes que estao em andamento ou pausados
         getJogos();
+        console.log("rodou", jogoId);
     }, [authenticated, jogoId, loading]);
     
 

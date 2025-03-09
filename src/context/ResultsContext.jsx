@@ -110,12 +110,13 @@ export const ResultsProvider = ({ children }) => {
                             console.log("if 01", regrasParaAtualizar);
                         }
                         break;
-                    }else  if(!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts) && 
-                            (typeof condicao.prizeDraw === "number" && condicao.prizeDraw <= sorteios.length && !condicao.winner)) {
-                        regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
-                        console.log("if 02", regrasParaAtualizar);
-                        break
                     }
+                    // else  if(!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts) && 
+                    //         (typeof condicao.prizeDraw === "number" && condicao.prizeDraw <= sorteios.length && !condicao.winner)) {
+                    //     regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
+                    //     console.log("if 02", regrasParaAtualizar);
+                    //     break
+                    // }
                 }
             }
         }
@@ -131,6 +132,7 @@ export const ResultsProvider = ({ children }) => {
             await updateWinnerByPts(id, pts);
         }
     };
+
 
     useEffect(() => {
 

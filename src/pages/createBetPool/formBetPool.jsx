@@ -9,32 +9,26 @@ import {
     ImagePreview,
 } from "./formStyles";
 import { saveJogo } from "./betData";
+import { useBetPool } from "../../context/BetPoolContext";
 
 const Formulario = ({ $showForm, $setShowForm }) => {
+    const { setLoading } = useBetPool();
 
-    const [formData, setFormData] = useState({
-        award: 0,
-        description: "",
-        drawDate: "",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRvIYZiCeA5JRaNTcv-SyryNtKLci1qFjw7DgwVZuHS-JHIsr3h55HNWLZbcH8puIPtOA&usqp=CAU",
-        isAcumuled: false,
-        price: "",
-        prizeQuantity: "",
-        ticket: "",
-        title: "",
-        color: "#aaaaaa",
-        status: "Aberto",
-        created: new Date(),
-    });
-
-    const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: type === "checkbox" ? checked : value,
-
-        }));
-    };
+  // Inicializando o estado com todos os dados
+const [formData, setFormData] = useState({
+    award: 0,
+    description: "",
+    drawDate: "",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRvIYZiCeA5JRaNTcv-SyryNtKLci1qFjw7DgwVZuHS-JHIsr3h55HNWLZbcH8puIPtOA&usqp=CAU",
+    isAcumuled: false,
+    price: "",
+    prizeQuantity: "",
+    ticket: "",
+    title: "",
+    color: "#000000", // Cor inicial
+    status: "Aberto",
+    created: new Date(),
+});
 
     const handleSaveJogo = async (event) => {
         event.preventDefault();
@@ -54,12 +48,23 @@ const Formulario = ({ $showForm, $setShowForm }) => {
             await saveJogo(formattedData);
             console.log("Jogo salvo com sucesso!");
             $setShowForm(false);
-            window.location.reload();
+            setLoading(true);
 
         } catch (error) {
             console.error("Erro ao cadastrar jogo:", error);
         }
     };
+
+    // Função que lida com a mudança de valores dos inputs
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        console.log(name, value, type, checked);
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: type === "checkbox" ? checked : value,
+        }));
+    };
+
 
     return (
         <Container $showForm={$showForm === "create"}>
@@ -84,11 +89,11 @@ const Formulario = ({ $showForm, $setShowForm }) => {
                 <section className="data-color">
                     <FormGroup>
                         <Label>Data do Sorteio:</Label>
-                        <Input type="datetime-local" name="drawDate" value={formData.drawDate} onChange={handleChange} required />
+                        <Input type="datetime-local" name="drawDate" value={formData.drawDate} onChange={handleChange}  required />
                     </FormGroup>
                     <FormGroup>
                         <Label>Cor:</Label>
-                        <Input type="color" name="color" value={formData.color} onChange={handleChange} className="color-input" required />
+                        <Input  type="color" name="color" value={formData.color} onChange={handleChange} className="color-input"  />
                     </FormGroup>
                 </section>
 

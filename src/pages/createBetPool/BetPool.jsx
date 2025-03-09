@@ -1,11 +1,12 @@
-import  { useState, useEffect } from "react"
+import  { useState,} from "react"
 import { Container_betPool } from "./createBetPoolStyles"
 
 //context
 import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
 import {useRules} from "../../context/RulesContext"
-import {getResults} from "./betData"
+import {useResults} from "../../context/ResultsContext"
+
 //components
 import FormBetPool from "./formBetPool";
 import RuleForm from "./ruleForm";
@@ -15,22 +16,13 @@ import Loading from "../../assets/loading.webp"
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 
 const BetPool = () => {
-
+    const { resultados } = useResults();
+    console.log(resultados);
     const { rules } = useRules();
     const { jogos, loading, setJogoId, jogoId } = useBetPool();
 
     const [useSelect, setUseSelect] = useState("Todos")
     const  [showForm, setShowForm] = useState(null);
-    const [results, setResults] = useState([]);
-
-
-    useEffect(() => {
-        const getResultados = async () => {
-            const newResults = await getResults();
-            setResults(newResults);
-        };
-        getResultados();
-    }, []);
 
     if (loading) {
         return (
@@ -119,17 +111,18 @@ const BetPool = () => {
                         <div className="card-result">
                             <h4> Resultados:</h4> 
                             <ul>
-                                {results?.length > 0 &&
+                                {resultados?.length > 0 &&
                                     <>
                                         {
-                                            results
+                                            resultados
                                                 .filter((r) => r.jogo_id === jogo.id) // Filtra apenas os que correspondem ao jogo.id
                                                 .map((item, index) => {
                                                     // Ordena pelo campo prizeDraw dentro do array results
-                                                    const sortedResults = item.results.sort((a, b) => a.prizeDraw - b.prizeDraw);
+                                                    // console.log(item);
+                                                    // const sortedResults = item.results.sort((a, b) => a.prizeDraw - b.prizeDraw);
                                                     return (
                                                         <div key={index}>
-                                                            {sortedResults.map((result, index) => (
+                                                            {item.results.sort((a, b) => a.prizeDraw - b.prizeDraw).map((result, index) => (
                                                                 <div key={index}>
                                                                     <li style={{ flexDirection: "column" }}>
                                                                         <h3>{result.prizeDraw}º Sorteio</h3>

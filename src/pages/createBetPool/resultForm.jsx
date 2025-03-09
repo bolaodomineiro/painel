@@ -12,10 +12,13 @@ import { faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { saveResults } from "./betData";
 import {updateAwards} from "./betData"
 import { useResults } from "../../context/ResultsContext";
+import { useBetPool } from "../../context/BetPoolContext";
+import {getResults} from "./betData"
 
 const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
-    const { resultados } = useResults();   
+    const { resultados, setLoad, load } = useResults(); 
+    const { setLoading } = useBetPool();  
 
     const [dataResult, setDataResult] = useState([])
 
@@ -63,14 +66,15 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
             if(resultados === null){
                 await saveResults(newResult);
-                console.log("Jogo salvo com sucesso!");
+                console.log("1 Jogo salvo com sucesso!");
             }else{
                 await updateAwards(resultados[0]?.id, updateResult);
-                console.log("Resultados atualizadas com sucesso!");
+                console.log("2 Resultados atualizadas com sucesso!");
             }
 
             $setShowForm(null);
-            window.location.reload();
+            setLoad(!load);
+            setLoading(true);
 
         } catch (error) {
             console.error("Erro ao cadastrar sorteio:", error);

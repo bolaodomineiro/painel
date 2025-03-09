@@ -24,12 +24,11 @@ const Home = () => {
 
     useEffect(() => {
         console.log("atualizando... toda aplicação em Home");
-        setLoad(!load);
-
         if (!jogoId) return console.log("jogoId is undefined, pagina home");
         localStorage.setItem("jogoId", jogoId);
         const jogo = jogos.find((jogo) => jogo?.id === jogoId );
         setJogoFiltrado(jogo);
+        setLoad(!load);
     },[jogos, jogoId, setJogoId]);
 
     useEffect(() => {

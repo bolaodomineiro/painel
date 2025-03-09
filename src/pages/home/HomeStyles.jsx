@@ -50,6 +50,7 @@ export const Container_home = styled.section`
 
 export const Contests_style = styled.section`
     width: 100%;
+    height: 100%;
     padding-top: 20px;
     
     @media (orientation: landscape) {
@@ -211,6 +212,7 @@ export const Contests_style = styled.section`
     }
 
     .routes_contests {
+        min-height: 50vh;
         padding: 1em 0.5em;
         
         @media (max-width: 500px) {

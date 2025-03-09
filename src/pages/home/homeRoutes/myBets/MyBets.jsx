@@ -96,7 +96,7 @@ const MyBets = () => {
                                     <div>
                                         <div className="title-price">
                                             <h4 className="title">{aposta.title}</h4>
-                                            {/* <p  className="price">{aposta.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p> */}
+                                            <p  className="price">{aposta.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
                                         </div>
                                         <div className="balls-container">
                                             <div className="balls">
@@ -119,9 +119,9 @@ const MyBets = () => {
                                         </div>
                                         <div className="date">
                                             <h4>Data do Sorteio</h4>
-                                            {/* <p>{`${aposta.drawDate?.toDate ? aposta.drawDate.toDate().toLocaleString() : new Date(aposta.drawDate).toLocaleString()}`}</p> */}
+                                            <p>{`${aposta.drawDate?.toDate ? aposta.drawDate.toDate().toLocaleString() : new Date(aposta.drawDate).toLocaleString()}`}</p>
                                             <h4>Data da Aposta</h4>
-                                            {/* <p>{new Date(aposta.created.seconds * 1000).toLocaleString()}</p> */}
+                                            <p>{new Date(aposta.created.seconds * 1000).toLocaleString()}</p>
                                         </div>
                                     </div>
                                     <div className="action-status">
