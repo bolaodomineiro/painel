@@ -13,7 +13,7 @@ import { saveResults } from "./betData";
 import {updateAwards} from "./betData"
 import { useResults } from "../../context/ResultsContext";
 import { useBetPool } from "../../context/BetPoolContext";
-import {getResults} from "./betData"
+
 
 const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
@@ -22,6 +22,7 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
     const [dataResult, setDataResult] = useState([])
 
+    const [extracao, setExtracao] = useState("")
     const [sorteio, setSorteio] = useState("")
     const [premio, setPremio] = useState("")
     const [resultado, setResultado] = useState("")
@@ -50,14 +51,16 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
                 results:[{ 
                     awards: dataResult,
                     drawDate: new Date(),
-                    prizeDraw: sorteio
+                    prizeDraw: sorteio,
+                    extraction: extracao
                 }]
             }
 
             const updateResult = {
                 awards: dataResult,
                 drawDate: new Date(),
-                prizeDraw: sorteio
+                prizeDraw: sorteio,
+                extraction: extracao
             }
 
             if (!res) {
@@ -86,6 +89,16 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
             <Form onSubmit={handleSaveResult}>
                 <h2 className="title">Cadastra Resultados do Jogo</h2>
                 <section className="rule-container">
+                <FormGroup className="pts">
+                        <Label>Extração</Label>
+                        <Input 
+                            type="text" 
+                            value={extracao} 
+                            onChange={(e)=> setExtracao(e.target.value)} 
+                            className="award"
+                            placeholder="Ex: Loteria Federal "
+                        />
+                    </FormGroup>
                     <FormGroup className="pts">
                         <Label>Sorteio</Label>
                         <Input 

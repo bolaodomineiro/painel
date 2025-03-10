@@ -91,7 +91,7 @@ export const Container = styled.div`
     }
 
     .rule-preview {
-        height: 210px;
+        height: 140px;
         margin-top: 5px;
         margin-bottom: 10px;
         border-radius: 5px;

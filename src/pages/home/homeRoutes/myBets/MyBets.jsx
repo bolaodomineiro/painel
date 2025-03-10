@@ -162,7 +162,7 @@ const MyBets = () => {
                 ) : (
                     <div className="not_sorteio">
                         {status && <div className="loading"> <p>Buscando suas apostas</p> <Loading /> </div>}
-                        {!status && apostas.length === 0 && <p>Você ainda não fez nenhuma aposta. As apostas se encerram em breve. <FontAwesomeIcon className="icon" icon={faClock} /></p>}
+                        {!status && apostas.length === 0 && <p>Você ainda não fez nenhuma aposta. Clique em apostar para começar ! <FontAwesomeIcon className="icon" icon={faClock} /></p>}
                     </div>
                 )}
             </div>

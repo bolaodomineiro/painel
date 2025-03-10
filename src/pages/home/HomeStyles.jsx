@@ -265,7 +265,7 @@ export const Container_card = styled.div`
             0%{
                 border: 3px solid red;
             }
-            40%{
+            50%{
                 border: 3px solid  green;
             }
             100%{

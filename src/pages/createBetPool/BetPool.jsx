@@ -5,7 +5,8 @@ import { Container_betPool } from "./createBetPoolStyles"
 import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
 import {useRules} from "../../context/RulesContext"
-import {useResults} from "../../context/ResultsContext"
+//functions
+import {getResults} from "./betData"
 
 //components
 import FormBetPool from "./formBetPool";
@@ -17,13 +18,21 @@ import Loading from "../../assets/loading.webp"
 const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
 
 const BetPool = () => {
-    const { resultados } = useResults();
-    console.log(resultados);
+
     const { rules } = useRules();
     const { jogos, loading, setLoading, setJogoId, jogoId } = useBetPool();
 
     const [useSelect, setUseSelect] = useState("Todos")
     const  [showForm, setShowForm] = useState(null);
+    const [resultados, setResultados] = useState([]);
+
+    useEffect(() => {
+        const hendleResults = async () => {
+            const getResultados = await getResults()
+            setResultados(getResultados); 
+        }
+        hendleResults();
+    }, [loading]);
 
     useEffect(() => {
         setLoading(true);

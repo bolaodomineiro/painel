@@ -95,23 +95,24 @@ const Home = () => {
                         <div className="container">
                             <div className="container_top">
                                 {jogo.isAcumuled && <h4  className="acumulado_text">Acumulado</h4>}
+                                {jogo.status === "Pausado" && <h4 style={{backgroundColor: "#AF0000", color: "white"}}  className="acumulado_text">Finalizado !</h4>}
                                 <div className="container_text">
                                     <h5>Premiação Estimada</h5>
                                     <h3>{jogo.award.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h3>
                                     <p>{jogo.title}</p>
                                     <p className="description">{jogo.description}</p>
-                                    <span className="primeio">{jogo.prizeQuantity} Premiações</span>
+                                    <span className="primeio">{jogo.prizeQuantity} Prêmiação</span>
                                 </div>
                                 <FontAwesomeIcon icon={faDollarSign} className="icon" />
                             </div>
                             <div
                                 ref={elementRef}
                                 className="container_bottom"
-                                style={{ backgroundColor: jogo.color }}
+                                style={{ backgroundColor: jogo.color}}
                                 onClick={() => {setJogoId(jogo.id), localStorage.setItem("jogoId", jogo.id), getHeight();}}
                             >
                                 {isSameDay(new Date(), new Date(jogo.drawDate.seconds * 1000)) && (
-                                    <span>Hoje</span>
+                                    jogo.status === "Pausado" && " " || <span>Hoje</span>
                                 )}
                                 <p>Faça sua aposta!</p>
                                 <FontAwesomeIcon icon={faCirclePlus} />
@@ -141,10 +142,10 @@ const Home = () => {
                 <section className="menu">
                     <nav>
                         <ul>
-                            <Link style={{pointerEvents: jogoFiltrado?.status === "Pausado" ? "none" : "auto", opacity: jogoFiltrado?.status === "Pausado" ? 0.7 : 1 }} className="link" to="/dashboard/jogo">
+                            <Link style={{pointerEvents: jogoFiltrado?.status === "Pausado" ? "none" : "auto"}} className="link" to="/dashboard/jogo">
                                 <li 
                                     style={{
-                                        backgroundColor: jogoFiltrado?.status === "Pausado" ? "#ab0519" : "green",
+                                        backgroundColor: jogoFiltrado?.status === "Pausado" ? "#AF0000" : "#62AD07",
                                         color: "#ffff"
                                     }}
                                 >

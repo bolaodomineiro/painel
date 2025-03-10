@@ -21,7 +21,8 @@ export const extractLottoBalls = async (jogoId, resultados,  setSorteios) => {
         return {
             balls: extractedNumbers.flat(), // Une todas as dezenas
             prizeDraw: result.prizeDraw,
-            drawDate: result.drawDate
+            drawDate: result.drawDate,
+            extraction: result.extraction
         };
     });
     console.log("Novos sorteios extraídos: em extractLottoBalls", novosSorteios);

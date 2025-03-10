@@ -65,11 +65,10 @@ export const Container_resultsBets = styled.section`
                 .result_box_header {
                     display: flex;
                     align-items: center;
-                    justify-content: center;
                     background-color: rgb(241, 241, 241);
                     width: 100%;
-                    gap: 160px;
-                    padding: 10px;
+                    gap: 20px;
+                    padding: 10px 20px;
 
                     @media (max-width: 610px) {
                         gap: 10px;

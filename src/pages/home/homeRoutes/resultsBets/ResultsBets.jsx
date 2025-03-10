@@ -42,7 +42,7 @@ const ResultsBets = () => {
                                     <div className="result_box" key={index}>
                                         <div className="result_box_header">
                                             <h3>{sorteio.prizeDraw}º Sorteio</h3>
-                                            <p>{new Date(sorteio.drawDate.seconds * 1000).toLocaleString()} - RIO</p>
+                                            <p>{new Date(sorteio.drawDate.seconds * 1000).toLocaleString()} - {sorteio.extraction}</p>
                                         </div>
                                         <div className="container_balls">
                                             {
