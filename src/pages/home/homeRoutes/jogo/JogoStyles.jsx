@@ -74,16 +74,21 @@ export const Container_jogo = styled.section`
 
         .balls-container {
             display: flex;
-            width: 90%;
+            width: 99%;
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 17px;
-            border-radius: 6px;
+            gap: 10px;
+            border-radius: 4px;
 
-            @media (max-width: 575px) { 
-                width: 100%;
-                gap: 10px;
+
+            @media (max-width: 450px) { 
+                padding: 0 20px;
+                
+            }
+
+            @media (max-width: 390px) { 
+                padding: 0 5px;
             }
 
             .balls {

@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const Container_winners = styled.section`
     display: flex;
-    justify-content: center;
-    background: #fff;
-    height: auto;
     width: 100%;
-    padding: 50px 0  30px 0;
+    padding: 50px 10px;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
 
     .winners_area {
-        width: 95%;
+        width: 100%;
         display: flex;
         align-items: center;
         flex-direction: column;

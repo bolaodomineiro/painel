@@ -213,7 +213,7 @@ export const Contests_style = styled.section`
 
     .routes_contests {
         min-height: 50vh;
-        padding: 1em 0.5em;
+        padding: 1rem 1rem;
         
         @media (max-width: 500px) {
             padding-bottom: 100px;

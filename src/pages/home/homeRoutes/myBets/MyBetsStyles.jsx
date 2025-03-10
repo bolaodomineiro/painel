@@ -31,17 +31,17 @@ export const Container_bets = styled.section`
 
         .bets {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             width: 100%;
             align-items: center;
             margin-top: 20px;
+            justify-content: space-around;
 
             @media (max-width: 665px) {
                 max-width: 300px;
             }
             
             .aposta {
-                width: 100%;
                 flex-wrap: wrap;
                 align-items: center;
                 justify-content: space-between;

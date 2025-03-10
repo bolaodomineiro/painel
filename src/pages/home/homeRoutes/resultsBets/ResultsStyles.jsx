@@ -52,7 +52,7 @@ export const Container_resultsBets = styled.section`
             gap: 20px;
 
             .result_box {
-                width: 100%; ;
+                width: 100%; 
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
