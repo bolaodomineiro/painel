@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container_awards = styled.section`
     display: flex;
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px 10px 30px 10px;
     justify-content: center;
     align-items: center;
     background: #fff;
@@ -13,7 +13,7 @@ export const Container_awards = styled.section`
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 30px;
 
 
         .awards_area_header {
@@ -61,53 +61,74 @@ export const Container_awards = styled.section`
 
     .awards_area_main {
         width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        overflow: auto;
 
+        
         .award_box {
             display: flex;
+            height: 50px;
             width: 100%;
             min-width: 750px;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
             background-color:rgb(229, 229, 229);
             border-radius: 8px;
             box-shadow: 1px 1px 5px rgba(46, 46, 46, 0.3);
             margin: auto;
-            padding: 0px 20px;
+            margin-bottom: 10px;
+
 
             &:nth-child(even) {
                 background-color:rgb(203, 203, 203);
             }
 
-
             div {
                 display: flex;
+                align-items: center;
+                justify-content: center;
                 flex-direction: column;
                 height: 100%;
-                border-radius:  8px;
+            }
+
+            .number {
+                color:#fff;
+                padding: 0 20px;
+                border-radius: 8px 0 0 8px;
             }
 
             .pts {
-                padding: 10px;
-                align-items: start;
+                width: 290px;
+                align-items: flex-start;
+                gap: 5px;
+                padding: 0 10px;
+            }
+
+            .money {
+                color:#fff;
+                width: 120px;
+                gap: 5px;
+                background-color: #008000;
+            }
+
+            .winners {
+                color:#fff;
+                width: 120px;
+                gap: 5px;
+                border-radius: 0 8px 8px 0;
+                
+                p {
+                    font-size: 0.8rem;
+                    font-weight: 900;
+                }
             }
 
             h4 {
                 font-size: 0.8rem;
                 font-weight: 900;
-                text-align: center;
-                padding-bottom: 5px ;
             }
 
             p {
                 font-size: 0.7rem;
-                font-weight: 700;
+                font-weight: 400;
                 text-align: center;
             }
 

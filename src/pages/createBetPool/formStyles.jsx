@@ -30,6 +30,7 @@ export const Container = styled.div`
         .color-input {
             width: 25px;
             height: 25px;
+
         }
     }
 
@@ -215,7 +216,6 @@ export const Input = styled.input`
     border: 1px solid #ccc;
     border-radius: 4px;
     height: 25px;
-    padding: 10px;
 `;
 
 export const Button = styled.button`
