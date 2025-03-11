@@ -25,7 +25,7 @@ const Awards = () => {
 
         setTimeout(() => {
             setStatus(false);
-        },1000)
+        },5000)
     }, [jogoId]);
 
     useEffect(() => {
