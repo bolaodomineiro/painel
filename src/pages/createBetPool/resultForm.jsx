@@ -17,7 +17,7 @@ import { useBetPool } from "../../context/BetPoolContext";
 
 const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
 
-    const { resultados, setLoad, load } = useResults(); 
+    const { resultados } = useResults(); 
     const { setLoading } = useBetPool();  
 
     const [dataResult, setDataResult] = useState([])
@@ -76,7 +76,6 @@ const ResultForm = ({$setShowForm, $showForm, jogoId}) => {
             }
 
             $setShowForm(null);
-            setLoad(!load);
             setLoading(true);
 
         } catch (error) {
