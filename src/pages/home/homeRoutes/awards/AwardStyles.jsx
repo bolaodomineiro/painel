@@ -14,6 +14,7 @@ export const Container_awards = styled.section`
         flex-direction: column;
         align-items: center;
         gap: 30px;
+        overflow: auto;
 
 
         .awards_area_header {

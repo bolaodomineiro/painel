@@ -63,8 +63,8 @@ const Awards = () => {
                                                 { r?.money ? <p>{r?.money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p> : <p>A Definir..</p>}
                                             </div>
                                             <div className="winners" style={{ backgroundColor: jogo?.color }}>
-                                                { winners.length > 0 && <h4> {(winners.map((winner) => winner.money) / (winners?.filter((winner) => winner.rule === r?.pts).length )).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4>}
-                                                { winners.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts).length } Ganhador </p> :  resultados.length === 0 ? <p>Bolão ainda não começou....</p> : <p>Nenhum ganhador</p>}
+                                                { winners?.length > 0 && <h4> {(winners?.map((winner) => winner?.money) / (winners?.filter((winner) => winner?.rule === r?.pts).length )).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4>}
+                                                { winners?.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts)?.length } Ganhador </p> :  resultados?.length === 0 ? <p>Bolão ainda não começou....</p> : <p>Nenhum ganhador</p>}
                                             </div>
                                         </div>
                                     ))}
