@@ -82,6 +82,26 @@ export const Container_awards = styled.section`
                 background-color:rgb(203, 203, 203);
             }
 
+            .loading {
+                flex-direction: row;
+                gap: 10px;
+                
+                .icon {
+                    font-size: 1.2rem;
+                    animation: spin 3s infinite linear;
+                }
+                
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
             div {
                 display: flex;
                 align-items: center;
@@ -115,6 +135,7 @@ export const Container_awards = styled.section`
                 width: 120px;
                 gap: 5px;
                 border-radius: 0 8px 8px 0;
+                padding: 0 10px;
                 
                 p {
                     font-size: 0.8rem;

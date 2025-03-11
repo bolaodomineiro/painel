@@ -7,6 +7,9 @@ import {useBetPool} from "../../../../context/BetPoolContext";
 import { useWinners } from "../../../../context/WinnerContex";
 import { useResults } from "../../../../context/ResultsContext";
 
+// icones 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faClock} from "@fortawesome/free-solid-svg-icons";
 
 
 const Awards = () => {
@@ -15,12 +18,13 @@ const Awards = () => {
     const {jogos,  jogoId } = useBetPool();
     const { winners } = useWinners();
     console.log(winners);
-    const { resultados } = useResults();
+    const { resultados, setLoad, load } = useResults();
 
     const [jogo, setJogo] = useState([]);
     const [status, setStatus] = useState(true);
     
     useEffect(() => {
+        setLoad(!load);
         setStatus(true);
 
         setTimeout(() => {
@@ -59,12 +63,12 @@ const Awards = () => {
                                                 <p>Ganha ao completar {r.pts} Pontos até o {r?.prizeDraw === null ? "Bolão Finalizar." : r?.prizeDraw + "º Sorteio."}</p>
                                             </div>
                                             <div className="money">
-                                                <h4>Prêmio</h4>
+                                                <h4>Prêmio Total</h4>
                                                 { r?.money ? <p>{r?.money.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p> : <p>A Definir..</p>}
                                             </div>
                                             <div className="winners" style={{ backgroundColor: jogo?.color }}>
-                                                { winners?.length > 0  && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <h4> {(winners?.map((winner) => winner?.money) / (winners?.filter((winner) => winner?.rule === r?.pts).length )).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4> : "" }
-                                                { winners?.length > 0 && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts)?.length } Ganhador </p> :  resultados?.length === 0 ? <p>Bolão ainda não começou....</p> : <p>Nenhum ganhador</p>}
+                                                { winners?.length > 0  && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <h4>{( r.money / winners?.filter((winner) => winner?.rule === r?.pts).length).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4> : "" }
+                                                { winners?.length > 0 && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts)?.length === 1 ? "1 Ganhador" : `${winners?.filter((winner) => winner.rule === r?.pts)?.length} Ganhadores` }</p> :  resultados?.length === 0 ? <p>Bolão ainda não começou....</p> : r?.prizeDraw === null || r?.prizeDraw > resultados?.length && winners?.filter((winner) => winner.rule === r?.pts)?.length > 1 ? <div className="loading"> <FontAwesomeIcon className="icon" icon={faClock} /> <div><p>Aguardando </p> <p>{resultados.length + 1}º Sorteio </p></div></div> :  <p>Nenhum Ganhador</p> }
                                             </div>
                                         </div>
                                     ))}
@@ -84,3 +88,5 @@ const Awards = () => {
 };
 
 export default Awards
+
+
