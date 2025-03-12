@@ -18,7 +18,7 @@ const Awards = () => {
     const {jogos,  jogoId } = useBetPool();
     const { winners } = useWinners();
     console.log(winners);
-    const { resultados, setLoad, load } = useResults();
+    const { resultados, setLoad, load, sorteios } = useResults();
 
     const [jogo, setJogo] = useState([]);
     const [status, setStatus] = useState(true);
@@ -68,7 +68,7 @@ const Awards = () => {
                                             </div>
                                             <div className="winners" style={{ backgroundColor: jogo?.color }}>
                                                 { winners?.length > 0  && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <h4>{( r.money / winners?.filter((winner) => winner?.rule === r?.pts).length).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4> : "" }
-                                                { winners?.length > 0 && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts)?.length === 1 ? "1 Ganhador" : `${winners?.filter((winner) => winner.rule === r?.pts)?.length} Ganhadores` }</p> :  resultados?.length === 0 ? <p>Bolão ainda não começou....</p> : r?.prizeDraw === null || r?.prizeDraw > resultados?.length && winners?.filter((winner) => winner.rule === r?.pts)?.length > 1 ? <div className="loading"> <FontAwesomeIcon className="icon" icon={faClock} /> <div><p>Aguardando </p> <p>{resultados.length + 1}º Sorteio </p></div></div> :  <p>Nenhum Ganhador</p> }
+                                                { winners?.length > 0 && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts)?.length === 1 ? "1 Ganhador" : `${winners?.filter((winner) => winner.rule === r?.pts)?.length} Ganhadores` }</p> :  resultados?.length === 0 ? <p>Bolão ainda não começou....</p> : r?.prizeDraw === null || r?.prizeDraw > resultados?.length && winners?.filter((winner) => winner.rule === r?.pts)?.length > 1 ? <div className="loading"> <FontAwesomeIcon className="icon" icon={faClock} /> <div><p>Aguardando </p> <p>{sorteios.length + 1}º Sorteio </p></div></div> :  <p>Nenhum Ganhador</p> }
                                             </div>
                                         </div>
                                     ))}
