@@ -61,7 +61,7 @@ const ViewTicketModal = ({setViewBilhete, viewBilhete, winner_id }) => {
                         </div>
                         <div>
                             <h3>Cidade</h3>
-                            <p>{winnerItem?.ganhador?.city}- PE</p>
+                            <p>{winnerItem?.ganhador?.city} - {winnerItem?.ganhador?.state}</p>
                         </div>
                     </div>
                 </div>

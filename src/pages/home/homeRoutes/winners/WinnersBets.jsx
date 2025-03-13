@@ -57,7 +57,7 @@ const WinnersBets = () => {
                                         <div className="userInfo">
                                             <h4>Nome</h4>
                                             <p>{winner.ganhador?.name.split(" ").slice(0, 2).join(" ")} ...</p>
-                                            <p>{ winner.ganhador?.city.split(" ")[0]} - PE</p>
+                                            <p>{ winner.ganhador?.city.split(" ")[0]} - {winner.ganhador?.state}</p>
                                         </div>
                                         <div className="prize" >
                                             <h4>Prêmio</h4>

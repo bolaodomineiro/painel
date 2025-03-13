@@ -101,7 +101,7 @@ const Table = ({ useSelect }) => {
               </li>
               <li>{user.name?.split(" ").slice(0, 2).join(" ")}</li>
               <li> {user.phone} </li>
-              <li>{user.city}</li>
+              <li>{user.city} - {user.state}</li>
               <li>{formatBalance(user.balance)}</li>
               <li>
                 <FontAwesomeIcon
