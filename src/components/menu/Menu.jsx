@@ -4,14 +4,11 @@ import { Aside } from "./MenuStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGauge, faUser, faGear, faSignOutAlt, faClover } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../logo/Logo";
-import { useBetPool } from "../../context/BetPoolContext";
 import { useAuthContext } from "../../context/AuthContext";
 
 const Menu = ({ $menuToggle, $setTitle }) => {
 
-    const { logoutUser } = useAuthContext();
-    const {setBalls, setApostas } = useBetPool();
-    
+    const { logoutUser, user } = useAuthContext();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -69,6 +66,8 @@ const Menu = ({ $menuToggle, $setTitle }) => {
     }, [location.pathname, $setTitle]);
 
 
+
+
     return (
         <Aside $menuToggle={$menuToggle}>
             <div className="logo_area">
@@ -82,36 +81,22 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                         Dashboard
                     </li>
                 </Link>
-                <Link className="link" to="/users">
-                    <li className={active === "/users" ? "active" : ""}>
-                        <FontAwesomeIcon className="icon" icon={faUser} />
-                        Usuários
-                    </li>
-                </Link>
-                <Link className="link" to="/createBetPool">
-                    <li className={active === "/createBetPool" ? "active" : ""}>
-                        <FontAwesomeIcon className="icon" icon={faClover} />
-                        Bolões
-                    </li>
-                </Link>
-                {/* <Link className="link" to="/contests">
-                    <li className={active === "contests" ? "active" : ""}>
-                        <FontAwesomeIcon className="icon" icon={faClover} />
-                        Concursos
-                    </li>
-                </Link> */}
-                {/* <Link className="link" to="/pages">
-                    <li className={active === "pages" ? "active" : ""}>
-                        <FontAwesomeIcon className="icon" icon={faFileLines} />
-                        Paginas
-                    </li>
-                </Link> */}
-                {/* <Link className="link" to="/components">
-                    <li className={active === "components" ? "active" : ""}>
-                        <FontAwesomeIcon className="icon" icon={faLayerGroup} />
-                        Componentes
-                    </li>
-                </Link> */}
+                {user?.isAdmin === true  &&
+                    <>
+                        <Link className="link" to="/users">
+                            <li className={active === "/users" ? "active" : ""}>
+                                <FontAwesomeIcon className="icon" icon={faUser} />
+                                Usuários
+                            </li>
+                        </Link>
+                        <Link className="link" to="/createBetPool">
+                            <li className={active === "/createBetPool" ? "active" : ""}>
+                                <FontAwesomeIcon className="icon" icon={faClover} />
+                                Bolões
+                            </li>
+                        </Link>
+                    </>
+                }
                 <li className="logout-button" onClick={logoutUser}>
                     <FontAwesomeIcon className="icon" icon={faSignOutAlt} />
                     Sair

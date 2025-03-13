@@ -54,6 +54,7 @@ export const AuthProvider = ({ children }) => {
       const user = userCredential.user;
       getuser(user.uid);
       localStorage.setItem("userId", user.uid);
+      console.log("Login realizado com sucesso!");
       navigate("/dashboard/jogo"); // Redireciona após login
       return { success: true, message: "Login realizado com sucesso!" };
     } catch (error) {
@@ -78,12 +79,15 @@ export const AuthProvider = ({ children }) => {
   // Função para obter os dados do usuário
   const getuser = async (userId) => {
     if (!userId) return { success: false, message: "userId não encontrado." };
-    const userRef = doc(db, "users", userId);
-    const userDoc = await getDoc(userRef);
+      const userRef = doc(db, "users", userId);
+      const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       setAuthenticated(true);
       setUserId(userId);
       setUser(userDoc.data());
+      const user = userDoc.data();
+      localStorage.setItem("isAdmin", localStorage.getItem("isAdmin") || user.isAdmin);
+
     } else {
       console.log("Usuário não encontrado.");
       return { success: false, message: "Usuário não encontrado." };
