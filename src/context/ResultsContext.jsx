@@ -106,7 +106,7 @@ export const ResultsProvider = ({ children }) => {
                         !condicao.winner
                     ) {
                         controle = true;
-                        novosGanhadores.push({ ...ganhador, rule: condicao.pts, money: condicao.money });
+                        novosGanhadores.push({ ...ganhador, rule: condicao.pts, money: condicao.money, prize_status: true });
                         if (!regrasParaAtualizar.some(item => item.id === regra.id && item.pts === condicao.pts)) {
                             regrasParaAtualizar.push({ id: regra.id, pts: condicao.pts });
                             console.log("if 01", { id: regra.id, pts: condicao.pts });

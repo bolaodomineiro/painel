@@ -7,6 +7,7 @@ export const Container_winners = styled.section`
     justify-content: center;
     align-items: center;
     background: #fff;
+    
 
     .winners_area {
         width: 100%;
@@ -112,13 +113,13 @@ export const Container_winners = styled.section`
                     align-items: center;
                     justify-content: center;
                     flex-direction: column;
-                    background-color:rgb(212, 212, 212);
                     color: #000;
                     width: 120px;
                     padding: 0 15px;
 
                     p {
                         color: green;
+                        font-size: 1rem;
                         font-weight: 900;
                     }
                 }

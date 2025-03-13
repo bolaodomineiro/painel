@@ -6,6 +6,7 @@ import { useWinners } from "../../../../context/WinnerContex";
 import { useResults } from "../../../../context/ResultsContext";
 // components
 import Loading from "../../../../components/loading/Loading";
+import ViewTicketModal from "../../../../components/viewTicketModal/ViewTicketModal";
 // icones 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
@@ -15,10 +16,13 @@ const WinnersBets = () => {
 
     const { load, setLoad, resultados } = useResults();
     const { winners } = useWinners();
-    const {jogos,  jogoId } = useBetPool();
+    const {jogos,  jogoId, setJogoId } = useBetPool();
 
     const [jogo, setJogo] = useState([]);
     const [status, setStatus] = useState(true);
+    const [viewBilhete, setViewBilhete] = useState(false)
+    const [winnerId, setWinnerId] = useState(null);
+    const [valuePremio, setValuePremio] = useState(0);
 
     useEffect(() => {
         setStatus(true);
@@ -66,14 +70,19 @@ const WinnersBets = () => {
                                         </div>
                                         <div>
                                             <h4>Numero do Bilhete</h4>
-                                            <p>123456789</p>
+                                            <p>{winner.aposta.ticket}</p>
                                         </div>
                                         <div className="acertos">
                                             <h4>Pontuação</h4>
                                             <p>{winner.rule} Pontos</p>
                                         </div>
                                         <div>
-                                            <button style={{ backgroundColor: jogo?.color }}>Ver Bilhete</button>
+                                            <button 
+                                                style={{ backgroundColor: jogo?.color }}
+                                                onClick={() => { setViewBilhete(!viewBilhete), setWinnerId(winner.id) }}
+                                            >
+                                                Ver Bilhete
+                                            </button>
                                         </div>
                                     </div>
                                 ))}
@@ -87,6 +96,11 @@ const WinnersBets = () => {
                     </div>
                 )}
             </section>
+            <ViewTicketModal 
+                viewBilhete={viewBilhete} 
+                setViewBilhete={setViewBilhete} 
+                winner_id={winnerId} 
+            />
         </Container_winners>
     );
 };
