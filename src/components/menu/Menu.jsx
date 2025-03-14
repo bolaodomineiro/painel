@@ -8,7 +8,8 @@ import { useAuthContext } from "../../context/AuthContext";
 
 const Menu = ({ $menuToggle, $setTitle }) => {
 
-    const { logoutUser, user } = useAuthContext();
+    const { logoutUser, user, isAdmin } = useAuthContext();
+    console.log(isAdmin);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -81,7 +82,7 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                         Dashboard
                     </li>
                 </Link>
-                {user?.isAdmin === true  &&
+                {isAdmin === true  &&
                     <>
                         <Link className="link" to="/users">
                             <li className={active === "/users" ? "active" : ""}>

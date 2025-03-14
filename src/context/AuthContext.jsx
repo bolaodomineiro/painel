@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(JSON.parse(localStorage.getItem("isAdmin")));
+
   const navigate = useNavigate();
 
   // Verifica a autenticação ao carregar a página
@@ -86,7 +88,9 @@ export const AuthProvider = ({ children }) => {
       setUserId(userId);
       setUser(userDoc.data());
       const user = userDoc.data();
-      localStorage.setItem("isAdmin", localStorage.getItem("isAdmin") || user.isAdmin);
+      localStorage.setItem("isAdmin", JSON.stringify(user.isAdmin));
+      setIsAdmin(user.isAdmin);
+      
 
     } else {
       console.log("Usuário não encontrado.");
@@ -103,7 +107,8 @@ export const AuthProvider = ({ children }) => {
       signInUser, logoutUser,
       userId, setUserId,
       user,
-      getuser
+      getuser,
+      isAdmin
     }}>
       {children}
     </AuthContext.Provider>
