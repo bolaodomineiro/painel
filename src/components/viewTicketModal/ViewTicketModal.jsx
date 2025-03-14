@@ -104,7 +104,7 @@ const ViewTicketModal = ({setViewBilhete, viewBilhete, winner_id }) => {
                     </div>
                 </div>
                 <div className="box_footer">
-                    <h3>Confira todos os bilhetes</h3>
+                    <h3>Confira todos os bilhetes do Ganhador</h3>
                     <div>
                         {myBets.map((myBet, index) => (
                             <div key={index} className="bilhete">

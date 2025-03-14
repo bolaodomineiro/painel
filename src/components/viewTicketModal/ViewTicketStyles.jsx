@@ -27,7 +27,7 @@ export const Container_View = styled.div`
 
     .box {
         background-color: #fff;
-        padding: 10px 10px 20px;
+        padding: 15px 15px 20px;
         border-radius: 5px;
         box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
         display: flex;
@@ -289,6 +289,8 @@ export const Container_View = styled.div`
                 font-size: 1.2rem;
                 padding: 10px;
                 margin-top: 10px;
+                background-color:#f2f2f2;
+                box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
             }
 
             .bilhete {

@@ -27,7 +27,7 @@ function AppRoutes({ $menuToggle }) {
                 <Route path="winnersBets" element={<WinnersBets />} />
                 <Route path="awards" element={<Awards />} />
             </Route>
-            { user?.isAdmin  === true  && 
+            {  user?.isAdmin  === true  && 
                 <>
                     <Route path="/users" element={<Users $menuToggle={$menuToggle} />} />
                     <Route path="/createBetPool" element={<BetPool />} />

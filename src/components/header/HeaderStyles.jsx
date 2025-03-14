@@ -6,10 +6,12 @@ export const Container_header = styled.header`
     align-items: center;
     background: #F3EED9;
     min-height: 50px;
-    width: 100%;
-    padding: ${ props => props.$menuToggle ? "0 45px 0 10px" : "0 175px 0 10px" };
+    transition: all 0.5s;
+    width: ${ props => props.$menuToggle ? "calc(100% - 38px)" : "calc(100% - 170px)" };
+    padding: 0 10px;
     position: fixed;
     top: 0;
+    right: 0;
     gap: 5px;
     z-index: 3;
     box-shadow: 1px 2px 6px #7979797c;

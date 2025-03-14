@@ -70,7 +70,7 @@ const Bilhete = ({id, apostaItem}) => {
                     <p><b>Nome:</b> {user?.name}</p>
                     <p><b>CPF:</b> {user?.CPF || "Sem CPF"}</p>
                     <p><b>Telefone:</b> {user?.phone}</p>
-                    <p><b>Cidade:</b> {user?.city}</p>
+                    <p><b>Cidade:</b> {user?.city} - {user?.state}</p>
                 </section>
             </section>
             <section className="bilhete-bets">

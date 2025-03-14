@@ -8,9 +8,8 @@ import { useAuthContext } from "../../context/AuthContext";
 
 const Menu = ({ $menuToggle, $setTitle }) => {
 
-    const { logoutUser, user, isAdmin } = useAuthContext();
-    console.log(isAdmin);
-
+    const { logoutUser, user, isAdmin  } = useAuthContext();
+ 
     const navigate = useNavigate();
     const location = useLocation();
     const [active, setActive] = useState("/dashboard/jogo");
@@ -50,24 +49,13 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                 $setTitle("Bolões");
                 setActive("/createBetPool");
                 break;
-            // case "contests":
-            //     $setTitle("Concursos");
-            //     break;
-            // case "pages":
-            //     $setTitle("Paginas");
-            //     break;
-            // case "components":
-            //     $setTitle("Componentes");
-            //     break;
+
             default:
                 $setTitle("");
                 break;
         }
 
     }, [location.pathname, $setTitle]);
-
-
-
 
     return (
         <Aside $menuToggle={$menuToggle}>
