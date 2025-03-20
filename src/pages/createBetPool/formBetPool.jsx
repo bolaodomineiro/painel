@@ -25,8 +25,9 @@ const [formData, setFormData] = useState({
     prizeQuantity: "",
     ticket: "",
     title: "",
-    color: "#000000", // Cor inicial
+    color: "#cccccc", // Cor inicial
     status: "Aberto",
+    prizeDraw: "",
     created: new Date(),
 });
 
@@ -116,8 +117,12 @@ const [formData, setFormData] = useState({
 
                 <section className="prize">
                     <FormGroup>
-                        <Label>Quantidade de Prêmios:</Label>
-                        <Input type="number" name="prizeQuantity" value={formData.prizeQuantity} onChange={handleChange} required />
+                        <Label>N de Sorteios:</Label>
+                        <Input className="prizeDraw" type="number" name="prizeDraw" value={formData.prizeDraw} onChange={handleChange} required />
+                    </FormGroup>
+                    <FormGroup >
+                        <Label>N de Prêmios:</Label>
+                        <Input className="prizeQuantity" type="number" name="prizeQuantity" value={formData.prizeQuantity} onChange={handleChange} required />
                     </FormGroup>
                     <FormGroup className="acumulado">
                         <Input type="checkbox" name="isAcumuled" checked={formData.isAcumuled} onChange={handleChange}   />

@@ -11,7 +11,6 @@ import Loading from "../../../../components/loading/Loading";
 import { useBetPool } from "../../../../context/BetPoolContext";
 import { useMyBets } from "../../../../context/MyBetsContext";
 import { useAuthContext } from "../../../../context/AuthContext";
-import { useWinners } from "../../../../context/WinnerContex";
 import { useResults } from "../../../../context/ResultsContext";
 //utils
 import html2canvas from 'html2canvas';
@@ -35,7 +34,7 @@ const MyBets = () => {
 
     useEffect(() => {
         getMyBets(localStorage.getItem("userId"), localStorage.getItem("jogoId"));
-        console.log("carregando .. as aposta do usuario logado");
+        console.log("carregando... as aposta do usuario logado");
     }, [authenticated, jogoId]);
 
     useEffect(() => {

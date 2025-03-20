@@ -44,7 +44,7 @@ const Awards = () => {
                     <>
                         <div className="awards_area_header"> 
                             <p>
-                                Estimativa... <span>{ jogo?.award?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>  MIL REAIS em <span>{rules?.filter((rule) => rule?.jogo_id === jogoId).map((r) => r.rules.length)}</span>  PRÊMIOS 😎
+                                Estimativa... <span>{ jogo?.award?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>  em <span>{ jogo?.prizeQuantity}</span>  PRÊMIOS 😎
                             </p>
                             <p>
                                 ➡️ Os valores dos prêmios serão distribuídos ao iniciar o bolão
@@ -68,7 +68,7 @@ const Awards = () => {
                                             </div>
                                             <div className="winners" style={{ backgroundColor: jogo?.color }}>
                                                 { winners?.length > 0  && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <h4>{( r.money / winners?.filter((winner) => winner?.rule === r?.pts).length).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h4> : "" }
-                                                { winners?.length > 0 && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts)?.length === 1 ? "1 Ganhador" : `${winners?.filter((winner) => winner.rule === r?.pts)?.length} Ganhadores` }</p> :  resultados?.length === 0 ? <p>Bolão ainda não começou....</p> : r?.prizeDraw === null || r?.prizeDraw > resultados?.length && winners?.filter((winner) => winner.rule === r?.pts)?.length > 1 ? <div className="loading"> <FontAwesomeIcon className="icon" icon={faClock} /> <div><p>Aguardando </p> <p>{sorteios.length + 1}º Sorteio </p></div></div> :  <p>Nenhum Ganhador</p> }
+                                                { winners?.length > 0 && winners?.filter((winner) => winner.rule === r?.pts)?.length > 0 ? <p>{ winners?.filter((winner) => winner.rule === r?.pts)?.length === 1 ? "1 Ganhador" : `${winners?.filter((winner) => winner.rule === r?.pts)?.length} Ganhadores` }</p> : jogo?.status === "Pausado" && sorteios?.length >= jogo?.prizeDraw ? <p>Acumulou ...</p> : r?.prizeDraw === null || r?.prizeDraw < sorteios?.length ||  sorteios?.length === 0 && winners?.filter((winner) => winner.rule === r?.pts)?.length === 0 ? <div className="loading"> <FontAwesomeIcon className="icon" icon={faClock} /> <div><p>Aguardando </p> <p>{sorteios.length + 1}º Sorteio </p></div></div> :  <p>Nenhum Ganhador</p> }
                                             </div>
                                         </div>
                                     ))}

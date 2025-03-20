@@ -30,7 +30,6 @@ export const Container = styled.div`
         .color-input {
             width: 25px;
             height: 25px;
-
         }
     }
 
@@ -203,6 +202,10 @@ export const FormGroup = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    .prizeDraw, .prizeQuantity {
+        width: 80px;
+    }
 `;
 
 export const Label = styled.label`
@@ -216,6 +219,7 @@ export const Input = styled.input`
     border: 1px solid #ccc;
     border-radius: 4px;
     height: 25px;
+    padding-left: 5px;
 `;
 
 export const Button = styled.button`

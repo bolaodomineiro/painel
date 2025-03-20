@@ -34,9 +34,9 @@ const BetPool = () => {
         hendleResults();
     }, [loading]);
 
-    useEffect(() => {
-        setLoading(true);
-    }, []);
+    // useEffect(() => {
+    //     setLoading(true);
+    // }, []);
 
     if (loading) {
         return (

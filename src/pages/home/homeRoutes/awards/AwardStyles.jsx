@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container_awards = styled.section`
     display: flex;
     width: 100%;
-    padding: 10px 10px 30px 10px;
+    padding: 30px 20px 30px 20px;
     justify-content: center;
     align-items: center;
     background: #fff;

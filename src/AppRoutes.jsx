@@ -11,6 +11,7 @@ import Awards from './pages/home/homeRoutes/awards/Awards';
 // rotas do painel
 import Users from './pages/users/Users';
 import BetPool from './pages/createBetPool/BetPool';
+import Reports from './pages/reports/Reports';
 // context
 import { useAuthContext } from './context/AuthContext';
 
@@ -31,10 +32,11 @@ function AppRoutes({ $menuToggle }) {
                 <>
                     <Route path="/users" element={<Users $menuToggle={$menuToggle} />} />
                     <Route path="/createBetPool" element={<BetPool />} />
+                    <Route path="/reports" element={<Reports />} />
                 </>
             }
             {/* Redireciona qualquer rota inválida para a página de login */}
-            <Route path="*" element={<Navigate to="/login" replace />} />
+            {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
         </Routes>
     );
 }

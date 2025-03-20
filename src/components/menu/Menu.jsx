@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Aside } from "./MenuStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGauge, faUser, faGear, faSignOutAlt, faClover } from "@fortawesome/free-solid-svg-icons";
+import { faGauge, faUser, faGear, faSignOutAlt, faClover, faSheetPlastic } from "@fortawesome/free-solid-svg-icons";
 import Logo from "../logo/Logo";
 import { useAuthContext } from "../../context/AuthContext";
 
@@ -49,7 +49,10 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                 $setTitle("Bolões");
                 setActive("/createBetPool");
                 break;
-
+            case "/reports":
+                $setTitle("Relatórios");
+                setActive("/reports");
+                break;
             default:
                 $setTitle("");
                 break;
@@ -82,6 +85,12 @@ const Menu = ({ $menuToggle, $setTitle }) => {
                             <li className={active === "/createBetPool" ? "active" : ""}>
                                 <FontAwesomeIcon className="icon" icon={faClover} />
                                 Bolões
+                            </li>
+                        </Link>
+                        <Link className="link" to="/reports">
+                            <li className={active === "/reports" ? "active" : ""}>
+                                <FontAwesomeIcon icon={faSheetPlastic} className="icon" />
+                                Relatórios
                             </li>
                         </Link>
                     </>

@@ -14,6 +14,7 @@ export const saveJogo = async (gameData) => {
             ticket: Number(gameData.ticket),
             prizeQuantity: Number(gameData.prizeQuantity),
             isAcumuled: Boolean(gameData.isAcumuled),
+            prizeDraw: Number(gameData.prizeDraw),
         };
         
         const docRef = await addDoc(gamesCollection, formattedData);
