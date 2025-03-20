@@ -7,12 +7,13 @@ import {useWinners} from "../../context/WinnerContex";
 import {useResults} from "../../context/ResultsContext";
 // icons 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDollarSign, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faDollarSign, faCirclePlus, faDownload } from "@fortawesome/free-solid-svg-icons";
 // components
 import Logo from "../../components/logo/Logo";
 import { useNavigate } from "react-router-dom";
 //utils
 import html2canvas from 'html2canvas';
+import { jsPDF } from "jspdf"; // Importar jsPDF para gerar o PDF
 import  { getBets } from "./ReportData";
 import {getUsers} from "./ReportData";
 
@@ -38,42 +39,86 @@ const Reports = () => {
     const rule = rules.find(rule => rule.jogo_id === jogoId);
 
     const captureReport = async () => {
-    // Seleciona o modal pelo ID (alterar o ID 'online' conforme necessário)
+        // Seleciona o modal pelo ID (alterar o ID 'relatorio' conforme necessário)
         const modal = document.getElementById('relatorio');
+    
         // Captura a imagem do modal com html2canvas
-        setTimeout (() => {
+        setTimeout(() => {
             html2canvas(modal).then((canvas) => {
                 // Converte o canvas para um Blob (arquivo real de imagem)
                 canvas.toBlob(async (blob) => {
-                const file = new File([blob], "screenshot.png", { type: "image/png" });
-                //  Criar link para download
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'screenshot.png';
-                link.click();
-                // Verifica se o navegador suporta o compartilhamento de arquivos
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    try {
-                    // Tenta compartilhar o arquivo de imagem
-                    await navigator.share({
-                        files: [file],
-                        title: "Minha Captura",
-                        text: "Veja esse print!",
+                    const file = new File([blob], "screenshot.png", { type: "image/png" });
+    
+                    // Cria uma instância do jsPDF
+                    const doc = new jsPDF('p', 'mm', [210, 297]);
+    
+                    // Adiciona a imagem capturada no topo do PDF
+                    const imgData = await blobToBase64(blob);
+                    doc.addImage(imgData, 'PNG', 2, 10, 207, 120, null, 'FAST'); // Ajuste as dimensões conforme necessário
+    
+                    let yOffset = 135; // Começa abaixo da image
+    
+                    // Adiciona a lista de participantes com estilo zebra
+                    userREport.forEach((report, index) => {
+                        const isZebra = index % 2 === 0; // Estilo zebra (alternar cores de fundo)
+    
+                        doc.setFillColor(isZebra ? 240 : 255, 240, 245); // Cor de fundo alternada
+                        doc.rect(2, yOffset - 5, 207, 10, 'F'); // Desenha o fundo colorido da linha
+                        
+                        doc.setFont("helvetica", "bold"); // Define a fonte como Helvetica e estilo bold
+                        doc.setFontSize(10);
+                        doc.setTextColor(0, 0, 0); // Cor do texto
+    
+                        doc.text(report.ticket, 12, yOffset);
+                        doc.text(report.name.split(" ").slice(0, 2).join(" ") + ' ...', 48, yOffset);
+                        doc.text(`${report.city} - ${report.state}`, 93, yOffset);
+                        doc.text(new Date(report?.created?.seconds * 1000).toLocaleString(), 130, yOffset);
+                        doc.setTextColor(0, 128, 0); 
+                        doc.text('Pago', 184, yOffset);
+    
+                        yOffset += 10; // Avança para a próxima linha
                     });
-                    } catch (error) {
-                    // Em caso de erro no compartilhamento, exibe no console
-                    console.error("Erro ao compartilhar:", error);
+    
+                    // Salva o PDF
+                    const pdfBlob = doc.output('blob');
+                    const pdfFile = new File([pdfBlob], "relatorio.pdf", { type: 'application/pdf' });
+    
+                    // Cria o link para download
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(pdfBlob);
+                    link.download = 'relatorio.pdf';
+                    link.click();
+    
+                    // Verifica se o navegador suporta o compartilhamento de arquivos
+                    if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+                        try {
+                            // Tenta compartilhar o arquivo de PDF
+                            await navigator.share({
+                                files: [pdfFile],
+                                title: "Relatório",
+                                text: "Veja esse relatório!",
+                            });
+                        } catch (error) {
+                            console.error("Erro ao compartilhar:", error);
+                        }
+                    } else {
+                        console.log("Navegador não suporta compartilhamento de arquivos.");
                     }
-                } else {
-                    // Caso o navegador não suporte o compartilhamento de arquivos diretamente
-                    console.log("Navegador não suporta compartilhamento de arquivos.");
-                }
-                }, "image/png");
+                });
             }).catch((error) => {
-                // Captura qualquer erro que possa ocorrer ao gerar o canvas
                 console.error("Erro ao capturar o modal:", error);
             });
-        }, 300)
+        }, 300);
+    };
+    
+    // Função para converter o Blob da imagem em base64
+    const blobToBase64 = (blob) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
     };
 
     useEffect(() => {
@@ -247,9 +292,13 @@ const Reports = () => {
                     )
                 }
             </div>
-            <button onClick={() => { captureReport() }}>
-                Baixar Relatório
-            </button>
+            <div 
+                className="btn_download" 
+                onClick={() => captureReport()}
+            >
+                <FontAwesomeIcon icon={faDownload} className="icon" />
+                <p>Baixar Relatório</p>
+            </div>
         </Container_reports>
     )
 }

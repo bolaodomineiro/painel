@@ -8,6 +8,7 @@ export const Container_reports = styled.section`
     justify-content: center;
     align-items: center;
     background: #fff;
+    position: relative;
 
     .container_cards {
         display: flex;
@@ -47,12 +48,33 @@ export const Container_reports = styled.section`
                 font-weight: 700;
                 padding: 3px 10px;
                 color: #000;
-                border: 1px solid #000;
             }
 
             .paid {
                 color: green;
             }
+        }
+    }
+    
+    .btn_download {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 20px;
+        border-radius: 5px;
+        background-color:#AB0519;
+        box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.3);
+        color: #fff;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            background-color: #000;
+        }
     }
 
 `
