@@ -21,6 +21,8 @@ const Reports = () => {
     const navigate = useNavigate();
     const { winners } = useWinners();
     const { sorteios } = useResults();
+    console.log(sorteios);
+
     const { rules } = useRules();
     const {jogos, jogoId, setJogoId, loading} = useBetPool();
 
@@ -38,61 +40,55 @@ const Reports = () => {
     const jogo = jogos.find((jogo) => jogo?.id === jogoId );
     const rule = rules.find(rule => rule.jogo_id === jogoId);
 
+
     const captureReport = async () => {
-        // Seleciona o modal pelo ID (alterar o ID 'relatorio' conforme necessário)
         const modal = document.getElementById('relatorio');
     
-        // Captura a imagem do modal com html2canvas
         setTimeout(() => {
-            html2canvas(modal).then((canvas) => {
-                // Converte o canvas para um Blob (arquivo real de imagem)
+            html2canvas(modal, { scale: 3 }).then((canvas) => {
                 canvas.toBlob(async (blob) => {
-                    const file = new File([blob], "screenshot.png", { type: "image/png" });
-    
-                    // Cria uma instância do jsPDF
-                    const doc = new jsPDF('p', 'mm', [210, 297]);
-    
-                    // Adiciona a imagem capturada no topo do PDF
                     const imgData = await blobToBase64(blob);
-                    doc.addImage(imgData, 'PNG', 2, 10, 207, 120, null, 'FAST'); // Ajuste as dimensões conforme necessário
+                    const imgWidth = 290; // Largura no PDF
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width; // Mantém a proporção
     
-                    let yOffset = 135; // Começa abaixo da image
+                    const pdf = new jsPDF('p', 'mm', [294, 397]);
+                    let yPosition = 10; // Posição inicial
+                    const pageHeight = 397 - 20; // Considerando margem
     
-                    // Adiciona a lista de participantes com estilo zebra
-                    userREport.forEach((report, index) => {
-                        const isZebra = index % 2 === 0; // Estilo zebra (alternar cores de fundo)
+                    let currentY = 0; // Posição atual de corte da imagem
+                    while (currentY < canvas.height) {
+                        const sectionCanvas = document.createElement('canvas');
+                        const ctx = sectionCanvas.getContext('2d');
     
-                        doc.setFillColor(isZebra ? 240 : 255, 240, 245); // Cor de fundo alternada
-                        doc.rect(2, yOffset - 5, 207, 10, 'F'); // Desenha o fundo colorido da linha
-                        
-                        doc.setFont("helvetica", "bold"); // Define a fonte como Helvetica e estilo bold
-                        doc.setFontSize(10);
-                        doc.setTextColor(0, 0, 0); // Cor do texto
+                        sectionCanvas.width = canvas.width;
+                        sectionCanvas.height = Math.min(canvas.height - currentY, pageHeight * (canvas.width / imgWidth));
     
-                        doc.text(report.ticket, 12, yOffset);
-                        doc.text(report.name.split(" ").slice(0, 2).join(" ") + ' ...', 48, yOffset);
-                        doc.text(`${report.city} - ${report.state}`, 93, yOffset);
-                        doc.text(new Date(report?.created?.seconds * 1000).toLocaleString(), 130, yOffset);
-                        doc.setTextColor(0, 128, 0); 
-                        doc.text('Pago', 184, yOffset);
+                        ctx.drawImage(canvas, 0, currentY, sectionCanvas.width, sectionCanvas.height, 0, 0, sectionCanvas.width, sectionCanvas.height);
     
-                        yOffset += 10; // Avança para a próxima linha
-                    });
+                        const sectionImg = sectionCanvas.toDataURL('image/png');
+    
+                        pdf.addImage(sectionImg, 'PNG', 2, yPosition, imgWidth, (sectionCanvas.height * imgWidth) / sectionCanvas.width);
+    
+                        currentY += sectionCanvas.height;
+                        if (currentY < canvas.height) {
+                            pdf.addPage();
+                            yPosition = 10; // Resetando para nova página
+                        }
+                    }
     
                     // Salva o PDF
-                    const pdfBlob = doc.output('blob');
+                    const pdfBlob = pdf.output('blob');
                     const pdfFile = new File([pdfBlob], "relatorio.pdf", { type: 'application/pdf' });
     
-                    // Cria o link para download
+                    // Link para download
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(pdfBlob);
                     link.download = 'relatorio.pdf';
                     link.click();
     
-                    // Verifica se o navegador suporta o compartilhamento de arquivos
+                    // Compartilhamento de arquivo (se suportado)
                     if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
                         try {
-                            // Tenta compartilhar o arquivo de PDF
                             await navigator.share({
                                 files: [pdfFile],
                                 title: "Relatório",
@@ -110,6 +106,8 @@ const Reports = () => {
             });
         }, 300);
     };
+    
+    
     
     // Função para converter o Blob da imagem em base64
     const blobToBase64 = (blob) => {
@@ -131,6 +129,7 @@ const Reports = () => {
             console.log(userMap);
             
             getAllBets.forEach(bt => {
+                console.log("bt", bt);
                 const user = userMap.get(bt.user_id);
             
                 if (user) {
@@ -139,6 +138,7 @@ const Reports = () => {
                         ticket: bt.ticket,
                         paymentStatus: bt.paymentStatus,
                         created: bt.created,
+                        numbers: bt.numbers
                     };
             
                     // Só adiciona se ainda não existir no array
@@ -150,6 +150,7 @@ const Reports = () => {
             
             // Atualiza o estado de uma vez só
             setUserReport(userReports);
+            console.log("envestigar", userReports);
             
         }
 
@@ -190,108 +191,137 @@ const Reports = () => {
                     </Container_card>
                 ))}
             </section>
-            <Report_area id={"relatorio"}>
-                <div className="report-container-header">
-                    <div className="logo">
-                        <Logo  $width="110px"/>
-                        <h2>BOLÃO DO MINEIRO</h2>
-                    </div>
-                    <div className="report-infos-bet">
-                        <h3 style={{ backgroundColor: jogo?.color }}>{ jogo?.title }</h3>
-                        <p> <span>{ jogo?.award.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>  EM PRÊMIOS  ➡️ { jogo?.prizeQuantity} PREMIAÇÕES</p>
-                    </div>
+            <section className="report-container" id={"relatorio"}>
+                <Report_area>
+                    <div className="report-container-header">
+                        <div className="logo">
+                            <Logo  $width="110px"/>
+                            <h2>BOLÃO DO MINEIRO</h2>
+                        </div>
+                        <div className="report-infos-bet">
+                            <h3 style={{ backgroundColor: jogo?.color }}>{ jogo?.title }</h3>
+                            <p> <span>{ jogo?.award.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>  EM PRÊMIOS  ➡️ { jogo?.prizeQuantity} PREMIAÇÕES</p>
+                        </div>
 
-                    <div className="report-infos-rules">
-                        {rule?.rules?.length > 0 ? (
-                            rule.rules.map((r, index) => (
-                                <div key={index} className="rule-card">
-                                    <h3>PRÊMIO: {r?.pts} DEZENAS</h3>
-                                    <p>Ganha ao Acertar {r?.pts} Dezenas.</p>
-                                    {r?.prizeDraw === null ? (
-                                        <p className="validate">Válido em Todos os Sorteios</p>
-                                    ) : (
-                                        <p className="validate">Válido no {r?.prizeDraw}º Sorteio</p>
-                                    )}
-                                    <p>{r?.money?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
-                                    <p style={{ backgroundColor: jogo?.color }} className="btn-winners">
-                                        Ver Ganhadores
-                                    </p>
-                                </div>
-                            ))
-                        ) : (
-                            <div className="rule-not">
-                                <h3>Nenhum Prêmio Cadastrado</h3>
-                                <button
-                                    onClick={() => { navigate("/createBetPool") }}
-                                >
-                                    Cadastrar
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                    
-                    <section className="report-results">
-                        { sorteios.length > 0 ? (
-                                sorteios.map((sorteio, index) => (
-                                    <div className="result_box" key={index}>
-                                        <div className="result_box_header">
-                                            <h3>{sorteio.prizeDraw}º Sorteio</h3>
-                                            <p>{new Date(sorteio.drawDate.seconds * 1000).toLocaleString()} - {sorteio.extraction}</p>
-                                        </div>
-                                        <div className="container_balls">
-                                            {
-                                                sorteio.balls.map((ball, index) => (
-                                                    <span 
-                                                        key={index}
-                                                        className="ball"
-                                                    >
-                                                        {ball}
-                                                    </span>
-                                                ))
-                                            }
-                                        </div>
+                        <div className="report-infos-rules">
+                            {rule?.rules?.length > 0 ? (
+                                rule.rules.map((r, index) => (
+                                    <div key={index} className="rule-card">
+                                        <h3>PRÊMIO: {r?.pts} DEZENAS</h3>
+                                        <p>Ganha ao Acertar {r?.pts} Dezenas.</p>
+                                        {r?.prizeDraw === null ? (
+                                            <p className="validate">Válido em Todos os Sorteios</p>
+                                        ) : (
+                                            <p className="validate">Válido no {r?.prizeDraw}º Sorteio</p>
+                                        )}
+                                        <p>{r?.money?.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                                        <p style={{ backgroundColor: jogo?.color }} className="btn-winners">
+                                            Ver Ganhadores
+                                        </p>
                                     </div>
                                 ))
                             ) : (
-                                rule?.rules?.length > 0 &&
-                                <p>Nenhum Resultado Encontrado</p>
-                            )
-                        }
-                    </section>
-
-                    <div className="report-container-footer">
-                        <div className="participante-title" style={{ backgroundColor: jogo?.color }}>
-                            <h3>TABELA DE PARTICIPANTES</h3>
+                                <div className="rule-not">
+                                    <h3>Nenhum Prêmio Cadastrado</h3>
+                                    <button
+                                        onClick={() => { navigate("/createBetPool") }}
+                                    >
+                                        Cadastrar
+                                    </button>
+                                </div>
+                            )}
                         </div>
-                        <div className="participante-list-header">
-                            <ul>
-                                <li>Número do Bilhete</li>
-                                <li>Apostador</li>
-                                <li>Cidade</li>
-                                <li>Data da Compra</li>
-                                <li>Status</li>
-                            </ul>
+                        
+                        <section className="report-results">
+                            { sorteios.length > 0 ? (
+                                    sorteios.map((sorteio, index) => (
+                                        <div className="result_box" key={index}>
+                                            <div className="result_box_header">
+                                                <h3>{sorteio.prizeDraw}º Sorteio</h3>
+                                                <p>{new Date(sorteio.drawDate.seconds * 1000).toLocaleString()} - {sorteio.extraction}</p>
+                                            </div>
+                                            <div className="container_balls">
+                                                {
+                                                    sorteio.balls.map((ball, index) => (
+                                                        <span 
+                                                            key={index}
+                                                            className="ball"
+                                                        >
+                                                            {ball}
+                                                        </span>
+                                                    ))
+                                                }
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    rule?.rules?.length > 0 &&
+                                    <p>Nenhum Resultado Encontrado</p>
+                                )
+                            }
+                        </section>
+
+                        <div className="report-container-footer">
+                            <div className="participante-title" style={{ backgroundColor: jogo?.color }}>
+                                <h3>TABELA DE PARTICIPANTES</h3>
+                            </div>
+                            <div className="participante-list-header">
+                                <ul>
+                                    <li>Número do Bilhete</li>
+                                    <li>Apostador</li>
+                                    <li>Cidade</li>
+                                    <li>Dezenas</li>
+                                    <li>Acertos</li>
+                                    <li>Data da Compra</li>
+                                    <li>Status</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                </Report_area>
+                <div className="participante-list">
+                    { userREport.length > 0 ? (
+                            userREport.map((report, index) => (
+                                <ul key={index}>
+                                    <li>{report.ticket}</li>
+                                    <li>{report.name.split(" ").slice(0, 2).join(" ")} ...</li>
+                                    <li>{report.city} - {report.state}</li>
+                                    <li className="numbers">
+                                        {report.numbers.map((number, index) => 
+                                            <span className="ball" key={index} 
+                                                style={{ 
+                                                    backgroundColor: sorteios.map(sorteio => sorteio.balls).flat().includes(number) ? "#AB0519" : "#fff", 
+                                                    color: sorteios.map(sorteio => sorteio.balls).flat().includes(number) ? "#fff" : "#000", 
+                                                }}
+                                            >
+                                                {number}
+                                            </span>
+                                        )}
+                                    </li>
+                                    <li className="acertos">
+                                        {
+                                            report.numbers.reduce((totalAcertos, number) => {
+                                                const acertos = sorteios
+                                                    .map(sorteio => sorteio.balls)
+                                                    .flat()
+                                                    .filter(ball => ball === number)
+                                                    .length; // Conta quantas vezes o número aparece
+                                                
+                                                return totalAcertos + acertos; // Soma os acertos ao total
+                                            }, 0) // Inicializa com 0
+                                        }
+                                    </li>
+                                    <li>{new Date(report?.created?.seconds * 1000).toLocaleString()}</li>
+                                    <li className="paid">Pago</li>
+                                </ul>
+                            ))
+                        ) : (
+                            rule?.rules?.length > 0 &&
+                            <p>Nenhum Resultado Encontrado</p>
+                        )
+                    }
                 </div>
-            </Report_area>
-            <div className="participante-list">
-                { userREport.length > 0 ? (
-                        userREport.map((report, index) => (
-                            <ul key={index}>
-                                <li>{report.ticket}</li>
-                                <li>{report.name.split(" ").slice(0, 2).join(" ")} ...</li>
-                                <li>{report.city} - {report.state}</li>
-                                <li>{new Date(report?.created?.seconds * 1000).toLocaleString()}</li>
-                                <li className="paid">Pago</li>
-                            </ul>
-                        ))
-                    ) : (
-                        rule?.rules?.length > 0 &&
-                        <p>Nenhum Resultado Encontrado</p>
-                    )
-                }
-            </div>
+            </section>
             <div 
                 className="btn_download" 
                 onClick={() => captureReport()}

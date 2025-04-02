@@ -29,9 +29,9 @@ export const Container_reports = styled.section`
         ul {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            width: 99.6%;
-            min-width: 800px;
+            // justify-content: center;
+            width: 100%;
+            min-width: 1010px;
             list-style: none;
             padding: 5px 0 ;
             background-color:rgb(218, 218, 218);
@@ -41,13 +41,64 @@ export const Container_reports = styled.section`
             }
 
             li {
-                flex: 1;
-                min-width: 150px;
                 text-align: center;
                 font-size: 0.8rem;
                 font-weight: 700;
                 padding: 3px 10px;
                 color: #000;
+            }
+            
+            li:nth-child(1) {
+                min-width: 120px;
+            } 
+
+            li:nth-child(2) {
+                min-width: 160px;
+            } 
+
+            li:nth-child(3) {
+                min-width: 120px;
+            } 
+
+            li:nth-child(4) {
+                flex: 1;
+            }     
+                
+            li:nth-child(5) {
+                min-width: 62px;
+                font-size: 1rem;
+                font-weight: 900;
+                padding: 5px;
+                border-radius: 4px;
+                background-color:rgb(255, 255, 255);
+            }
+
+            li:nth-child(6) {
+                max-width: 125px;
+                font-size: 0.7rem;
+            }
+
+            .numbers {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+
+                .ball {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 30px;
+                    height: 30px;
+                    background-color:rgb(255, 255, 255);
+                    color: #000;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    padding: 2px 6px;
+                    border-radius: 50%;
+                    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.3);
+                }
+
             }
 
             .paid {
@@ -75,6 +126,15 @@ export const Container_reports = styled.section`
         &:hover {
             background-color: #000;
         }
+    }
+
+    .report-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
     }
 
 `
@@ -499,7 +559,7 @@ export const Report_area = styled.div`
             ul {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
+                // justify-content: center;
                 width: 100%;
                 min-width: 800px;
                 list-style: none;
@@ -507,22 +567,39 @@ export const Report_area = styled.div`
                 margin: auto;
 
                 li {
-                    flex: 1;
                     border-left: solid 4px #fff;
                     text-align: center;
                     font-weight: 900;
+                    font-size: 0.7rem;
                     padding: 10px 10px;
                     color: #fff;
                     background-color: #242222;
                 }
 
-                li:nth-child(5) {
-                    border-right: solid  4px #fff;
-                }
+                li:nth-child(1) {
+                    min-width: 120px;
+                } 
 
+                li:nth-child(2) {
+                    min-width: 160px;
+                } 
 
+                li:nth-child(3) {
+                    min-width: 120px;
+                } 
+
+                li:nth-child(4) {
+                    flex: 1;
+                    min-width: 410px;
+                }    
+                
+                li:nth-child(6) {
+                    min-width: 120px;
+                } 
+                
             }
         }
+        
     }
     
 `

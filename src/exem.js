@@ -81,3 +81,5 @@
 //         console.log("⚠️ Nenhuma regra aplicável encontrada.");
 //     }
 // }
+
+<div className="loading"> <FontAwesomeIcon className="icon" icon={faClock} /> <div><p>Aguardando </p> <p>{sorteios.length + 1}º Sorteio </p></div></div>

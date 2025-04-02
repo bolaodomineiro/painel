@@ -102,7 +102,7 @@ export const ResultsProvider = ({ children }) => {
                 for (const condicao of regra.rules) {
                     if (
                         ganhador.acertos >= condicao.pts &&
-                        (condicao.prizeDraw >= sorteios.length || condicao.prizeDraw === null) &&
+                        (condicao.prizeDraw === sorteios.length || condicao.prizeDraw === null) &&
                         !condicao.winner
                     ) {
                         controle = true;
