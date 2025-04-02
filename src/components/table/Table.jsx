@@ -13,7 +13,7 @@ function formatBalance(balance) {
   return `R$ ${value.toFixed(2).replace(".", ",")}`;
 }
 
-const Table = ({ useSelect }) => {
+const Table = ({ useSelect, valueSearch }) => {
 
   const inputRef = useRef(null);
 
@@ -38,9 +38,9 @@ const Table = ({ useSelect }) => {
 
   useEffect(() => {
     if (useSelect === "Apostadores") {
-      setUserFilter("apostador");
-    } else if (useSelect === "Revendedores") {
-      setUserFilter("revendedor");
+      setUserFilter(false);
+    } else if (useSelect === "Administradores") {
+      setUserFilter(true);
     } else {
       setUserFilter("");
     }
@@ -88,38 +88,44 @@ const Table = ({ useSelect }) => {
         </ul>
       </div>
       <div className="body_table">
-        {userData
-          .filter((user) => user.userRole === userFilter || userFilter === "")
-          .map((user) => (
-            <ul key={user.id}>
-              <li>
-                <img
-                  className="image_user"
-                  src={user.image || Perfil}
-                  alt={user.name}
-                />
-              </li>
-              <li>{user.name?.split(" ").slice(0, 2).join(" ")}</li>
-              <li> {user.phone} </li>
-              <li>{user.city} - {user.state}</li>
-              <li>{formatBalance(user.balance)}</li>
-              <li>
-                <FontAwesomeIcon
-                  className="icon"
-                  icon={faPenToSquare}
-                  onClick={() => handleEditClick(user)}
-                />
-              </li>
-              <li>
-                <FontAwesomeIcon
-                  className="icon"
-                  icon={faTrash}
-                  onClick={() => handleDelete(user.id)}
-                />
-              </li>
-            </ul>
-          ))}
-      </div>
+          {userData
+            .filter((user) => {
+              const matchesAdmin = userFilter === "" || user.isAdmin === userFilter;
+              const matchesSearch = valueSearch === "" || user.name.toLowerCase().includes(valueSearch.toLowerCase());
+
+              return matchesAdmin && matchesSearch; // Ambos os filtros devem ser atendidos
+            })
+            .map((user) => (
+              <ul key={user.id}>
+                <li>
+                  <img
+                    className="image_user"
+                    src={user.image || Perfil}
+                    alt={user.name}
+                  />
+                </li>
+                <li>{user.name?.split(" ").slice(0, 2).join(" ")}</li>
+                <li> {user.phone} </li>
+                <li>{user.city} - {user.state}</li>
+                <li>{formatBalance(user.balance)}</li>
+                <li>
+                  <FontAwesomeIcon
+                    className="icon"
+                    icon={faPenToSquare}
+                    onClick={() => handleEditClick(user)}
+                  />
+                </li>
+                <li>
+                  <FontAwesomeIcon
+                    className="icon"
+                    icon={faTrash}
+                    onClick={() => handleDelete(user.id)}
+                  />
+                </li>
+              </ul>
+            ))}
+        </div>
+
 
       {editingUser && (
         <EditUserModal

@@ -4,7 +4,7 @@ export const Container_select = styled.div`
     cursor: pointer;
     position: relative;
     max-width: 180px;
-    min-width: 160px;
+    min-width: 180px;
 
     .select_header {
         display: flex;

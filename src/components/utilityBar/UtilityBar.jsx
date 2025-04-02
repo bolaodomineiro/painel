@@ -3,11 +3,11 @@ import Select from "../select/Select"
 import Search from "../search/Search"
 import Btn from "../btn/Btn"
 
-const UtilityBar = ({ $menuToggle, data, setUseSelect, useSelect, setShowForm }) => {
+const UtilityBar = ({ $menuToggle, data, setUseSelect, useSelect, setShowForm, valueSearch, setValueSearch }) => {
     return (
         <Container_utility $menuToggle={$menuToggle}>
             <Select data={data} setUseSelect={setUseSelect} useSelect={useSelect} />
-            <Search />
+            <Search valueSearch={valueSearch} setValueSearch={setValueSearch} />
             <Btn 
                 text="Cadastrar"  
                 onClick={() => setShowForm( "create" )} 

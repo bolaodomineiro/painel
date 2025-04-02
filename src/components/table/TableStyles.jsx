@@ -1,12 +1,20 @@
 import styled from "styled-components";
 
 export const Container_table = styled.div`
-    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    overflow: auto;
 
     .header_table, .body_table {
-
-        width: 920px;
-        margin: 0 auto;
+        width: 870px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        margin:auto;
 
         ul {
             display: flex;
