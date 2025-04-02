@@ -45,15 +45,15 @@ const Reports = () => {
         const modal = document.getElementById('relatorio');
     
         setTimeout(() => {
-            html2canvas(modal, { scale: 3 }).then((canvas) => {
+            html2canvas(modal, { scale: 1.5 }).then((canvas) => {
                 canvas.toBlob(async (blob) => {
                     const imgData = await blobToBase64(blob);
-                    const imgWidth = 290; // Largura no PDF
+                    const imgWidth = 200; // Largura no PDF
                     const imgHeight = (canvas.height * imgWidth) / canvas.width; // Mantém a proporção
     
-                    const pdf = new jsPDF('p', 'mm', [294, 397]);
+                    const pdf = new jsPDF('p', 'mm', [204, 281]);
                     let yPosition = 10; // Posição inicial
-                    const pageHeight = 397 - 20; // Considerando margem
+                    const pageHeight = 281 - 20; // Considerando margem
     
                     let currentY = 0; // Posição atual de corte da imagem
                     while (currentY < canvas.height) {
@@ -301,13 +301,15 @@ const Reports = () => {
                                     <li className="acertos">
                                         {
                                             report.numbers.reduce((totalAcertos, number) => {
-                                                const acertos = sorteios
-                                                    .map(sorteio => sorteio.balls)
-                                                    .flat()
-                                                    .filter(ball => ball === number)
-                                                    .length; // Conta quantas vezes o número aparece
-                                                
-                                                return totalAcertos + acertos; // Soma os acertos ao total
+                                                const acertos = new Set(); // Garante que cada número só seja contado uma vez
+
+                                                sorteios.forEach(sorteio => {
+                                                    if (sorteio.balls.includes(number)) {
+                                                        acertos.add(number); // Adiciona ao Set (não permite duplicatas)
+                                                    }
+                                                });
+
+                                                return totalAcertos + acertos.size; // Apenas os números únicos são somados
                                             }, 0) // Inicializa com 0
                                         }
                                     </li>
