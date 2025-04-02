@@ -122,6 +122,7 @@ const Reports = () => {
     useEffect(() => {
         const hendleBets = async () => {
             const getAllBets = await getBets(jogoId);
+            console.log("getAllBets", getAllBets);
             const getAllUsers = await getUsers();
 
             const userReports = [];
@@ -267,6 +268,7 @@ const Reports = () => {
                             </div>
                             <div className="participante-list-header">
                                 <ul>
+                                    <li>#</li>
                                     <li>Número do Bilhete</li>
                                     <li>Apostador</li>
                                     <li>Cidade</li>
@@ -283,6 +285,7 @@ const Reports = () => {
                     { userREport.length > 0 ? (
                             userREport.map((report, index) => (
                                 <ul key={index}>
+                                    <li>{index + 1}</li>
                                     <li>{report.ticket}</li>
                                     <li>{report.name.split(" ").slice(0, 2).join(" ")} ...</li>
                                     <li>{report.city} - {report.state}</li>
@@ -314,7 +317,7 @@ const Reports = () => {
                                         }
                                     </li>
                                     <li>{new Date(report?.created?.seconds * 1000).toLocaleString()}</li>
-                                    <li className="paid">Pago</li>
+                                    <li className="paid">{report.paymentStatus}</li>
                                 </ul>
                             ))
                         ) : (

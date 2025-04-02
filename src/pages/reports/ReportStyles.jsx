@@ -47,24 +47,30 @@ export const Container_reports = styled.section`
                 padding: 3px 10px;
                 color: #000;
             }
-            
-            li:nth-child(1) {
-                min-width: 120px;
-            } 
 
+            li:nth-child(1) {
+                min-width: 30px;
+                font-size: 1rem;
+                font-weight: 900;
+            } 
+            
             li:nth-child(2) {
-                min-width: 160px;
+                min-width: 120px;
             } 
 
             li:nth-child(3) {
-                min-width: 120px;
+                min-width: 160px;
             } 
 
             li:nth-child(4) {
+                min-width: 120px;
+            } 
+
+            li:nth-child(5) {
                 flex: 1;
             }     
                 
-            li:nth-child(5) {
+            li:nth-child(6) {
                 min-width: 62px;
                 font-size: 1rem;
                 font-weight: 900;
@@ -73,7 +79,7 @@ export const Container_reports = styled.section`
                 background-color:rgb(255, 255, 255);
             }
 
-            li:nth-child(6) {
+            li:nth-child(7) {
                 max-width: 125px;
                 font-size: 0.7rem;
             }
@@ -102,7 +108,12 @@ export const Container_reports = styled.section`
             }
 
             .paid {
-                color: green;
+                background-color:rgb(0, 255, 0);
+                margin-right: 5px;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 0.8rem;
+                font-weight: 900;
             }
         }
     }
@@ -577,23 +588,27 @@ export const Report_area = styled.div`
                 }
 
                 li:nth-child(1) {
-                    min-width: 120px;
-                } 
+                    min-width: 30px;
+                }
 
                 li:nth-child(2) {
-                    min-width: 160px;
+                    min-width: 120px;
                 } 
 
                 li:nth-child(3) {
-                    min-width: 120px;
+                    min-width: 160px;
                 } 
 
                 li:nth-child(4) {
+                    min-width: 120px;
+                } 
+
+                li:nth-child(5) {
                     flex: 1;
                     min-width: 410px;
                 }    
                 
-                li:nth-child(6) {
+                li:nth-child(7) {
                     min-width: 120px;
                 } 
                 

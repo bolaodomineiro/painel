@@ -13,7 +13,8 @@ export const getBets = async (jogoId) => {
         const apostasCollection = collection(db, "apostas");
         const apostasQuery = query(
             apostasCollection,
-            where("jogo_id", "==", jogoId)
+            where("jogo_id", "==", jogoId),
+            where("paymentStatus", "==", "Pago")
         );
         const apostasSnapshot = await getDocs(apostasQuery);
 
