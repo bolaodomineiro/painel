@@ -10,26 +10,42 @@ import {useResults} from "../../context/ResultsContext";
 import { useBetPool } from "../../context/BetPoolContext";
 // hooks
 import useScroll from "../../hooks/Scroll";
+import { atualizarStatusJogo } from "../createBetPool/betData"
+import {verificarTimedrawDate} from "./homeServices"
 
 const Home = () => {
 
     const elementRef = useRef(null);
 
     const { load, setLoad } = useResults();
-    const {jogos, jogoId, setJogoId, loading} = useBetPool();
+    const {jogos, jogoId, setJogoId, setLoading, loading, getJogos} = useBetPool();
     const { hendleScroll } = useScroll();
     const location = useLocation();
     const [active, setActive] = useState("myBest");
     const [jogoFiltrado, setJogoFiltrado] = useState([]);
 
-    useEffect(() => {
-        console.log("atualizando... toda aplicação em Home");
-        if (!jogoId) return console.log("jogoId is undefined, pagina home");
+
+    const hendleJogoAtual = async () => {
         localStorage.setItem("jogoId", jogoId);
-        const jogo = jogos.find((jogo) => jogo?.id === jogoId );
+        const jogo = await jogos.find((jogo) => jogo?.id === jogoId );
         setJogoFiltrado(jogo);
         setLoad(!load);
-    },[jogos, jogoId, setJogoId]);
+        console.log("pathname", location.pathname);
+
+        const isTimedraw = await verificarTimedrawDate(jogo?.drawDate)
+        if (!isTimedraw) return console.log("jogo Aberto")
+        await atualizarStatusJogo(jogo.id, "Pausado");
+        
+    }
+
+    useEffect(() => {
+        console.log("atualizando... toda aplicação em Home");
+        hendleJogoAtual()
+    },[jogos, jogoId, setJogoId, location.pathname]);
+
+    useEffect(() => {
+        getJogos();
+    }, []);
 
     useEffect(() => {
         const pathSegments = location.pathname.split('/dashboard/myBets').filter(Boolean);
@@ -98,7 +114,7 @@ const Home = () => {
                         <div className="container">
                             <div className="container_top">
                                 {jogo.isAcumuled && <h4  className="acumulado_text">Acumulado</h4>}
-                                {jogo.status === "Pausado" && <h4 style={{backgroundColor: "#AF0000", color: "white"}}  className="acumulado_text">Finalizado !</h4>}
+                                {jogo.status === "Pausado" && <h4 style={{backgroundColor: "#AF0000", color: "white"}}  className="acumulado_text">Apostas Finalizadas !</h4>}
                                 <div className="container_text">
                                     <h5>Premiação Estimada</h5>
                                     <h3>{jogo.award.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</h3>

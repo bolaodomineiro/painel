@@ -6,7 +6,7 @@ import UtilityBar from "../../components/utilityBar/UtilityBar";
 import {useBetPool} from "../../context/BetPoolContext"
 import {useRules} from "../../context/RulesContext"
 //functions
-import {getResults} from "./betData"
+import {getResults, getJogos, atualizarStatusJogo} from "./betData"
 
 //components
 import FormBetPool from "./formBetPool";
@@ -15,28 +15,32 @@ import ResultForm from "./resultForm";
 import Loading from "../../assets/loading.webp"
 
 
-const data = ["Todos", "Finalizados", "Andamento", "Cancelados"]
+const data = ["Todos", "Finalizado", "Em Andamento"]
 
 const BetPool = () => {
 
     const { rules } = useRules();
-    const { jogos, loading, setLoading, setJogoId, jogoId } = useBetPool();
+    const { setJogoId, jogoId } = useBetPool();
 
     const [useSelect, setUseSelect] = useState("Todos")
+    const [valueSearch, setValueSearch] = useState("")
+
     const  [showForm, setShowForm] = useState(null);
     const [resultados, setResultados] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [jogos, setJogos] = useState([]);
 
     useEffect(() => {
+        setLoading(true);
         const hendleResults = async () => {
             const getResultados = await getResults()
+            const getAllJogos = await getJogos(setLoading, useSelect)
+            setJogos(getAllJogos);
             setResultados(getResultados); 
+            setLoading(false);
         }
         hendleResults();
-    }, [loading]);
-
-    // useEffect(() => {
-    //     setLoading(true);
-    // }, []);
+    }, [useSelect]);
 
     if (loading) {
         return (
@@ -53,6 +57,15 @@ const BetPool = () => {
         );
     }
 
+    const handleFinalizarBolao = async (id, status) => {
+        const res = confirm("Atenção, deseja finalizar o jogo ? \n  OK para finalizar o jogo.");
+        if (!res) return
+
+        await atualizarStatusJogo(id, status);
+        const getAllJogos = await getJogos(setLoading, useSelect)
+        setJogos(getAllJogos);
+    }
+
     return (
         <Container_betPool>
             <UtilityBar 
@@ -60,9 +73,11 @@ const BetPool = () => {
                 useSelect={useSelect} 
                 setUseSelect={setUseSelect}
                 setShowForm={setShowForm}
+                valueSearch={valueSearch}
+                setValueSearch={setValueSearch}
             />
             <section className="content">
-                { jogos.map((jogo) => ( 
+                { jogos.filter((jogo) => jogo.title.toLowerCase().includes(valueSearch.toLowerCase())).map((jogo) => ( 
                     <div className="card-content" key={jogo.id}>
                         <div className="card-header" style={{ backgroundColor: jogo.color }} >
                             <h3 className="title">{ jogo.title }</h3>
@@ -170,11 +185,19 @@ const BetPool = () => {
                         <div className="card-status">
                             <p style={{ backgroundColor: jogo.color }}>{ jogo.isAcumuled ? "Acumulado" : " Não Acumulado " }</p>
                         </div>
-                        <p className="status" style={{ color: jogo.status ? "green" : "red" }}>
-                            { jogo.status ? "Aberto" : "Pausado" }
+                        <p className="status" style={{ color: jogo.status === "Aberto" ? "green" : jogo.status === "Finalizado" ? "red" : "orange" }}>
+                            { jogo.status}
                         </p>
-                        <button className="finalizar-btn">
-                            Finalizar Bolão
+                        <button 
+                            className="finalizar-btn"
+                            onClick={() => handleFinalizarBolao(jogo.id, "Finalizado")}
+                            style={{
+                                backgroundColor: jogo.status === "Finalizado" && "#AB0519",
+                                pointerEvents: jogo.status === "Aberto" || jogo.status === "Pausado" ? "auto" : "none",
+                                cursor: jogo.status === "Aberto" || jogo.status === "Pausado" ? "pointer" : "default",
+                            }}
+                        >
+                            { jogo.status === "Aberto" ? "Finalizar Bolão" : "Bolão Finalizado !" }
                         </button>
                     </div>
 

@@ -1,5 +1,33 @@
 import { db } from "../../firebase/firebase"; // Certifique-se de importar a configuração do Firebase
-import { collection, addDoc, Timestamp, doc, updateDoc, arrayUnion, getDocs} from "firebase/firestore";
+import { collection, addDoc, Timestamp, doc, updateDoc, arrayUnion, getDocs, query, where} from "firebase/firestore";
+
+
+export const getJogos = async (setLoading, filtroStatus ) => {
+    try {
+        const jogosCollection = collection(db, "jogos");
+        let jogosQuery = jogosCollection;
+
+        // Se houver filtros, aplica a condição `where`
+        if (filtroStatus !== "Todos") {
+            jogosQuery = query(jogosCollection, where("status", "in", filtroStatus === "Em Andamento" ? ["Aberto", "Pausado"] : [filtroStatus]));
+        }
+
+        const jogosSnapshot = await getDocs(jogosQuery);
+        const jogosList = jogosSnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+        }));
+
+        return jogosList
+
+    } catch (error) {
+        console.error("Erro ao buscar jogos:", error);
+    } finally {
+        setLoading(false);
+    }
+};
+
+
 
 export const saveJogo = async (gameData) => {
     try {
@@ -25,6 +53,16 @@ export const saveJogo = async (gameData) => {
         throw error;
     }
 };
+
+export const atualizarStatusJogo = async (docId, text) => {
+    try {
+        const jogoRef = doc(db, "jogos", docId);
+        await updateDoc(jogoRef, { status: text });
+        console.log(`Jogo ${docId} atualizado com sucesso.`);
+    } catch (error) {
+        console.error("Erro ao atualizar jogo:", error);
+    }
+}
 
 
 export const saveRules = async (rules) => {

@@ -271,7 +271,7 @@ export const Container_betPool = styled.section`
             .finalizar-btn {
                 padding: 8px 20px;
                 border: none;
-                background-color:#AA0000;
+                background-color: #242222;
                 color: #fff;
                 font-size: 0.8rem;
                 font-weight: 900;
@@ -284,7 +284,7 @@ export const Container_betPool = styled.section`
                 outline: none;
 
                 &:hover {
-                    background-color: red;
+                    background-color: #AB0519;
                     color: #fff;
                 }
             }
