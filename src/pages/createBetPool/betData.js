@@ -6,9 +6,10 @@ export const getJogos = async (setLoading, filtroStatus ) => {
     try {
         const jogosCollection = collection(db, "jogos");
         let jogosQuery = jogosCollection;
+        console.log(filtroStatus);
 
         // Se houver filtros, aplica a condição `where`
-        if (filtroStatus !== "Todos") {
+        if (filtroStatus !== "Todos" && filtroStatus) {
             jogosQuery = query(jogosCollection, where("status", "in", filtroStatus === "Em Andamento" ? ["Aberto", "Pausado"] : [filtroStatus]));
         }
 

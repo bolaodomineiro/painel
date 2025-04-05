@@ -8,11 +8,9 @@ import {
     Button,
     ImagePreview,
 } from "./formStyles";
-import { saveJogo } from "./betData";
-import { useBetPool } from "../../context/BetPoolContext";
+import { saveJogo, getJogos } from "./betData";
 
-const Formulario = ({ $showForm, $setShowForm }) => {
-    const { setLoading } = useBetPool();
+const Formulario = ({ $showForm, $setShowForm, setLoading, setJogos }) => {
 
   // Inicializando o estado com todos os dados
 const [formData, setFormData] = useState({
@@ -33,6 +31,8 @@ const [formData, setFormData] = useState({
 
     const handleSaveJogo = async (event) => {
         event.preventDefault();
+        setLoading(true);
+
 
         try {
             const formattedData = {
@@ -49,7 +49,8 @@ const [formData, setFormData] = useState({
             await saveJogo(formattedData);
             console.log("Jogo salvo com sucesso!");
             $setShowForm(false);
-            setLoading(true);
+            const getAllJogos = await getJogos(setLoading);
+            setJogos(getAllJogos);
 
         } catch (error) {
             console.error("Erro ao cadastrar jogo:", error);

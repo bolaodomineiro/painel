@@ -24,13 +24,11 @@ const Home = () => {
     const [active, setActive] = useState("myBest");
     const [jogoFiltrado, setJogoFiltrado] = useState([]);
 
-
     const hendleJogoAtual = async () => {
         localStorage.setItem("jogoId", jogoId);
         const jogo = await jogos.find((jogo) => jogo?.id === jogoId );
         setJogoFiltrado(jogo);
         setLoad(!load);
-        console.log("pathname", location.pathname);
 
         const isTimedraw = await verificarTimedrawDate(jogo?.drawDate)
         if (!isTimedraw) return console.log("jogo Aberto")

@@ -77,7 +77,7 @@ const BetPool = () => {
                 setValueSearch={setValueSearch}
             />
             <section className="content">
-                { jogos.filter((jogo) => jogo.title.toLowerCase().includes(valueSearch.toLowerCase())).map((jogo) => ( 
+                { jogos?.filter((jogo) => jogo.title.toLowerCase().includes(valueSearch.toLowerCase())).map((jogo) => ( 
                     <div className="card-content" key={jogo.id}>
                         <div className="card-header" style={{ backgroundColor: jogo.color }} >
                             <h3 className="title">{ jogo.title }</h3>
@@ -203,7 +203,13 @@ const BetPool = () => {
 
                 ))}
             </section>
-            <FormBetPool $showForm={showForm} $setShowForm={setShowForm} />
+            <FormBetPool 
+                $showForm={showForm} 
+                $setShowForm={setShowForm} 
+                setLoading={setLoading}
+                setUseSelect={setUseSelect}
+                setJogos={setJogos}
+            />
             <RuleForm jogoId={jogoId} $showForm={showForm} $setShowForm={setShowForm} />
             <ResultForm jogoId={jogoId} $showForm={showForm} $setShowForm={setShowForm} />
         </Container_betPool>
