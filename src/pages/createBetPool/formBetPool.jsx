@@ -163,7 +163,7 @@ const Formulario = ({ $showForm, $setShowForm, setLoading, setJogos }) => {
           </FormGroup>
         </section>
 
-        <section className="prize">
+        {/* <section className="prize">
           <FormGroup>
             <Label>N de Sorteios:</Label>
             <Input
@@ -195,6 +195,38 @@ const Formulario = ({ $showForm, $setShowForm, setLoading, setJogos }) => {
             />
             <Label>Acumulado</Label>
           </FormGroup>
+        </section> */}
+
+        <section>
+
+          <p>
+            PREMIAÇÕES:<br /><br />
+
+- por pontos até completar 10 pontos até a terceira extração <br />
+
+- por pontos até completar 10 pontos até a quarta extração<br />
+
+ - primeiro extração, fazer 8 pontos<br />
+
+- primeira extração, fazer 7 pontos<br />
+
+- primeira extração, fazer 6 pontos<br />
+
+- mais pontos na primeira extração<br />
+
+- premio consolação, 2º lugar até o término do bolão abaixo de 10 pontos<br />
+
+- pé frio, zero pontos até o término do bolão<br /><br />
+
+Quando o bolão finaliza?<br /><br />
+- finalizar automaticamente o bolão após a quarta extração<br />
+-finalizar até atingir 10 pontos
+
+
+          </p>
+
+
+
         </section>
 
         <Button type="submit">Cadastrar</Button>
