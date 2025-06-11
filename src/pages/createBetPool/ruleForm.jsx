@@ -12,6 +12,7 @@ const RuleForm = ({ $setShowForm, $showForm, jogoId }) => {
   const { setLoading } = useBetPool();
   const [regras, setRegras] = useState([]);
   const [pontos, setpontos] = useState("");
+  const [extracoes, setExtracoes] = useState("");
   const [award, setAward] = useState("");
   const [sorteioValido, setSorteioValido] = useState("");
   const rule = rules.find((rule) => rule.jogo_id === jogoId);
@@ -22,6 +23,7 @@ const RuleForm = ({ $setShowForm, $showForm, jogoId }) => {
         ...prevRegras,
         {
           pts: pontos,
+          extractions: extracoes,
           money: award,
           winner: false,
           prizeDraw: sorteioValido === "" ? null : sorteioValido,
@@ -32,6 +34,7 @@ const RuleForm = ({ $setShowForm, $showForm, jogoId }) => {
     });
 
     setpontos("");
+    setExtracoes("");
     setAward("");
     setSorteioValido("");
   };
@@ -146,21 +149,6 @@ const RuleForm = ({ $setShowForm, $showForm, jogoId }) => {
               />
             </FormGroup>
 
-            {/* <FormGroup>
-            <Label>Regra valida para o Sorteio:</Label>
-            <Input
-              type="number"
-              value={sorteioValido}
-              onChange={(e) =>
-                setSorteioValido(
-                  Number(e.target.value) <= 0 ? "" : Number(e.target.value)
-                )
-              }
-              className="award"
-              placeholder="Digite o número"
-            />
-          </FormGroup> */}
-
             <div
               className="add-rule"
               onClick={() => {
@@ -198,9 +186,9 @@ const RuleForm = ({ $setShowForm, $showForm, jogoId }) => {
               </Label>
               <Input
                 type="number"
-                value={pontos}
+                value={extracoes}
                 onChange={(e) =>
-                  setpontos(
+                  setExtracoes(
                     Number(e.target.value) <= 0 ? "" : Number(e.target.value)
                   )
                 }
@@ -248,6 +236,15 @@ const RuleForm = ({ $setShowForm, $showForm, jogoId }) => {
                   <span>{`${
                     rule.pts <= 9 ? `0${rule.pts}` : rule.pts
                   } Pontos`}</span>
+
+
+                  <span>{`${
+                    rule.extractions <= 9 ? `0${rule.extractions}` : rule.extractions
+                  } Extrações`}</span>
+
+
+
+
                   <span>
                     Valor:{" "}
                     {rule.money?.toLocaleString("pt-BR", {
@@ -280,6 +277,7 @@ const RuleForm = ({ $setShowForm, $showForm, jogoId }) => {
             $setShowForm(false);
             setRegras([]);
             setpontos("");
+            setExtracoes("");
             setAward("");
             setSorteioValido("");
           }}
