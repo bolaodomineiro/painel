@@ -163,6 +163,98 @@ const Formulario = ({ $showForm, $setShowForm, setLoading, setJogos }) => {
           </FormGroup>
         </section>
 
+        <div>
+          <br />
+          <h3>Premiações:</h3>
+          <br />
+        </div>
+
+        <section className="flex flex-col">
+            
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize01" value="prize01" />
+              <label>
+                &nbsp;Por pontos, até completar 10 pontos, até a terceira extração.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize02" value="prize02" />
+              <label>
+                &nbsp;Por pontos, até completar 10 pontos, até a quarta extração.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize03" value="prize03" />
+              <label>
+                &nbsp;Primeira extração, fazer 8 pontos.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize04" value="prize04" />
+              <label>
+                &nbsp;Primeira extração, fazer 7 pontos.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize05" value="prize05" />
+              <label>
+                &nbsp;Primeira extração, fazer 6 pontos.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize06" value="prize06" />
+              <label>
+                &nbsp;Mais pontos na primeira extração.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize07" value="prize07" />
+              <label>
+                &nbsp;Prêmio de consolação, 2º lugar até o término do bolão abaixo de 10 pontos.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="prize08" value="prize08" />
+              <label>
+                &nbsp;Pé frio, 0 pontos até o término do bolão.
+              </label>
+            </div>
+
+        </section>
+
+        <div>
+          <br />
+          <h3>Quando o bolão finaliza?</h3>
+          <br />
+        </div>
+
+        <section className="flex flex-col">
+            
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="rule01" value="rule01" />
+              <label>
+                &nbsp;Finalizar automaticamente o bolão após a quarta extração.
+              </label>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input type="checkbox" id="rule02" value="rule02" />
+              <label>
+                &nbsp;Finalizar até atingir 10 pontos.
+              </label>
+            </div>
+
+            <br />
+
+        </section>
+
         {/* <section className="prize">
           <FormGroup>
             <Label>N de Sorteios:</Label>
@@ -196,38 +288,6 @@ const Formulario = ({ $showForm, $setShowForm, setLoading, setJogos }) => {
             <Label>Acumulado</Label>
           </FormGroup>
         </section> */}
-
-        <section>
-
-          <p>
-            PREMIAÇÕES:<br /><br />
-
-- por pontos até completar 10 pontos até a terceira extração <br />
-
-- por pontos até completar 10 pontos até a quarta extração<br />
-
- - primeiro extração, fazer 8 pontos<br />
-
-- primeira extração, fazer 7 pontos<br />
-
-- primeira extração, fazer 6 pontos<br />
-
-- mais pontos na primeira extração<br />
-
-- premio consolação, 2º lugar até o término do bolão abaixo de 10 pontos<br />
-
-- pé frio, zero pontos até o término do bolão<br /><br />
-
-Quando o bolão finaliza?<br /><br />
-- finalizar automaticamente o bolão após a quarta extração<br />
--finalizar até atingir 10 pontos
-
-
-          </p>
-
-
-
-        </section>
 
         <Button type="submit">Cadastrar</Button>
         <Button
